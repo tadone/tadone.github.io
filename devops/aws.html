@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tad-Swider-Docs |  </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700" rel="stylesheet">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/style/doc.css">
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    
+
+  </head>
+  <body>
+
+   <script>window.__INITIAL_STATE__ = {"page":{"path":"devops/aws.html","title":""},"data":{"navigation":{"logo":{"text":"Tad Swider Docs","type":"link","path":"index.html"},"main":[{"text":"DEVOPS","type":"label"},{"text":"Docker","type":"link","path":"devops/docker.html"},{"text":"AWS","type":"link","path":"devops/aws.html"},{"text":"CODE","type":"label"},{"text":"Python","type":"link","path":"code/python.html"},{"text":"Bash Scripting","type":"link","path":"code/bash.html"},{"text":"Git","type":"link","path":"code/git.html"},{"text":"Markdown","type":"link","path":"code/markdown.html"},{"text":"LINUX","type":"label"},{"text":"Linux Metrics","type":"link","path":"linux/linux_metrics.html"},{"text":"Linux Basics","type":"link","path":"linux/linux_basics.html"},{"text":"Bash Shell","type":"link","path":"linux/bash_shell.html"}]}},"config":{"timezone":"UTC","root":"/","time_format":"HH:mm:ss","theme":"doc","theme_config":{"swagger_ui":{"version":2,"permalinks":true,"api_explorer":true,"download":"Download specification","show_extensions":false,"deep_linking":true,"display_operation_id":false,"doc_expansion":"none"},"search":{"skip":false,"background":false,"route":"/lunr.json"},"favicon":"images/favicon.ico"}}}</script>
+
+    <div id="react-navigation-root"><div class="doc-navigation" data-reactroot=""><nav class="doc-navbar"><a href="/index.html" class="doc-navbar__logo"><img src="/images/logo.png" class="doc-navbar__logo__img"/><span class="doc-navbar__logo__text">Tad Swider Docs</span></a><i class="dc-icon dc-icon--close dc-icon--interactive doc-sidebar-close doc-navbar__sidebar-close doc-navbar__sidebar-close--desktop"></i><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-navbar__sidebar-toggle"></i></nav><nav class="doc-sidebar"><div class="doc-sidebar__vertical-menu"><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-sidebar-toggle--primary doc-sidebar__vertical-menu__item"></i><i class="dc-icon dc-icon--search dc-icon--interactive doc-sidebar__vertical-menu__item doc-sidebar__vertical-menu__item--primary"></i></div><div class="doc-sidebar-content"><div class="doc-sidebar__search-form"></div><ul class="doc-sidebar-list"></ul></div></nav></div></div>
+    <div class="doc-content">
+  <div class="dc-page">
+    <div class="dc-card">
+      <div id="react-search-results-root"></div>
+      <div id="page-content" class="doc-formatting">
+        <h1 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h1><hr>
+<h1 id="AWS-CLI"><a href="#AWS-CLI" class="headerlink" title="AWS CLI"></a>AWS CLI</h1><p>Requirements: Python 2 version 2.6.5+ or Python 3 version 3.3+ <strong>Avoid pip</strong></p>
+<h3 id="AWS-Credentials"><a href="#AWS-Credentials" class="headerlink" title="AWS Credentials"></a>AWS Credentials</h3><p><code>aws configure</code></p>
+<h3 id="EC2"><a href="#EC2" class="headerlink" title="EC2"></a>EC2</h3><p><strong>create-key-pair</strong><br><code>aws ec2 create-key-pair --key-name tadone-ec2 --query &#39;KeyMaterial&#39; --output text &gt; tadone-ec2.pem</code></p>
+<p><strong>describe-instances</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">aws ec2 describe-instances --query <span class="string">'Reservations[*].Instances[*].[Placement.AvailabilityZone, State.Name, InstanceId]'</span> --output text``</span><br><span class="line"></span><br><span class="line"><span class="comment"># Modify instances based on query</span></span><br><span class="line"></span><br><span class="line">aws ec2 describe-instances --query <span class="string">'Reservations[*].Instances[*].[State.Name, InstanceId]'</span> --output text |  <span class="comment"># Enter</span></span><br><span class="line">&gt; grep stopped |</span><br><span class="line">&gt; awk <span class="string">'&#123;print $2&#125;'</span> |</span><br><span class="line">&gt; <span class="keyword">while</span> <span class="built_in">read</span> line;</span><br><span class="line">&gt; <span class="keyword">do</span> aws ec2 modify-instance-attribute --instance-id <span class="variable">$line</span> --instance-type <span class="string">'&#123;"Value": "m1.medium"&#125;'</span>;</span><br><span class="line">&gt; <span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+
+        <div id="react-support-footer-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+
+    
+
+    <!-- js vendors -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.1.0/lunr.min.js"></script>
+
+    <!-- js source  -->
+    <script src="/script/doc.js"></script>
+
+    
+
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tad-Swider-Docs |  </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700" rel="stylesheet">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/style/doc.css">
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    
+
+  </head>
+  <body>
+
+   <script>window.__INITIAL_STATE__ = {"page":{"path":"linux/linux_metrics.html","title":""},"data":{"navigation":{"logo":{"text":"Tad Swider Docs","type":"link","path":"index.html"},"main":[{"text":"DEVOPS","type":"label"},{"text":"Docker","type":"link","path":"devops/docker.html"},{"text":"AWS","type":"link","path":"devops/aws.html"},{"text":"CODE","type":"label"},{"text":"Python","type":"link","path":"code/python.html"},{"text":"Bash Scripting","type":"link","path":"code/bash.html"},{"text":"Git","type":"link","path":"code/git.html"},{"text":"Markdown","type":"link","path":"code/markdown.html"},{"text":"LINUX","type":"label"},{"text":"Linux Metrics","type":"link","path":"linux/linux_metrics.html"},{"text":"Linux Basics","type":"link","path":"linux/linux_basics.html"},{"text":"Bash Shell","type":"link","path":"linux/bash_shell.html"}]}},"config":{"timezone":"UTC","root":"/","time_format":"HH:mm:ss","theme":"doc","theme_config":{"swagger_ui":{"version":2,"permalinks":true,"api_explorer":true,"download":"Download specification","show_extensions":false,"deep_linking":true,"display_operation_id":false,"doc_expansion":"none"},"search":{"skip":false,"background":false,"route":"/lunr.json"},"favicon":"images/favicon.ico"}}}</script>
+
+    <div id="react-navigation-root"><div class="doc-navigation" data-reactroot=""><nav class="doc-navbar"><a href="/index.html" class="doc-navbar__logo"><img src="/images/logo.png" class="doc-navbar__logo__img"/><span class="doc-navbar__logo__text">Tad Swider Docs</span></a><i class="dc-icon dc-icon--close dc-icon--interactive doc-sidebar-close doc-navbar__sidebar-close doc-navbar__sidebar-close--desktop"></i><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-navbar__sidebar-toggle"></i></nav><nav class="doc-sidebar"><div class="doc-sidebar__vertical-menu"><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-sidebar-toggle--primary doc-sidebar__vertical-menu__item"></i><i class="dc-icon dc-icon--search dc-icon--interactive doc-sidebar__vertical-menu__item doc-sidebar__vertical-menu__item--primary"></i></div><div class="doc-sidebar-content"><div class="doc-sidebar__search-form"></div><ul class="doc-sidebar-list"></ul></div></nav></div></div>
+    <div class="doc-content">
+  <div class="dc-page">
+    <div class="dc-card">
+      <div id="react-search-results-root"></div>
+      <div id="page-content" class="doc-formatting">
+        <h1 id="Linux-Metrics"><a href="#Linux-Metrics" class="headerlink" title="Linux Metrics"></a>Linux Metrics</h1><hr>
+<h2 id="CPU-Load"><a href="#CPU-Load" class="headerlink" title="CPU Load"></a>CPU Load</h2><p><strong>Uptime Load Averges</strong><br>The sum of <em>number of processes</em> that are currently running plus the number that are <em>waiting</em>.On multi-processor system, the load is relative to the number of processor cores available. The “100% utilization” mark is 1.00 on a single-core system, 2.00, on a dual-core, 4.00 on a quad-core, etc.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uptime                          <span class="comment"># Display load averages in 1, 5, 15 minutes based on number of cores/processors</span></span><br></pre></td></tr></table></figure>
+<p>Good Article explaining this: <a href="http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages" target="_blank" rel="noopener">http://blog.scoutapp.com/articles/2009/07/31/understanding-load-averages</a></p>
+<p><strong>top</strong></p>
+<ul>
+<li><p>Physical memory usage stats:</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mem:   4051792k total,  4026104k used,    25688k free,   359168k buffers</span><br></pre></td></tr></table></figure>
+<p>  Memory stats line gives you a summary of how much physical memory you have on your system, and how much of it is currently used or available for the use.<br>  Modern Linux systems are buffering quite a lot for improved performance, which means you rarely get to see all your physical RAM free – the more your system stays up and running, the more of its recently used data ends up being buffered.</p>
+</li>
+</ul>
+<ul>
+<li><p>CPU(s) status</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cpu(s):  0.6%us,  0.5%sy,  0.0%ni, 97.3%id,  1.6%wa,  0.0%hi,  0.0%si,  0.0%st</span><br></pre></td></tr></table></figure>
+<p>  Current CPU state, averaged for the number of CPUs installed in your system<br>  <code>us</code> – User CPU time. The time the CPU has spent running users’ processes with default priorities<br>  <code>sy</code> – System CPU time. The time the CPU has spent running the kernel and its processes<br>  <code>ni</code> – Nice CPU time. The time the CPU has spent running users’ proccess that have been prioritized up using nice command<br>  <code>id</code> – Idle CPU time<br>  <code>wa</code> – I/O wait. Amount of time the CPU has been waiting for I/O operations to complete<br>  <code>hi</code> – Hardware IRQ. The amount of time the CPU has been servicing hardware interrupts<br>  <code>si</code> – Software Interrupts. The amount of time the CPU has been servicing software interrupts<br>  <code>st</code> – Steal Time. The amount of CPU ’stolen’ from this virtual machine by the hypervisor for other tasks (such as running another virtual machine)</p>
+</li>
+<li><p>List of the tasks (processes) running on your system</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PID  USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND</span><br><span class="line">7629 greys     20   0  749m 291m  28m S    1  7.4  16:51.40 firefox</span><br></pre></td></tr></table></figure>
+<p>  <code>PID</code> – process ID<br>  <code>USER</code> – username for the owner of each process<br>  <code>PR</code> – process priority (RT means a Real Time priority class – used for system processes)<br>  <code>NI</code> – priority set by nice utility<br>  <code>VIRT</code> – the amount of virtual memory used by a process: code, data and shared libraries plus pages that have been swapped out<br>  <code>RES</code> – the resident part of a process – how much of it resides in the physical memory (non-swapped memory)<br>  <code>SHR</code> – shows you the size of potentially shared memory segments for a process<br>  <code>S</code> – the current state of each process<br>  <code>%CPU</code> – percentage of the time shares CPU spends running a particular process<br>  <code>%MEM</code> – percentage of the physical memory of your system which is used by each process<br>  <code>%TIME+</code> – total time CPUs spent running each process<br>  <code>COMMAND</code> – a command used to initiate each process.</p>
+</li>
+</ul>
+<hr>
+<h2 id="Disk-Usage"><a href="#Disk-Usage" class="headerlink" title="Disk Usage"></a>Disk Usage</h2><p><strong>df</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -hT           <span class="comment"># Show info on file system -h human readable and -T type of file system</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>du</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du -Sh /home | sort -rh | head -5       <span class="comment"># Display the largest folders/files including the sub-directories</span></span><br><span class="line"><span class="comment"># Perl hack: To display large files with stars</span></span><br><span class="line">du -k | sort -rn | head -10 | perl -ne <span class="string">'if ( /^(\d+)\s+(.*$)/)&#123;$l=log($1+.1);$m=int($l/log(1024)); printf  ("%6.1f\t%s\t%25s  %s\n",($1/(2**(10*$m))),(("K","M","G","T","P")[$m]),"*"x (1.5*$l),$2);&#125;'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>find</strong><br>Find file over certain size<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home -<span class="built_in">type</span> f -size +10000k -<span class="built_in">exec</span> ls -lh &#123;&#125; \; | awk <span class="string">'&#123; print $5 ": " $9 &#125;'</span> | sort -nr | head -10</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><p><strong>free</strong><br>Show available memory. Modern Linux use cache and buffering to improve performance. Linux counts cached RAM, Buffered RAM to used RAM.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">free -wh</span><br><span class="line">              total        used        free      shared     buffers       cache   available</span><br><span class="line">Mem:            15G        7.7G        4.8G        154M        484M        2.6G        7.3G</span><br><span class="line">Swap:          7.9G          0B        7.9G</span><br></pre></td></tr></table></figure></p>
+<h2 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulpn                      <span class="comment"># Find services listening</span></span><br><span class="line">netstat -tulpn | grep :80           <span class="comment"># Find services listening on a port 80</span></span><br><span class="line">fuser 7000/tcp                      <span class="comment"># Find out the processes PID that opened tcp port 7000</span></span><br></pre></td></tr></table></figure>
+        <div id="react-support-footer-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+
+    
+
+    <!-- js vendors -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.1.0/lunr.min.js"></script>
+
+    <!-- js source  -->
+    <script src="/script/doc.js"></script>
+
+    
+
+  </body>
+</html>

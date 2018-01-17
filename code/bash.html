@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tad-Swider-Docs | Bash Scripting </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700" rel="stylesheet">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/style/doc.css">
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    
+
+  </head>
+  <body>
+
+   <script>window.__INITIAL_STATE__ = {"page":{"title":"Bash Scripting","path":"code/bash.html"},"data":{"navigation":{"logo":{"text":"Tad Swider Docs","type":"link","path":"index.html"},"main":[{"text":"DEVOPS","type":"label"},{"text":"Docker","type":"link","path":"devops/docker.html"},{"text":"AWS","type":"link","path":"devops/aws.html"},{"text":"CODE","type":"label"},{"text":"Python","type":"link","path":"code/python.html"},{"text":"Bash Scripting","type":"link","path":"code/bash.html"},{"text":"Git","type":"link","path":"code/git.html"},{"text":"Markdown","type":"link","path":"code/markdown.html"},{"text":"LINUX","type":"label"},{"text":"Linux Metrics","type":"link","path":"linux/linux_metrics.html"},{"text":"Linux Basics","type":"link","path":"linux/linux_basics.html"},{"text":"Bash Shell","type":"link","path":"linux/bash_shell.html"}]}},"config":{"timezone":"UTC","root":"/","time_format":"HH:mm:ss","theme":"doc","theme_config":{"swagger_ui":{"version":2,"permalinks":true,"api_explorer":true,"download":"Download specification","show_extensions":false,"deep_linking":true,"display_operation_id":false,"doc_expansion":"none"},"search":{"skip":false,"background":false,"route":"/lunr.json"},"favicon":"images/favicon.ico"}}}</script>
+
+    <div id="react-navigation-root"><div class="doc-navigation" data-reactroot=""><nav class="doc-navbar"><a href="/index.html" class="doc-navbar__logo"><img src="/images/logo.png" class="doc-navbar__logo__img"/><span class="doc-navbar__logo__text">Tad Swider Docs</span></a><i class="dc-icon dc-icon--close dc-icon--interactive doc-sidebar-close doc-navbar__sidebar-close doc-navbar__sidebar-close--desktop"></i><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-navbar__sidebar-toggle"></i></nav><nav class="doc-sidebar"><div class="doc-sidebar__vertical-menu"><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-sidebar-toggle--primary doc-sidebar__vertical-menu__item"></i><i class="dc-icon dc-icon--search dc-icon--interactive doc-sidebar__vertical-menu__item doc-sidebar__vertical-menu__item--primary"></i></div><div class="doc-sidebar-content"><div class="doc-sidebar__search-form"></div><ul class="doc-sidebar-list"></ul></div></nav></div></div>
+    <div class="doc-content">
+  <div class="dc-page">
+    <div class="dc-card">
+      <div id="react-search-results-root"></div>
+      <div id="page-content" class="doc-formatting">
+        <h1 id="Bash-Scripting"><a href="#Bash-Scripting" class="headerlink" title="Bash Scripting"></a>Bash Scripting</h1><hr>
+<h2 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h2><p><strong>Special Variables</strong><br><code>$0</code> - The name of the Bash script.<br><code>$1</code> - $9 - The first 9 arguments to the Bash script. (As mentioned above.)<br><code>$#</code> - How many arguments were passed to the Bash script.<br><code>$@</code> - All the arguments supplied to the Bash script.<br><code>$?</code> - The exit status of the most recently run process.<br><code>$$</code> - The process ID of the current script.<br><code>$USER</code> - The username of the user running the script.<br><code>$HOSTNAME</code> - The hostname of the machine the script is running on.<br><code>$SECONDS</code> - The number of seconds since the script was started.<br><code>$RANDOM</code> - Returns a different random number each time is it referred to.<br><code>$LINENO</code> - Returns the current line number in the Bash script.</p>
+<p><strong>Read Input</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Ask the user for login details</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">'Username: '</span> uservar            <span class="comment"># -p prompt</span></span><br><span class="line"><span class="built_in">read</span> -sp <span class="string">'Password: '</span> passvar           <span class="comment"># -s silent</span></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line"><span class="built_in">echo</span> Thankyou <span class="variable">$uservar</span> we now have your login details</span><br></pre></td></tr></table></figure></p>
+<h2 id="If-Statement"><a href="#If-Statement" class="headerlink" title="If Statement"></a>If Statement</h2><p>The square brackets <strong>[ ]</strong> in the if statement above are actually a reference to the command <strong>test</strong>.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ &lt;some <span class="built_in">test</span>&gt; ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    &lt;commands&gt;</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ &lt;some <span class="built_in">test</span>&gt; ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    &lt;commands&gt;</span><br><span class="line"><span class="keyword">elif</span> [ &lt;some <span class="built_in">test</span>&gt; ] </span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    &lt;different commands&gt;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    &lt;other commands&gt;</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p><code>&amp;&amp;</code> - Perform the <strong>AND</strong> operation.</p>
+<p><code>||</code> - Perform the <strong>OR</strong> operation.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Operator</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">! EXPRESSION</td>
+<td style="text-align:left">The EXPRESSION is false.</td>
+</tr>
+<tr>
+<td style="text-align:right">-n STRING</td>
+<td style="text-align:left">The length of STRING is greater than zero.</td>
+</tr>
+<tr>
+<td style="text-align:right">-z STRING</td>
+<td style="text-align:left">The lengh of STRING is zero (ie it is empty).</td>
+</tr>
+<tr>
+<td style="text-align:right">STRING1 = STRING2</td>
+<td style="text-align:left">STRING1 is equal to STRING2</td>
+</tr>
+<tr>
+<td style="text-align:right">STRING1 != STRING2</td>
+<td style="text-align:left">STRING1 is not equal to STRING2</td>
+</tr>
+<tr>
+<td style="text-align:right">INTEGER1 -eq INTEGER2</td>
+<td style="text-align:left">INTEGER1 is numerically equal to INTEGER2</td>
+</tr>
+<tr>
+<td style="text-align:right">INTEGER1 -gt INTEGER2</td>
+<td style="text-align:left">INTEGER1 is numerically greater than INTEGER2</td>
+</tr>
+<tr>
+<td style="text-align:right">INTEGER1 -lt INTEGER2</td>
+<td style="text-align:left">INTEGER1 is numerically less than INTEGER2</td>
+</tr>
+<tr>
+<td style="text-align:right">-d FILE</td>
+<td style="text-align:left">FILE exists and is a directory.</td>
+</tr>
+<tr>
+<td style="text-align:right">-e FILE</td>
+<td style="text-align:left">FILE exists.</td>
+</tr>
+<tr>
+<td style="text-align:right">-r FILE</td>
+<td style="text-align:left">FILE exists and the read permission is granted.</td>
+</tr>
+<tr>
+<td style="text-align:right">-s FILE</td>
+<td style="text-align:left">FILE exists and it’s size is greater than zero (ie. it is not empty).</td>
+</tr>
+<tr>
+<td style="text-align:right">-w FILE</td>
+<td style="text-align:left">FILE exists and the write permission is granted.</td>
+</tr>
+<tr>
+<td style="text-align:right">-x FILE</td>
+<td style="text-align:left">FILE exists and the execute permission is granted.</td>
+</tr>
+</tbody>
+</table>
+<p>Most Common Uses of Tests<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>  [ -z <span class="string">"<span class="variable">$VAR1</span>"</span> ];  <span class="comment"># This will return true if a variable is unset or set to the empty string ("")</span></span><br><span class="line"><span class="keyword">if</span>  [ -n <span class="string">"<span class="variable">$VAR1</span>"</span> ];  <span class="comment"># the inverse of -z</span></span><br><span class="line"><span class="keyword">if</span>  [ ! -d <span class="string">"<span class="variable">$DIR</span>"</span> ]; <span class="comment"># Test if directory $DIR (does not !) exist(s)</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Loops"><a href="#Loops" class="headerlink" title="Loops"></a>Loops</h2><p><code>break</code> - Exit the currently running loop.</p>
+<p><code>continue</code> - Stop this iteration of the loop and begin the next iteration.</p>
+<h3 id="While-Loop"><a href="#While-Loop" class="headerlink" title="While Loop"></a>While Loop</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Basic while loop</span></span><br><span class="line">counter=1</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$counter</span> -le 10 ]       <span class="comment"># While conter is less then 10</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$counter</span></span><br><span class="line">    ((counter++))               <span class="comment"># Increment counter with each loop</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> url</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    youtube-dl ... <span class="string">"<span class="variable">$url</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p><strong>Single Line While Loop</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span> date; sleep 1; <span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Until-Loop"><a href="#Until-Loop" class="headerlink" title="Until Loop"></a>Until Loop</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Basic until loop</span></span><br><span class="line">counter=1</span><br><span class="line">until [ <span class="variable">$counter</span> -gt 10 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$counter</span></span><br><span class="line">    ((counter++))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="For-Loop"><a href="#For-Loop" class="headerlink" title="For Loop"></a>For Loop</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Basic for loop</span></span><br><span class="line">names=<span class="string">'Stan Kyle Cartman'</span></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> <span class="variable">$names</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$name</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="For-Loop-in-Range"><a href="#For-Loop-in-Range" class="headerlink" title="For Loop in Range"></a>For Loop in Range</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> &#123;1..5&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$value</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">function_name</span></span> () &#123;</span><br><span class="line">    &lt;commands&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Pass Argument to Function<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">print_something</span></span> () &#123;</span><br><span class="line">    <span class="built_in">echo</span> Hello <span class="variable">$1</span></span><br><span class="line">&#125;</span><br><span class="line">print_something Mars                <span class="comment"># OUTPUT: Hello Mars</span></span><br><span class="line">print_something Jupiter             <span class="comment"># OUTPUT: Hello Jupiter</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h2><p><strong>Creating Arrays</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">names=(<span class="string">"Bob"</span> <span class="string">"Peter"</span> <span class="string">"<span class="variable">$USER</span>"</span> <span class="string">"Big Bad John"</span>)</span><br><span class="line">photos=(~/<span class="string">"My Photos"</span>/*.jpg)</span><br><span class="line"></span><br><span class="line">files=$(ls)    <span class="comment"># BAD, BAD, BAD!</span></span><br><span class="line">files=(*)      <span class="comment"># Good!</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Using Arrays</strong><br>The syntax <code>&quot;${myfiles[@]}&quot;</code> is extremely important. It works just like <code>&quot;$@&quot;</code> does for the positional parameters: it expands to a list of words, with each array element as one word, no matter what it contains. Even if there are spaces, tabs, newlines, quotation marks, or any other kind of characters in one of the array elements, it’ll still be passed along as one word to whichever command we’re running.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FOR LOOP</span></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> <span class="string">"<span class="variable">$&#123;myfiles[@]&#125;</span>"</span>; <span class="keyword">do</span></span><br><span class="line">    cp <span class="string">"<span class="variable">$file</span>"</span> /backups/</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># SINGLE LINE</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">"<span class="variable">$&#123;arr[@]&#125;</span>"</span>; <span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">$i</span>; <span class="keyword">done</span></span><br><span class="line"><span class="comment"># STRAIGHT COPY</span></span><br><span class="line">myfiles=(db.sql home.tbz2 etc.tbz2)</span><br><span class="line">cp <span class="string">"<span class="variable">$&#123;myfiles[@]&#125;</span>"</span> /backups/</span><br><span class="line"></span><br><span class="line"><span class="comment"># POS IN ARRAY</span></span><br><span class="line">names=(<span class="string">"Bob"</span> <span class="string">"Peter"</span> <span class="string">"<span class="variable">$USER</span>"</span> <span class="string">"Big Bad John"</span>)        <span class="comment"># Create an array</span></span><br><span class="line"><span class="built_in">declare</span> -p names                                    <span class="comment"># Print contents of a variable with the type</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"The first name is: <span class="variable">$&#123;names[0]&#125;</span>"</span>               <span class="comment"># Access 1st item in the array</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"The second name is: <span class="variable">$&#123;names[1]&#125;</span>"</span>              <span class="comment"># Access 2nd item in the array</span></span><br></pre></td></tr></table></figure>
+<h3 id="Subshell"><a href="#Subshell" class="headerlink" title="Subshell"></a>Subshell</h3><p>A subshell is a child process that inherits more than a normal external command does. It can see all the variables of your script, not just the ones that have been exported to the environment.<br>To force a command to run in subshell use parentheses <strong>()</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo=old</span><br><span class="line">(foo=bar)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$foo</span>"</span>                <span class="comment"># Output: old</span></span><br><span class="line"></span><br><span class="line">(<span class="built_in">cd</span> /foo || <span class="built_in">exit</span> 1; tar ...)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash -x ./mybrokenscript</span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash -x</span></span><br><span class="line">[.. script ..]</span><br><span class="line"></span><br><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="built_in">set</span> -x</span><br></pre></td></tr></table></figure>
+<p>Add set -x somewhere in your code to turn on this mode for only a specific block of your code:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">[..irrelevant code..]</span><br><span class="line"><span class="built_in">set</span> -x</span><br><span class="line">[..relevant code..]</span><br><span class="line"><span class="built_in">set</span> +x</span><br><span class="line">[..irrelevant code..]</span><br></pre></td></tr></table></figure></p>
+
+        <div id="react-support-footer-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+
+    
+
+    <!-- js vendors -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.1.0/lunr.min.js"></script>
+
+    <!-- js source  -->
+    <script src="/script/doc.js"></script>
+
+    
+
+  </body>
+</html>

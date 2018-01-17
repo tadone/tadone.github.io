@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tad-Swider-Docs |  </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700" rel="stylesheet">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/style/doc.css">
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    
+
+  </head>
+  <body>
+
+   <script>window.__INITIAL_STATE__ = {"page":{"path":"linux/bash_shell.html","title":""},"data":{"navigation":{"logo":{"text":"Tad Swider Docs","type":"link","path":"index.html"},"main":[{"text":"DEVOPS","type":"label"},{"text":"Docker","type":"link","path":"devops/docker.html"},{"text":"AWS","type":"link","path":"devops/aws.html"},{"text":"CODE","type":"label"},{"text":"Python","type":"link","path":"code/python.html"},{"text":"Bash Scripting","type":"link","path":"code/bash.html"},{"text":"Git","type":"link","path":"code/git.html"},{"text":"Markdown","type":"link","path":"code/markdown.html"},{"text":"LINUX","type":"label"},{"text":"Linux Metrics","type":"link","path":"linux/linux_metrics.html"},{"text":"Linux Basics","type":"link","path":"linux/linux_basics.html"},{"text":"Bash Shell","type":"link","path":"linux/bash_shell.html"}]}},"config":{"timezone":"UTC","root":"/","time_format":"HH:mm:ss","theme":"doc","theme_config":{"swagger_ui":{"version":2,"permalinks":true,"api_explorer":true,"download":"Download specification","show_extensions":false,"deep_linking":true,"display_operation_id":false,"doc_expansion":"none"},"search":{"skip":false,"background":false,"route":"/lunr.json"},"favicon":"images/favicon.ico"}}}</script>
+
+    <div id="react-navigation-root"><div class="doc-navigation" data-reactroot=""><nav class="doc-navbar"><a href="/index.html" class="doc-navbar__logo"><img src="/images/logo.png" class="doc-navbar__logo__img"/><span class="doc-navbar__logo__text">Tad Swider Docs</span></a><i class="dc-icon dc-icon--close dc-icon--interactive doc-sidebar-close doc-navbar__sidebar-close doc-navbar__sidebar-close--desktop"></i><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-navbar__sidebar-toggle"></i></nav><nav class="doc-sidebar"><div class="doc-sidebar__vertical-menu"><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-sidebar-toggle--primary doc-sidebar__vertical-menu__item"></i><i class="dc-icon dc-icon--search dc-icon--interactive doc-sidebar__vertical-menu__item doc-sidebar__vertical-menu__item--primary"></i></div><div class="doc-sidebar-content"><div class="doc-sidebar__search-form"></div><ul class="doc-sidebar-list"></ul></div></nav></div></div>
+    <div class="doc-content">
+  <div class="dc-page">
+    <div class="dc-card">
+      <div id="react-search-results-root"></div>
+      <div id="page-content" class="doc-formatting">
+        <h1 id="Bash-Shell"><a href="#Bash-Shell" class="headerlink" title="Bash Shell"></a>Bash Shell</h1><hr>
+<h2 id="Shortcuts"><a href="#Shortcuts" class="headerlink" title="Shortcuts"></a>Shortcuts</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ctrl<span class="_">-a</span>  <span class="comment"># Move to the start of line</span></span><br><span class="line">ctrl<span class="_">-e</span>  <span class="comment"># Move to end of a line</span></span><br><span class="line"> </span><br><span class="line">ctrl-k  <span class="comment"># Remove (Cut) text after the cursor</span></span><br><span class="line">ctrl-y  <span class="comment"># Yank text (Copy)</span></span><br><span class="line"> </span><br><span class="line">ctrl-r  <span class="comment"># Search previous command from history</span></span><br></pre></td></tr></table></figure>
+<h2 id="Shell-Basics"><a href="#Shell-Basics" class="headerlink" title="Shell Basics"></a>Shell Basics</h2><ul>
+<li>Export variable to the environment. All child processes will get this variable: <code>export varname=value</code></li>
+<li>Display current Shell Variables <code>set</code></li>
+<li><p>Set and Unset Shell Options: </p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shopt</span> -s &lt;option&gt; <span class="comment"># Set shell option </span></span><br><span class="line"><span class="built_in">shopt</span> -u &lt;option&gt; <span class="comment"># Unset shell option</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create symbolic link <code>ln -s /path/to/file /path/to/symlink</code></p>
+</li>
+<li>Pass STDOUT and STDERR to /dev/null: <code>command &gt; /dev/null 2&gt;&amp;1</code></li>
+<li>Time Stamps <code>stat file</code>:<ul>
+<li>Access - the last time the file was read</li>
+<li>Modify - the last time the file was modified (content has been modified). Virtually, every modify is create.</li>
+<li>Change - the last time meta data of the file was changed (e.g. permissions) To display this information, you can use stat which is part of the coreutils.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Brace Expanstion</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> foo&#123;1,2,3&#125;.txt <span class="comment"># Output: foo1.txt foo2.txt foo3.txt</span></span><br><span class="line">cp -v file1.txt&#123;,.bak&#125; <span class="comment"># Output: file1.txt -&gt; file1.txt.bak</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> file&#123;a..d&#125;.txt    <span class="comment"># Output: filea.txt fileb.txt filec.txt filed.txt</span></span><br><span class="line">mkdir -p /apache-jail/&#123;usr,bin,lib64,dev&#125; <span class="comment"># Make multiple dirs</span></span><br><span class="line">mv file.&#123;txt,doc&#125;      <span class="comment"># Rename file.txt to file.doc</span></span><br></pre></td></tr></table></figure>
+<p><strong>Permissions</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Permissions:</span></span><br><span class="line">1 – <span class="string">"can execute"</span></span><br><span class="line">2 – <span class="string">"can write"</span></span><br><span class="line">4 – <span class="string">"can read"</span></span><br><span class="line"><span class="comment"># Examples:</span></span><br><span class="line">chmod 600 file – owner can <span class="built_in">read</span> and write</span><br><span class="line">chmod 700 file – owner can <span class="built_in">read</span>, write and execute</span><br><span class="line">chmod 666 file – all can <span class="built_in">read</span> and write</span><br><span class="line">chmod 777 file – all can <span class="built_in">read</span>, write and execute</span><br></pre></td></tr></table></figure></p>
+<h2 id="GNU-Tools"><a href="#GNU-Tools" class="headerlink" title="GNU Tools"></a>GNU Tools</h2><p><strong>AWK</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grep file | awk <span class="string">'&#123; print $2 &#125;'</span>              <span class="comment"># Print second position</span></span><br><span class="line">grep file | awk <span class="string">'&#123; print $5 ": " $9 &#125;'</span>      <span class="comment"># Print column 5 then : and then column 9</span></span><br><span class="line">grep file | awk -F <span class="string">":"</span> <span class="string">'&#123; print $2 &#125;'</span>       <span class="comment"># Use : as a delimiter</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>SED</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e <span class="string">'s|foo|bar|g'</span> filename</span><br><span class="line">s   <span class="comment"># is used to replace (substitute) the found expression “foo” with “bar”</span></span><br><span class="line">g   <span class="comment"># stands for “global”, meaning to do this for the whole line. If you leave off the g and “foo” appears twice on the same line, only the first “foo” is changed to “bar”.</span></span><br><span class="line"></span><br><span class="line">-i  <span class="comment"># option is used to edit in place on filename.</span></span><br><span class="line">-e  <span class="comment"># option indicates a command to run.</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>FIND and XARGS</strong></p>
+<p><code>xargs</code> Takes standard output from a command like find and pipes it into standard input<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'one two three'</span> | xargs mkdir          <span class="comment"># Creates 3 dirs "one", "two", "three"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'one two three'</span> | xargs -t rm          <span class="comment"># Prints each command that will be executed (-t)</span></span><br><span class="line">find /tmp -mtime +14 | xargs rm             <span class="comment"># Find files older than 2 weeks and then remove them</span></span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">```bash</span><br><span class="line">find . -name <span class="string">'*.py'</span> | xargs wc -l           <span class="comment"># Find .py files in current dir and output to word count</span></span><br><span class="line">find ./foo -<span class="built_in">type</span> f -name <span class="string">"*.txt"</span> | xargs rm</span><br></pre></td></tr></table></figure></p>
+<p><strong>TAR</strong><br>Tool to create archives (Tape Archive)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CREATE</span></span><br><span class="line">tar -czvf archive.tar.gz &lt;dir&gt;    <span class="comment"># Create Gzipped archive.tar from a directory</span></span><br><span class="line"><span class="comment"># TEST</span></span><br><span class="line">tar -tvf archive.tar              <span class="comment"># List all files in archive.tar verbosely</span></span><br><span class="line"><span class="comment"># EXTRACT</span></span><br><span class="line">tar -xf archive.tar               <span class="comment"># Extract all files from archive.tar</span></span><br><span class="line"><span class="comment"># CREATE TOP LEVEL</span></span><br><span class="line">tar -czvf site1.tar.gz -C /var/www/ site1   <span class="comment"># Create archive from site1 directory (site1 is top level dir)</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="ANSI-Colors"><a href="#ANSI-Colors" class="headerlink" title="ANSI Colors"></a>ANSI Colors</h2><p>The shell output can be colorized via ANSI escape codes</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># COLORS</span></span><br><span class="line">BLACK=<span class="string">"\u001b[30m"</span></span><br><span class="line">RED=<span class="string">"\u001b[31m"</span></span><br><span class="line">GREEN=<span class="string">"\u001b[32m"</span></span><br><span class="line">YELLOW=<span class="string">"\u001b[33m"</span></span><br><span class="line">BLUE=<span class="string">"\u001b[34m"</span></span><br><span class="line">MAGENTA=<span class="string">"\u001b[35m"</span></span><br><span class="line">CYAN=<span class="string">"\u001b[36m"</span></span><br><span class="line">WHITE=<span class="string">"\u001b[37m"</span></span><br><span class="line"><span class="comment"># RESET</span></span><br><span class="line">RESET = <span class="string">"\u001b[0m"</span>                 <span class="comment"># Reset the colors</span></span><br><span class="line"><span class="comment"># DECORATORS</span></span><br><span class="line">BOLD=<span class="string">"\u001b[1m"</span></span><br><span class="line">UNDERLINE=<span class="string">"\u001b[4m"</span></span><br><span class="line">REVERSED=<span class="string">"\u001b[7m"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"\u001b[31mHello"</span>           <span class="comment"># Prints Hello in red</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;BLACK&#125;</span>Hello<span class="variable">$&#123;RESET&#125;</span>"</span>     <span class="comment"># Prints Hello in black and resets back</span></span><br></pre></td></tr></table></figure>
+<h2 id="Heredoc"><a href="#Heredoc" class="headerlink" title="Heredoc"></a>Heredoc</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt; EOF &gt; /tmp/yourfilehere</span><br><span class="line">These contents will be written to the file.</span><br><span class="line">        This line is indented.</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># PREVENT VARIABLE EXPANSION</span></span><br><span class="line">cat &lt;&lt; <span class="string">'EOF'</span> &gt; /tmp/yourfilehere</span><br><span class="line">The variable <span class="variable">$FOO</span> will not be interpreted.</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+        <div id="react-support-footer-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+
+    
+
+    <!-- js vendors -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.1.0/lunr.min.js"></script>
+
+    <!-- js source  -->
+    <script src="/script/doc.js"></script>
+
+    
+
+  </body>
+</html>

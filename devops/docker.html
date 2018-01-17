@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tad-Swider-Docs |  </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700" rel="stylesheet">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/style/doc.css">
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    
+
+  </head>
+  <body>
+
+   <script>window.__INITIAL_STATE__ = {"page":{"path":"devops/docker.html","title":""},"data":{"navigation":{"logo":{"text":"Tad Swider Docs","type":"link","path":"index.html"},"main":[{"text":"DEVOPS","type":"label"},{"text":"Docker","type":"link","path":"devops/docker.html"},{"text":"AWS","type":"link","path":"devops/aws.html"},{"text":"CODE","type":"label"},{"text":"Python","type":"link","path":"code/python.html"},{"text":"Bash Scripting","type":"link","path":"code/bash.html"},{"text":"Git","type":"link","path":"code/git.html"},{"text":"Markdown","type":"link","path":"code/markdown.html"},{"text":"LINUX","type":"label"},{"text":"Linux Metrics","type":"link","path":"linux/linux_metrics.html"},{"text":"Linux Basics","type":"link","path":"linux/linux_basics.html"},{"text":"Bash Shell","type":"link","path":"linux/bash_shell.html"}]}},"config":{"timezone":"UTC","root":"/","time_format":"HH:mm:ss","theme":"doc","theme_config":{"swagger_ui":{"version":2,"permalinks":true,"api_explorer":true,"download":"Download specification","show_extensions":false,"deep_linking":true,"display_operation_id":false,"doc_expansion":"none"},"search":{"skip":false,"background":false,"route":"/lunr.json"},"favicon":"images/favicon.ico"}}}</script>
+
+    <div id="react-navigation-root"><div class="doc-navigation" data-reactroot=""><nav class="doc-navbar"><a href="/index.html" class="doc-navbar__logo"><img src="/images/logo.png" class="doc-navbar__logo__img"/><span class="doc-navbar__logo__text">Tad Swider Docs</span></a><i class="dc-icon dc-icon--close dc-icon--interactive doc-sidebar-close doc-navbar__sidebar-close doc-navbar__sidebar-close--desktop"></i><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-navbar__sidebar-toggle"></i></nav><nav class="doc-sidebar"><div class="doc-sidebar__vertical-menu"><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-sidebar-toggle--primary doc-sidebar__vertical-menu__item"></i><i class="dc-icon dc-icon--search dc-icon--interactive doc-sidebar__vertical-menu__item doc-sidebar__vertical-menu__item--primary"></i></div><div class="doc-sidebar-content"><div class="doc-sidebar__search-form"></div><ul class="doc-sidebar-list"></ul></div></nav></div></div>
+    <div class="doc-content">
+  <div class="dc-page">
+    <div class="dc-card">
+      <div id="react-search-results-root"></div>
+      <div id="page-content" class="doc-formatting">
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><hr>
+<h2 id="Info"><a href="#Info" class="headerlink" title="Info"></a>Info</h2><p><strong>Version</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure></p>
+<p><strong>Network</strong><br>Docker uses <code>docker0</code> virtual bridge interface. Each new container gets one interface automatically attached to the <code>docker0</code> virtual bridge.</p>
+<p><strong>Socket</strong><br>To access Docker socket from a container mount the following volume: <code>-v /run/docker.sock:/run/docker.sock</code></p>
+<h2 id="Build-amp-Run"><a href="#Build-amp-Run" class="headerlink" title="Build &amp; Run"></a>Build &amp; Run</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># BUILD</span></span><br><span class="line"><span class="comment"># Inside a directory with Dockerfile</span></span><br><span class="line">docker build -t Registry/Image:tag .                          <span class="comment"># Build and tag docker image</span></span><br><span class="line">docker buil -t registry/image:tag registry/image:another_tag . <span class="comment"># Use multiple tags</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example of building, tagging and pushing docker image with custom dockerfile</span></span><br><span class="line">docker build -f Dockerfile_custom -t docker.mot-solutions.com/msi/sessionmanager .</span><br><span class="line">docker push docker.mot-solutions.com/msi/sessionmanager</span><br><span class="line"></span><br><span class="line"><span class="comment"># RUN</span></span><br><span class="line">docker run -d --name my_container -v <span class="variable">$PWD</span>:/directory image:tag <span class="comment"># Detached (in background)</span></span><br><span class="line">docker run -it image:tag bash <span class="comment"># Run bash shell inside of a container</span></span><br><span class="line">docker run -d alpine:latest sh -c <span class="string">'while true; do date; sleep 1; done'</span></span><br><span class="line">docker run -p 8080:80 --name -e VAR=Value my_container image:tag  <span class="comment"># docker run -p 8080:80 Ex -p 8080:80 maps port 8080 on host with port 80 in the container</span></span><br><span class="line">docker run --rm                                                             <span class="comment"># Remove container after it's stopped</span></span><br><span class="line">docker run … –restart=unless-stopped                                        <span class="comment"># Restart container automatically unless stopped manually</span></span><br><span class="line"><span class="comment"># SELINUX</span></span><br><span class="line">docker run --privileged -v /run/docker.sock:/run/docker.sock image:tag      <span class="comment"># Disable SELinux protection for this container</span></span><br><span class="line"><span class="comment"># DETACH</span></span><br><span class="line">ctrl+p ctrl+q                                                               <span class="comment"># Detach from container without stopping it</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># COPY</span></span><br><span class="line">docker cp foo.txt mycontainer:/foo.txt                        <span class="comment"># Copy from host to container</span></span><br><span class="line">docker cp mycontainer:/foo.txt foo.txt                        <span class="comment"># Copy form container to host</span></span><br></pre></td></tr></table></figure>
+<h2 id="Manage"><a href="#Manage" class="headerlink" title="Manage"></a>Manage</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NETWORK</span></span><br><span class="line">docker newtork ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># VOLUMES</span></span><br><span class="line">docker volume ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># PS</span></span><br><span class="line">docker ps</span><br><span class="line">docker ps -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># ATTACH</span></span><br><span class="line">docker <span class="built_in">exec</span> -it my_container bash                             <span class="comment"># Attach to running container</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># REMOVE</span></span><br><span class="line">docker rm my_container                                        <span class="comment"># Remove container after it's stopped</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># LOGS</span></span><br><span class="line">docker logs my_container</span><br><span class="line"></span><br><span class="line"><span class="comment"># STATS</span></span><br><span class="line">docker stats</span><br><span class="line"></span><br><span class="line"><span class="comment"># CLEAN</span></span><br><span class="line">docker system prune</span><br><span class="line"></span><br><span class="line"><span class="comment"># INSPECT</span></span><br><span class="line">docker inspect my_container</span><br><span class="line"></span><br><span class="line"><span class="comment"># HISTORY</span></span><br><span class="line">docker <span class="built_in">history</span> my_container</span><br><span class="line"></span><br><span class="line"><span class="comment"># KILL</span></span><br><span class="line">docker <span class="built_in">kill</span> my_container</span><br><span class="line">docker <span class="built_in">kill</span> my_container &amp;&amp; docker rm mycontainer</span><br></pre></td></tr></table></figure>
+<h2 id="Tips-amp-Tricks"><a href="#Tips-amp-Tricks" class="headerlink" title="Tips &amp; Tricks"></a>Tips &amp; Tricks</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ALIASES in .bashrc or .zshrc</span></span><br><span class="line"><span class="built_in">alias</span> dps=<span class="string">'docker ps --format "table &#123;&#123;.Names&#125;&#125;\t&#123;&#123;.Image&#125;&#125;\t&#123;&#123;.Ports&#125;&#125;"'</span></span><br></pre></td></tr></table></figure>
+        <div id="react-support-footer-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+
+    
+
+    <!-- js vendors -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.1.0/lunr.min.js"></script>
+
+    <!-- js source  -->
+    <script src="/script/doc.js"></script>
+
+    
+
+  </body>
+</html>
