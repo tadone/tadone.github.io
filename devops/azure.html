@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tad-Swider-Docs | Azure </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu:300,400,500,600,700" rel="stylesheet">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/style/doc.css">
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    
+
+  </head>
+  <body>
+
+   <script>window.__INITIAL_STATE__ = {"page":{"title":"Azure","path":"devops/azure.html"},"data":{"navigation":{"logo":{"text":"TAD SWIDER DOCS","type":"link","path":"index.html"},"main":[{"text":"DEVOPS","type":"label"},{"text":"Docker","type":"link","path":"devops/docker.html"},{"text":"AWS","type":"link","path":"devops/aws.html"},{"text":"CODE","type":"label"},{"text":"Python","type":"link","path":"code/python.html","children":[{"text":"Classes","type":"link","path":"code/python/class.html"},{"text":"Lists","type":"link","path":"code/python/list.html"}]},{"text":"Bash Scripting","type":"link","path":"code/bash.html"},{"text":"Git","type":"link","path":"code/git.html"},{"text":"Markdown","type":"link","path":"code/markdown.html"},{"text":"LINUX","type":"label"},{"text":"Linux Metrics","type":"link","path":"linux/linux_metrics.html"},{"text":"Linux Basics","type":"link","path":"linux/linux_basics.html"},{"text":"Bash Shell","type":"link","path":"linux/bash_shell.html"},{"text":"Linux Tools","type":"link","path":"linux/linux_tools.html"},{"text":"OTHER","type":"label"},{"text":"Hexo Doc","type":"link","path":"other/hexo_doc.html"},{"text":"Notes","type":"link","path":"other/notes.html"},{"text":"My Setup","type":"link","path":"other/setup.html"}]}},"config":{"timezone":"UTC","root":"/","time_format":"HH:mm:ss","theme":"doc","theme_config":{"swagger_ui":{"version":2,"permalinks":true,"api_explorer":true,"download":"Download specification","show_extensions":false,"deep_linking":true,"display_operation_id":false,"doc_expansion":"none"},"search":{"skip":false,"background":false,"route":"/lunr.json"},"favicon":"images/favicon.ico"}}}</script>
+
+    <div id="react-navigation-root"><div class="doc-navigation" data-reactroot=""><nav class="doc-navbar"><a href="/index.html" class="doc-navbar__logo"><img src="/images/logo.png" class="doc-navbar__logo__img"/><span class="doc-navbar__logo__text">TAD SWIDER DOCS</span></a><i class="dc-icon dc-icon--close dc-icon--interactive doc-sidebar-close doc-navbar__sidebar-close doc-navbar__sidebar-close--desktop"></i><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-navbar__sidebar-toggle"></i></nav><nav class="doc-sidebar"><div class="doc-sidebar__vertical-menu"><i class="dc-icon dc-icon--menu dc-icon--interactive doc-sidebar-toggle doc-sidebar-toggle--primary doc-sidebar__vertical-menu__item"></i><i class="dc-icon dc-icon--search dc-icon--interactive doc-sidebar__vertical-menu__item doc-sidebar__vertical-menu__item--primary"></i></div><div class="doc-sidebar-content"><div class="doc-sidebar__search-form"></div><ul class="doc-sidebar-list"></ul></div></nav></div></div>
+    <div class="doc-content">
+  <div class="dc-page">
+    <div class="dc-card">
+      <div id="react-search-results-root"></div>
+      <div id="page-content" class="doc-formatting">
+        <h1 id="Azure-CLI"><a href="#Azure-CLI" class="headerlink" title="Azure CLI"></a>Azure CLI</h1><hr>
+<h2 id="Install-on-Fedora-CentOS-RHEL"><a href="#Install-on-Fedora-CentOS-RHEL" class="headerlink" title="Install on Fedora/CentOS/RHEL"></a>Install on Fedora/CentOS/RHEL</h2><p>Requirements:</p>
+<ul>
+<li>Python 2.7x or Python 3.x</li>
+<li>OpenSSL</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Import the Microsoft repository key.</span></span><br><span class="line">sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create local azure-cli repository information.</span></span><br><span class="line">sudo sh -c <span class="string">'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" &gt; /etc/yum.repos.d/azure-cli.repo'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install with the yum install command.</span></span><br><span class="line">sudo yum install azure-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># Update the Azure CLI with the yum update command.</span></span><br><span class="line">sudo yum update azure-cli</span><br></pre></td></tr></table></figure>
+<h2 id="Run-in-Docker"><a href="#Run-in-Docker" class="headerlink" title="Run in Docker"></a>Run in Docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it microsoft/azure-cli</span><br><span class="line">docker run -it -v <span class="variable">$&#123;HOME&#125;</span>:/root microsoft/azure-cli <span class="comment"># Pick up the SSH keys from your user environment</span></span><br></pre></td></tr></table></figure>
+<h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">az login <span class="comment"># Use browser to enter code and associate the credentials</span></span><br><span class="line">az login -u &lt;username&gt; -p &lt;password&gt; <span class="comment"># Will not work with 2-factor authentication</span></span><br></pre></td></tr></table></figure>
+<h2 id="Account"><a href="#Account" class="headerlink" title="Account"></a>Account</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">az account list --output table <span class="comment"># List account names &amp; subscriptions</span></span><br><span class="line">az account <span class="built_in">set</span> --subscription <span class="string">"MSI-SWE-CIE-DEV"</span> <span class="comment"># Change subscription</span></span><br><span class="line">az account show --query <span class="string">'tenantId'</span> -o tsv <span class="comment"># Show tenantId</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a VM in specific subscription &amp; resource group</span></span><br><span class="line">az vm create --subscription <span class="string">"My Demos"</span> --resource-group MyGroup --name NewVM --image Ubuntu</span><br></pre></td></tr></table></figure>
+<h2 id="AzureUSGovernment"><a href="#AzureUSGovernment" class="headerlink" title="AzureUSGovernment"></a>AzureUSGovernment</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">az cloud list --output table <span class="comment"># Show current active cloud (default: AzureCloud)</span></span><br><span class="line">az cloud <span class="built_in">set</span> --name AzureUSGovernment <span class="comment"># Switch to US Gov Cloud</span></span><br></pre></td></tr></table></figure>
+<h2 id="Output-Formats-amp-Query"><a href="#Output-Formats-amp-Query" class="headerlink" title="Output Formats &amp; Query"></a>Output Formats &amp; Query</h2><table>
+<thead>
+<tr>
+<th>–output</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>json</td>
+<td>JSON string. This setting is the default.</td>
+</tr>
+<tr>
+<td>jsonc</td>
+<td>Colorized JSON.</td>
+</tr>
+<tr>
+<td>table</td>
+<td>ASCII table with keys as column headings.</td>
+</tr>
+<tr>
+<td>tsv</td>
+<td>Tab-separated values, with no keys</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">az vm list --out table</span><br><span class="line">az vm list --out tsv | grep RGD | cut -f8</span><br></pre></td></tr></table></figure>
+<h3 id="–query"><a href="#–query" class="headerlink" title="–query"></a>–query</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Query the array (multiple output) where 2nd field is a field in JSON</span></span><br><span class="line">az  cloud list --query <span class="string">'[].&#123;cloud_name:name, active:isActive&#125;'</span></span><br></pre></td></tr></table></figure>
+<h2 id="Key-Vault"><a href="#Key-Vault" class="headerlink" title="Key Vault"></a>Key Vault</h2><p>Requires access policy for data-plane access<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set secret</span></span><br><span class="line">az keyvault secret <span class="built_in">set</span> --vault-name <span class="string">'virtualpartnerdev720f1'</span> --name <span class="string">'SQLPassword'</span> --value <span class="string">'Pa$$w0rd'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># List secrets</span></span><br><span class="line">az keyvault secret list --vault-name <span class="string">'virtualpartnerdev720f1'</span></span><br></pre></td></tr></table></figure></p>
+
+        <div id="react-support-footer-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+
+    
+
+    <!-- js vendors -->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.1.0/lunr.min.js"></script>
+
+    <!-- js source  -->
+    <script src="/script/doc.js"></script>
+
+    
+
+  </body>
+</html>
