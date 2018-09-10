@@ -28,7 +28,7 @@ module.exports = {
             title: 'Code',
             collapsable: false,
             children: [
-              '/code/git'
+              '/code/git',
               '/code/bash',
               '/code/python',
               '/code/python/list',
