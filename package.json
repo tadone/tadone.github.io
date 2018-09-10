@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "vuepress": "^0.14.2",
-    "description": "Minimalistic doc generator with Vue component based layout system",
+    "description": "Minimalistic doc generator with Vue component based layout system"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
