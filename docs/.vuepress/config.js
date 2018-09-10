@@ -1,4 +1,5 @@
 module.exports = {
+  base: 'https://tadone.github.io/',
   dest: 'vuepress',
   locales: {
     '/': {
@@ -23,8 +24,6 @@ module.exports = {
             items: [
                 { text: 'CI/CD', link: '/devops/cicd' },
                 { text: 'Docker', link: '/devops/docker' },
-                { text: 'kubernetes', link: '/devops/kubernetes' },
-                { text: 'KubeCtl', link: '/devops/kubectl' },
                 { text: 'Terminology', link: '/devops/terminology' },
                 { text: 'Databases', link: '/devops/databases' }
             ]
