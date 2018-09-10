@@ -1,31 +1,30 @@
 #!/usr/bin/env bash
 set -e
-GREEN="\u001b[32m"
-BOLD="\u001b[1m"
+CYAN="\u001b[36m"
 # RESET
 RESET="\u001b[0m"
 
 git config --global user.email $GH_EMAIL
 git config --global user.name $GH_NAME
 
-echo -e "${BOLD}Git Clone${RESET}"
+echo -e "${CYAN}Git Clone${RESET}"
 git clone $CIRCLE_REPOSITORY_URL out
 
 cd out
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-#find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec git rm -rf {} \;
-git rm -rf .
-cp -av ../vuepress/ .
+find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec git rm -rf {} \;
+#git rm -rf .
+cp -av ../vuepress/. .
 
-cd ..
-mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
+# cd ..
+# mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
 
-cd out
-echo -e "${BOLD}Git Commit${RESET}"
+# cd out
+echo -e "${CYAN}Git Commit${RESET}"
 git add -A
-git commit --allow-empty -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}"
+git commit --allow-empty -m "$(git log develop -1 --pretty=%B) for GitHub Pages: ${CIRCLE_SHA1}"
 
-echo -e "${GREEN}Git Push${RESET}"
+echo -e "${CYAN}Git Push${RESET}"
 git push origin $TARGET_BRANCH
 
 echo "deployed successfully"
