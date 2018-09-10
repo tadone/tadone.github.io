@@ -8,21 +8,22 @@ RESET="\u001b[0m"
 git config --global user.email $GH_EMAIL
 git config --global user.name $GH_NAME
 
-echo -e "${GREEN}Git Clone${RESET}"
+echo -e "${GREEN}${BOLD}Git Clone${RESET}"
 git clone $CIRCLE_REPOSITORY_URL out
 
 cd out
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec git rm -rf {} \;
-cp -a ../vuepress .
+#find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec git rm -rf {} \;
+git rm -rf .
+cp -av ../vuepress/ .
 
 cd ..
 mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
 
 cd out
-echo -e "${GREEN}Git Commit${RESET}"
+echo -e "${GREEN}${BOLD}Git Commit${RESET}"
 git add -A
-git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
+git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
 
 echo -e "${GREEN}Git Push${RESET}"
 git push origin $TARGET_BRANCH
