@@ -1,5 +1,6 @@
-Linux Basics
-===
+---
+title: "Fundementals"
+sidebarDepth: 2
 ---
 
 ### Managing Services
@@ -58,7 +59,7 @@ dnf provides crond                    # Find out what package provides binary cr
 useradd <username>                    # Add new user named: new_user
 passwd <username>                     # Change password for a user
 
-id <username>                         # User Info  
+id <username>                         # User Info
 
 useradd -u 999 <username>             # Add new_user with User ID 999
         -d /data/projects <username>  # Set home for new_user to /data/projects (as opposed to /home/new_user)

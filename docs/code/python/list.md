@@ -1,5 +1,6 @@
-Python Lists
-===
+---
+title: "Python Lists"
+sidebarDepth: 2
 ---
 
 ## List Comprehension

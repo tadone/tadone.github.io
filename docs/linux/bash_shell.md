@@ -1,5 +1,6 @@
-Bash Shell
-===
+---
+title: "Bash Shell"
+sidebarDepth: 2
 ---
 
 ## Shortcuts
@@ -79,7 +80,7 @@ echo 'one two three' | xargs mkdir          # Creates 3 dirs "one", "two", "thre
 echo 'one two three' | xargs -t rm          # Prints each command that will be executed (-t)
 find /tmp -mtime +14 | xargs rm             # Find files older than 2 weeks and then remove them
 
-```  
+```
 ```bash
 find . -name '*.py' | xargs wc -l           # Find .py files in current dir and output to word count
 find ./foo -type f -name "*.txt" | xargs rm

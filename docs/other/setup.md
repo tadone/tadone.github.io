@@ -1,5 +1,6 @@
-Personal Setup
-===
+---
+title: "System Setup"
+sidebarDepth: 2
 ---
 
 # ZSH

@@ -1,6 +1,8 @@
-Python Classes
-===
 ---
+title: "Python Classes"
+sidebarDepth: 2
+---
+
 Define a class:
 ```python
 class Animal(object):
@@ -22,7 +24,7 @@ class Animal(object):
 
 zebra = Animal("Jeffrey")                   # Create instance of Animal class
 print(zebra.name)
-# => Jeffrey    
+# => Jeffrey
 ```
 Add more arguments **age** & **is_hungry**
 ```python
@@ -42,7 +44,7 @@ print(zebra.name, zebra.age, zebra.is_hungry)
 print giraffe.name, giraffe.age, giraffe.is_hungry
 # => Bruce 1 False
 print panda.name, panda.age, panda.is_hungry
-# => Chad 7 True    
+# => Chad 7 True
 ```
 ## Constructors in Python
 Class **functions** that begins with double underscore ``(__)`` are called special functions as they have special meaning.
@@ -59,7 +61,7 @@ class My_Class():
     pass
 
 my_object = My_Class(my_var1, my_var2)      # Instantiate "My_Class" with "my_var1" & "my_var2"
-my_object.my_func()                         # Use "my_func" method  
+my_object.my_func()                         # Use "my_func" method
 ```
 ``__repr__()``
 
@@ -99,7 +101,7 @@ class My_Class():
     self.inside_var = inside_var
 
   def my_func(self):
-    self.inside_var = value                 # Variable for function  
+    self.inside_var = value                 # Variable for function
 ```
 ```python
 class Animal(object):
@@ -117,7 +119,7 @@ print zebra.name, zebra.age, zebra.is_hungry
 print giraffe.name, giraffe.age, giraffe.is_hungry
 # => Bruce 1 True
 print panda.name, panda.age, panda.is_hungry
-# => Chad 7 True  
+# => Chad 7 True
 ```
 
 ## Class Methods
@@ -125,7 +127,7 @@ When a class has its own functions, those functions are called **methods**.
 ```python
 my_object = my_class()  # Instantiate class to an object
 my_object.my_method()   # Use the method
-```  
+```
 If a method is defined in a child class that is the same as parent class, that method gets overridden. To avoid this use ``super``
 
 ## Inheritance
@@ -133,7 +135,7 @@ Class can inherit functions from other classes. In Python, inheritance works lik
 ```python
 class DerivedClass(BaseClass):
   # code goes here
-```  
+```
 where ``DerivedClass`` is the new class you're making and ``BaseClass`` is the class from which that new class inherits.
 
 ```python
@@ -167,7 +169,7 @@ class Dog(Mammal):                  #
   def __init__(self):
     print('Dog has four legs.')
     super().__init__('Dog')         # Copy __init__ from  "Mammal" class (via "Dog" class)
-# Instantiate the "Dog" class    
+# Instantiate the "Dog" class
 d1 = Dog()
 # OUTPUT
 Dog has four legs.                 # From "Mammal" class

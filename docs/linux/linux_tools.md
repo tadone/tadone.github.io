@@ -1,5 +1,8 @@
-title: Linux Tools
 ---
+title: "GNU Tools"
+sidebarDepth: 2
+---
+
 # Linux Tools
 ---
 
@@ -11,7 +14,7 @@ curl --head www.acooke.org    # Get headers
 curl -I www.acooke.org        # Older way
 curl -vI www.acooke.org       # -v for verbose
 ```
-Download a file:  
+Download a file:
 ``-O`` (uppercase O) the filename in the URL will be taken and it will be used as the filename to store the result
 ```bash
 curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html # Custom file name "mygettext.html"
@@ -110,7 +113,7 @@ Repeat passphrase:<YOUR-PASSWORD>
 ```
 This will create a **myfinancial.info.txt.gpg** file
 
-### Decrypt a file in Linux or Unix   
+### Decrypt a file in Linux or Unix
 To decrypt file use the gpg command as follow:
 ```bash
 $ gpg myfinancial.info.txt.gpg                    # Will decrypt to a file (Will ask to overwirte existing)

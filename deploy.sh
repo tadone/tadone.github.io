@@ -18,10 +18,6 @@ find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec
 mkdir -p .circleci && cp -a ../.circleci/. .circleci/.
 cp -a ../vuepress/. .
 
-# cd ..
-# mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
-
-# cd out
 echo -e "${CYAN}Git Commit${RESET}"
 git add -A
 git commit --allow-empty -m "$(git log origin/develop -1 --pretty=%B) for GitHub Pages: ${CIRCLE_SHA1}"

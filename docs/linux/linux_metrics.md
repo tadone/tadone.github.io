@@ -1,6 +1,8 @@
-Linux Metrics
-===
 ---
+title: "Metrics"
+sidebarDepth: 2
+---
+
 ## CPU Load
 
 **Uptime Load Averges**
