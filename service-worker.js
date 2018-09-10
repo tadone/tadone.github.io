@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "e28f30105a0efc8696e1d1a1a84ef6cf"
+    "revision": "613b4a2372778cbb4ae18199ff4c37cd"
   },
   {
     "url": "assets/css/0.styles.96496881.css",
@@ -132,100 +132,100 @@ self.__precacheManifest = [
     "revision": "4162b53501dbc26603479a5762c9474b"
   },
   {
-    "url": "assets/js/app.15fb012c.js",
-    "revision": "980adb0a229cf26380e421e82efb9c09"
+    "url": "assets/js/app.3a2b94bc.js",
+    "revision": "7893e9bfa811390c179a7a7cac2e5989"
   },
   {
     "url": "cloud/aws.html",
-    "revision": "62d49e39624bdf4da6b7a3788f702990"
+    "revision": "e543a7d649b3b5875a23290dbac1caa0"
   },
   {
     "url": "cloud/azure.html",
-    "revision": "80ba3f03d735afe39d18076326e621af"
+    "revision": "df48ce0444a99c7cf8c7430ec746044c"
   },
   {
     "url": "code/bash.html",
-    "revision": "81aebff849e226fe14288b617fdf4e40"
+    "revision": "e134ad55db978e50936398d83931dcb1"
   },
   {
     "url": "code/git.html",
-    "revision": "594f136131980373e0be03a9aebfbcd2"
+    "revision": "8facbe1b827477b0ccab0dc113580b3e"
   },
   {
     "url": "code/markdown.html",
-    "revision": "ffa6a973b6058dda22ee3b7900711529"
+    "revision": "96260cac955c4529439e4a05be4ed4ed"
   },
   {
     "url": "code/python.html",
-    "revision": "c149154833a1381475e8e7abbba9d133"
+    "revision": "3616b276e906c18bc697513814121965"
   },
   {
     "url": "code/python/class.html",
-    "revision": "0286c53e1fe7d6c69fa9fff78cc12cb9"
+    "revision": "0fe9f1a48851cdff5fa41b865fe2308f"
   },
   {
     "url": "code/python/list.html",
-    "revision": "e6c1ac1fb043f1f5a785a7f3412274c9"
+    "revision": "a7ad314ebf405b16a9373b64d7cc5e21"
   },
   {
     "url": "code/yaml_json.html",
-    "revision": "730d08122dab2161efc3a8fe49534dec"
+    "revision": "b15354358d9168082c073e33dceee594"
   },
   {
     "url": "devops/cicd.html",
-    "revision": "e40d6bbc34b6a31c25e3448a48eb79de"
+    "revision": "595c573341fbe0f1b15eed0e37803a02"
   },
   {
     "url": "devops/databases.html",
-    "revision": "a9a5ce4df6a308a0015777b00ec7ec71"
+    "revision": "268db3b06c5fdec38d43d27af427ba69"
   },
   {
     "url": "devops/docker.html",
-    "revision": "11a01b88e26fa70728ac9b108cda993c"
+    "revision": "bf3ec7282e079d6f59fed9406ad8722e"
   },
   {
     "url": "devops/index.html",
-    "revision": "5dd0568e84eb12dba5b1a889acb9fcf0"
+    "revision": "5eb376432e0c7b30d5c5e89428d4572d"
   },
   {
     "url": "devops/kubectl.html",
-    "revision": "baff189fe84bf54f3eab719cf2756277"
+    "revision": "e821ccc84033c07bc340d63bdea094fa"
   },
   {
     "url": "devops/kubernetes.html",
-    "revision": "c10ab8d1185f6af8d1846f22f4b92638"
+    "revision": "92e96d6f8507c3af85295d7edc5d240b"
   },
   {
     "url": "devops/terminology.html",
-    "revision": "18bea60b703272e340e524a4b678581d"
+    "revision": "89db84d5acbc0f36e39ed4967b77694a"
   },
   {
     "url": "index.html",
-    "revision": "90f6e2c4bf925b130a21c3affd89c11a"
+    "revision": "1b72cf850e4eaf51e6aec7d35617b3bd"
   },
   {
     "url": "linux/bash_shell.html",
-    "revision": "b4dc6c5642b44a238c7ba2ce93ce2690"
+    "revision": "8776f3b58687052fa600531ffcd6296e"
   },
   {
     "url": "linux/linux_basics.html",
-    "revision": "89b4183293ecf6e56d7018b6ed25ce6e"
+    "revision": "991a9976498f6c195bb14592422866b9"
   },
   {
     "url": "linux/linux_metrics.html",
-    "revision": "d0fa32838eb2280526fb4e9dc624bcb2"
+    "revision": "1b9e8381b7124fd4e8eec59c84f0dc31"
   },
   {
     "url": "linux/linux_tools.html",
-    "revision": "067d2842e361ef3d9d45412181c4f4db"
+    "revision": "d83fdd9a4e38c8a8e132cc8294fc988e"
   },
   {
     "url": "other/hexo_doc.html",
-    "revision": "252c077dbdc8a8c92b73752ce56cfb14"
+    "revision": "cb7b21979ee9696334a3fb9406e9bc96"
   },
   {
     "url": "other/setup.html",
-    "revision": "5ea6709797ffa1c6068e616aff2fdc80"
+    "revision": "a1d9c848b4187a86d372d73e98138cf0"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
