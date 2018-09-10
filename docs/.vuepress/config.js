@@ -80,6 +80,16 @@ module.exports = {
               '/devops/kubectl',
               '/devops/databases'
             ]
+          },
+          {
+            title: 'Linux',
+            collapsable: false,
+            children: [
+              '/linux/bash_shell',
+              '/linux/linux_basics',
+              '/linux/linux_metrics',
+              '/linux/linux_tools'
+            ]
           }
         ]
     }
