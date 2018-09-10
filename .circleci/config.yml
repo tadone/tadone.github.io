@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  deploy:
+    docker:
+    - image: circleci/node:latest
+    filters:
+      branches:
+        only: develop
+    environment:
+    - SOURCE_BRANCH: develop
+    - TARGET_BRANCH: master
+    - GH_NAME: Tad Swider
+    - GH_EMAIL: tadone@gmail.com
+    steps:
+    - add_ssh_keys:
+        fingerprints:
+        - 7d:00:ae:07:fa:36:44:f9:8a:3e:97:56:1e:76:48:e1
+    - checkout
+    - restore_cache:
+        keys:
+        - dependencies-
+        - dependencies-
+    - run:
+        name: Add VuePress Module
+        command: yarn global add vuepress
+    - save_cache:
+        paths:
+        - node_modules
+        key: dependencies-
+    - run:
+        name: Build VuePress Docs
+        command: yarn docs:build
+    - run:
+        name: Prepare shell commands
+        command: chmod +x deploy.sh
+    - deploy:
+        name: Deploy Release to GitHub
+        command: |
+          if [ $CIRCLE_BRANCH == 'develop' ]; then
+            bash deploy.sh
+          fi
+workflows:
+  version: 2
+  build:
+    jobs:
+    - deploy
