@@ -13,6 +13,6 @@ rm -R vuepress/
 
 git add -fA
 git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
-git push origin $TARGET_BRANCH
+git push -f origin $TARGET_BRANCH
 
 echo "deployed successfully"
