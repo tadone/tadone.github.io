@@ -1,6 +1,5 @@
 ---
 title: "AWS"
-sidebar: auto
 ---
 
 # AWS CLI
