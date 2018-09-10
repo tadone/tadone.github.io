@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-cd vuepress
-ls -a
-
-git init
-git add -A
 git config user.name $GH_NAME
 git config user.email $GH_EMAIL
-git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
 
-git push --force --quiet $CIRCLE_REPOSITORY_URL develop:master
+git checkout master
+git pull origin master
 
-cd -
+find . -maxdepth 1 ! -name 'vuepress' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
+mv vuepress/* .
+rm -R vuepress/
+
+git add -fA
+git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
+git push origin $TARGET_BRANCH
 
 echo "deployed successfully"
