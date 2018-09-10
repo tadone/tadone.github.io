@@ -3,7 +3,7 @@ title: "Fundementals"
 sidebarDepth: 2
 ---
 
-### Managing Services
+## Managing Services
 
 **Service** can be several processes, e.g., httpd (web-service) or a database. Splitting a service into multiple processes is done for performance reasons.
 **Process** - Process is a running program. At a particular instant of time, it can be either running, sleeping, or zombie (completed process, but waiting for it's parent process to pick up the return value).

@@ -6,7 +6,11 @@ sidebarDepth: 2
 # Bash Scripting
 
 ## Tips n Tricks
-
+```bash
+# Edit file with sed only if 'option' is there
+grep -q '^option' file && \                              # returns true/false if the string 'option' is there
+sed -i "s/option = .*/option = my-setting/g" file        # replaces lines that start with 'option' string
+```
 #### ANSI Colors
 ::: tip
 This is a tip
@@ -34,7 +38,8 @@ echo -e "\u001b[31mHello"           # Prints Hello in red
 echo -e "${BLACK}Hello${RESET}"     # Prints Hello in black and resets back
 ```
 
-## Special Variables
+## Builtin variables
+
 Variable  | What it means
 --|--
 ``$0``  |   The name of the Bash script
@@ -54,16 +59,24 @@ Redirect STDOUT(1) and/or STDERR(2)
 
 Command  |  What it does
 --:|:--
-`command 2> output.txt` | Outputs **ERROR** only to a file  
-`command &> output.txt` | Outputs both **OUTPUT** & **ERROR** to a file  
-`command &> /dev/null`  | Discards both **OUTPUT** & **ERROR** 
+`command 2> output.txt` | Outputs **ERROR** only to a file
+`command &> output.txt` | Outputs both **OUTPUT** & **ERROR** to a file
+`command &> /dev/null`  | Discards both **OUTPUT** & **ERROR**
+`command > output.txt 2>&1`  | Posix way of redirecting stderr to stdout
 
-## Script Options  
+**Recap**
+- There are two places programs send output to: Standard Output (**stdout**) and Standard Error (**stderr**)
+- You can redirect these outputs to a different place (like a file)
+- File descriptors are used to identify stdout (1) and stderr (2)
+- `command > output` is just a shortcut for `command 1> output`
+- Using **2>&1** will redirect stderr to whatever value is set to stdout (and **1>&2** will do the opposite).
+
+## Script Options
 Use `set -` to enable option and `set +` to disable
 
-``set -e`` - Causes the shell to exit if any subcommand or pipeline returns a non-zero status.  
-``set -x`` - Enables a mode of the shell where all executed commands are printed to the terminal  
-``set +x`` - Disables debug mode  
+``set -e`` - Causes the shell to exit if any subcommand or pipeline returns a non-zero status.
+``set -x`` - Enables a mode of the shell where all executed commands are printed to the terminal
+``set +x`` - Disables debug mode
 
 ## Read Input
 ```bash
@@ -231,9 +244,14 @@ echo "The second name is: ${names[1]}"              # Access 2nd item in the arr
 ```
 ## Heredoc
 ```bash
-cat << EOF > /tmp/yourfilehere
-These contents will be written to the file.
-        This line is indented.
+cat > hello.py << EOF
+#!/usr/bin/env python
+from __future__ import print_function
+import sys
+print("#stdout", file=sys.stdout)
+print("#stderr", file=sys.stderr)
+for line in sys.stdin:
+    print(line, file=sys.stdout)
 EOF
 
 # PREVENT VARIABLE EXPANSION
@@ -253,7 +271,7 @@ echo "$foo"                # Output: old
 (cd /foo || exit 1; tar ...)
 ```
 
-### Debugging
+## Debugging
 ```bash
 bash -x ./mybrokenscript
 
