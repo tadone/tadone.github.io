@@ -1,22 +1,54 @@
 #!/usr/bin/env bash
 set -e
+GREEN="\u001b[32m"
+BOLD="\u001b[1m"
+# RESET
+RESET="\u001b[0m"
 
-git config user.name $GH_NAME
-git config user.email $GH_EMAIL
+git config --global user.email $GH_EMAIL
+git config --global user.name $GH_NAME
 
-echo "checkout master"
-git checkout master
-#git pull origin master
+echo -e "${GREEN}Git Clone${RESET}"
+git clone $CIRCLE_REPOSITORY_URL out
 
-echo "delete all files except .git and vuepress"
-find . -maxdepth 1 ! -name 'vuepress' ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
-mv vuepress/* .
-rm -R vuepress/
+cd out
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec git rm -rf {} \;
+cp -a ../vuepress .
 
-git add -fA
-git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
+cd ..
+mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
 
-echo "push to master"
-git push -f origin master
+cd out
+echo -e "${GREEN}Git Commit${RESET}"
+git add -A
+git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
+
+echo -e "${GREEN}Git Push${RESET}"
+git push origin $TARGET_BRANCH
 
 echo "deployed successfully"
+
+
+#
+# git config user.name $GH_NAME
+# git config user.email $GH_EMAIL
+#
+# echo -e "${GREEN}checkout master${RESET}"
+# git checkout master
+#
+# echo -e "${GREEN}Git Pull${RESET}"
+# git pull origin master
+#
+# echo "delete all files except .git and vuepress"
+# find . -maxdepth 1 ! -name 'vuepress' ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec rm -rf {} \;
+# mv vuepress/* .
+# rm -R vuepress/
+#
+# git add -fA
+# git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
+#
+# echo "push to master"
+# git push origin master
+#
+# echo "deployed successfully"
