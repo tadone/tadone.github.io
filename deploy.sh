@@ -8,7 +8,7 @@ RESET="\u001b[0m"
 git config --global user.email $GH_EMAIL
 git config --global user.name $GH_NAME
 
-echo -e "${GREEN}${BOLD}Git Clone${RESET}"
+echo -e "${BOLD}Git Clone${RESET}"
 git clone $CIRCLE_REPOSITORY_URL out
 
 cd out
@@ -21,9 +21,9 @@ cd ..
 mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
 
 cd out
-echo -e "${GREEN}${BOLD}Git Commit${RESET}"
+echo -e "${BOLD}Git Commit${RESET}"
 git add -A
-git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
+git commit --allow-empty -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}"
 
 echo -e "${GREEN}Git Push${RESET}"
 git push origin $TARGET_BRANCH
