@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 CYAN="\u001b[36m"
+GREEN="\u001b[32m"
 # RESET
 RESET="\u001b[0m"
 
@@ -14,7 +15,8 @@ cd out
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 find . -maxdepth 1 ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec git rm -rf {} \;
 #git rm -rf .
-cp -av ../vuepress/. .
+mkdir -p .circleci && cp -a ../.circleci/. .circleci/.
+cp -a ../vuepress/. .
 
 # cd ..
 # mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
@@ -22,33 +24,9 @@ cp -av ../vuepress/. .
 # cd out
 echo -e "${CYAN}Git Commit${RESET}"
 git add -A
-git commit --allow-empty -m "$(git log develop -1 --pretty=%B) for GitHub Pages: ${CIRCLE_SHA1}"
+git commit --allow-empty -m "$(git log origin/develop -1 --pretty=%B) for GitHub Pages: ${CIRCLE_SHA1}"
 
 echo -e "${CYAN}Git Push${RESET}"
 git push origin $TARGET_BRANCH
 
-echo "deployed successfully"
-
-
-#
-# git config user.name $GH_NAME
-# git config user.email $GH_EMAIL
-#
-# echo -e "${GREEN}checkout master${RESET}"
-# git checkout master
-#
-# echo -e "${GREEN}Git Pull${RESET}"
-# git pull origin master
-#
-# echo "delete all files except .git and vuepress"
-# find . -maxdepth 1 ! -name 'vuepress' ! -name '.git' ! -name '.circleci' ! -name '.gitignore' -exec rm -rf {} \;
-# mv vuepress/* .
-# rm -R vuepress/
-#
-# git add -fA
-# git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
-#
-# echo "push to master"
-# git push origin master
-#
-# echo "deployed successfully"
+echo -e "${GREEN}Deployed successfully${RESET}"
