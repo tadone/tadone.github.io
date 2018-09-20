@@ -26,6 +26,20 @@ kubectl get pods --field-selector=status.phase=Running  # Get all running pods i
 kubectl get services                          # List all services in the namespace
 
 kubectl --namespace=saas-aware-dev get pods --show-labels  # Show pod labels
+
+# get the external ip address for the load balancer
+kubectl get svc --namespace=gitlab-managed-apps ingress-nginx-ingress-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'; echo
+# alternatively
+kubectl get svc --all-namespaces|grep LoadBalancer|awk '{print $5};'
+
+# Get all running pods in the namespace
+kubectl get pods --field-selector=status.phase=Running
+
+# Get ExternalIPs of all nodes
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+
+# List Events sorted by timestamp
+kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
 ## Describe
@@ -47,7 +61,10 @@ kubectl exec -it --namespace=microworld microspringboot1-2-nz8f8 /bin/bash # Ent
 ```bash
 kubectl run --image ubuntu -it bash
 ```
-
+## Troubleshooting
+```bash
+kubectl get events          # Get all events in cluster
+```
 ## System
 
 kube-system is the namespace for objects created by the Kubernetes system.
