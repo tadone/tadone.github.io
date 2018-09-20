@@ -132,12 +132,42 @@ fi
 |               -x FILE | FILE exists and the execute permission is granted.                    |
 
 
-Most Common Uses of Tests
+## Common Tests
 
-```
-if  [ -z "$VAR1" ];  # This will return true if a variable is unset or set to the empty string ("")
-if  [ -n "$VAR1" ];  # the inverse of -z
-if  [ ! -d "$DIR" ]; # Test if directory $DIR (does not !) exist(s)
+```bash
+if command ; then echo "Command succeeded"; else echo "Command failed"; fi
+if [ -z "$VAR1" ];  # This will return true if a variable is unset or set to the empty string
+if [ -n "$VAR1" ];  # the inverse of -z
+if [ ! -d "$DIR" ]; # Test if directory $DIR (does not !) exist(s)
+# check if a variable is defined/non-NULL
+test "$MYVAR"
+[ "$MYVAR" ]
+
+# check if a directory exists, if not, create it
+test ! -d /home/user/foo && mkdir /home/user/foo
+[ ! -d /home/user/foo ] && mkdir /home/user/foo
+if [ ! -d /home/user/foo ]; then mkdir /home/user/foo; fi
+
+# Listing directories
+for fn in *; do
+  [ -d "$fn" ] && echo "$fn"
+done
+
+# Check if a specific user exists in /etc/passwd
+if grep ^myuser: /etc/passwd >/dev/null 2>&1; then
+  echo "Yes, it seems I'm real"
+else
+  echo "Uh - am I a ghost?"
+fi
+# Mount with check
+if ! mount /mnt/backup >/dev/null 2>&1; then
+  echo "FATAL: backup mount failed" >&2
+  exit 1
+fi
+# Multiple commands as condition. It's perfectly valid to do:
+if echo "I'm testing!"; [ -e /some/file ]; then
+  ...
+fi
 ```
 
 ## Loops
@@ -151,7 +181,7 @@ if  [ ! -d "$DIR" ]; # Test if directory $DIR (does not !) exist(s)
 
 # Basic while loop
 counter=1
-while [ $counter -le 10 ]       # While conter is less then 10
+while [ $counter -le 10 ]       # While counter is less then 10
 do
     echo $counter
     ((counter++))               # Increment counter with each loop

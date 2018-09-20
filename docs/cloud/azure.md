@@ -3,7 +3,6 @@ title: "Azure"
 ---
 
 # Azure CLI
----
 Install with Homebrew: `brew install azure-cli`
 
 ## Login
@@ -47,6 +46,27 @@ az vm list --out tsv | grep RGD | cut -f8
 az cloud list --query '[].{cloud_name:name, active:isActive}'
 ```
 
+# Deploy ARM
+Use `az group` for deploying arm templates
+```bash
+# Create a deployment from a remote template file, using parameters from a local JSON file.
+az group deployment create -g "MyResourceGroup" --template-uri "https://myresource/azuredeploy.json" --parameters @myparameters.json
+# Create a deployment from a local template file, using parameters from a JSON string.
+az group deployment create -g "MyResourceGroup" --template-file azuredeploy.json --parameters '{
+                                "location": {
+                                    "value": "westus"
+                                }
+                            }'
+```
+
+## Resource Group
+```bash
+az group create -l "westus" -n "MyResourceGroup"    # Create new resource group
+az group delete -n "MyResourceGroup"                # Delete resource group
+az group delete --name                              # RG Name
+                [--no-wait]                         # Don't wait for command to finish
+                [--yes]                             # Assume yes
+```
 ## Key Vault
 Requires access policy for data-plane access
 ```bash
