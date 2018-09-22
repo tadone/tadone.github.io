@@ -30,7 +30,11 @@ ctrl-r  # Search previous command from history
     * Modify - the last time the file was modified (content has been modified). Virtually, every modify is create.
     * Change - the last time meta data of the file was changed (e.g. permissions) To display this information, you can use stat which is part of the coreutils.
 
-**Brace Expanstion**
+### Symbolic Links
+Use `-f` to force overwrite  
+`ln -s source_file target_file`
+
+### Brace Expansion
 
 ```bash
 echo foo{1,2,3}.txt # Output: foo1.txt foo2.txt foo3.txt
@@ -41,7 +45,7 @@ mkdir -p /apache-jail/{usr,bin,lib64,dev} # Make multiple dirs
 mv file.{txt,doc}      # Rename file.txt to file.doc
 ```
 
-**Permissions**
+### Permissions
 ```bash
 # Permissions:
 1 – "can execute"
