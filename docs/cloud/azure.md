@@ -3,7 +3,11 @@ title: "Azure"
 ---
 
 # Azure CLI
+
+::: info
 Install with Homebrew: `brew install azure-cli`
+Find commands with `az find -q rbac`
+:::
 
 ## Login
 ```bash
@@ -24,7 +28,10 @@ az vm create --subscription "My Demos" --resource-group MyGroup --name NewVM --i
 az cloud list --output table # Show current active cloud (default: AzureCloud)
 az cloud set --name AzureUSGovernment # Switch to US Gov Cloud
 ```
-
+## Locations
+```bash
+az account list-locations | jq '.[].name' | sort  # list locations
+```
 ## Output Format
 
 |–output|	Description|
@@ -46,7 +53,7 @@ az vm list --out tsv | grep RGD | cut -f8
 az cloud list --query '[].{cloud_name:name, active:isActive}'
 ```
 
-# Deploy ARM
+## ARM Deployment
 Use `az group` for deploying arm templates
 ```bash
 # Create a deployment from a remote template file, using parameters from a local JSON file.
@@ -66,6 +73,31 @@ az group delete -n "MyResourceGroup"                # Delete resource group
 az group delete --name                              # RG Name
                 [--no-wait]                         # Don't wait for command to finish
                 [--yes]                             # Assume yes
+az resource list --resource-group "MyResourceGroup" # List resources in the resource group
+az group show --name "MyResourceGroup"              # Get info about resource group
+az group export --name "MyResourceGroup"            # Export Resource Group to ARM Template
+az group update --name "MyResourceGroup"
+    --set tags.Env=Stage tags.Dept=IT               # Tag existing resource group
+```
+
+## Users & Roles
+```bash
+az ad user list -o table                            # List users in Azure AD
+
+az role assignment list -o table                    # List role assignments
+az role assignment list | grep 'name\|principalName'# List role assignment and filter for name or principalName
+
+# FIND ALL ASSINGLED ROLES FOR USER
+az role assignment list --all --assignee cal085@email.com
+
+# Find if CoreID is assinged to resourc group
+az role assignment list --resource-group radio2-dev --output table | grep CAL085
+# List all users assigned to resource group
+az role assignment list --resource-group radio2-dev --output table
+# Grant access to resource group
+az role assignment create --role "Contributor" --assignee "CAL085@email.com" --resource-group "radio2-qa"
+# Remove access
+az role assignment delete --assignee <assignee> --role <role> --resource-group <resource_group>
 ```
 ## Key Vault
 Requires access policy for data-plane access
