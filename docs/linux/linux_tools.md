@@ -6,6 +6,19 @@ sidebarDepth: 2
 # Linux Tools
 ---
 
+## TAR
+Tool to create archives (Tape Archive)
+```bash
+# CREATE
+tar -czvf archive.tar.gz <dir>    # Create Gzipped archive.tar from a directory
+# TEST
+tar -tvf archive.tar              # List all files in archive.tar verbosely
+# EXTRACT
+tar -xf archive.tar               # Extract all files from archive.tar
+# CREATE TOP LEVEL
+tar -czvf site1.tar.gz -C /var/www/ site1   # Create archive from site1 directory (site1 is top level dir)
+```
+
 ## CURL
 https://linuxacademy.com/howtoguides/posts/show/topic/13852-understanding-curl-and-http-headers
 Get response headers from the server:
@@ -26,7 +39,23 @@ curl -vs google.com 2>&1 | grep pattern
 ```
 **For simple download of a file use ``wget <URL>``**
 
+## SED
+```bash
+sed -i -e 's|foo|bar|g' filename
+s   # is used to replace (substitute) the found expression “foo” with “bar”
+g   # stands for “global”, meaning to do this for the whole line. If you leave off the g and “foo” appears twice on the same line, only the first “foo” is changed to “bar”.
+
+-i  # option is used to edit in place on filename.
+-e  # option indicates a command to run.
+```
+
 ## AWK
+```bash
+grep file | awk '{ print $2 }'              # Print second position
+grep file | awk '{ print $5 ": " $9 }'      # Print column 5 then : and then column 9
+grep file | awk -F ":" '{ print $2 }'       # Use : as a delimiter
+```
+
 Three ‘blocks’ of instructions are used in awk:
 
 * ``BEGIN``, executed before the first input line is read
@@ -105,7 +134,7 @@ aco*3100
 ## GPG
 Use ``gpg`` to encrypt & decrypt files and directories. Install gpg from any Linux repository.
 
-### Encrypt a file in Linux or Unix
+**Encrypt a file in Linux or Unix**
 ```bash
 $ gpg -c myfinancial.info.txt
 Enter passphrase:<YOUR-PASSWORD>
@@ -113,7 +142,7 @@ Repeat passphrase:<YOUR-PASSWORD>
 ```
 This will create a **myfinancial.info.txt.gpg** file
 
-### Decrypt a file in Linux or Unix
+**Decrypt a file in Linux or Unix**
 To decrypt file use the gpg command as follow:
 ```bash
 $ gpg myfinancial.info.txt.gpg                    # Will decrypt to a file (Will ask to overwirte existing)
@@ -121,7 +150,7 @@ $ gpg -d myfinancial.info.txt.gpg                 # Will decrypt to STDOUT
 $ gpg myfinancial.info.gpg -o new-file.info.txt   # Will decrypt to "new-file.info.txt" (-o output)
 
 ```
-### Non Interactive
+**Non Interactive**
 ```bash
 # Encrypt it…
 gpg --yes --passphrase <passphrase> -c <filename>
@@ -141,7 +170,24 @@ find / -type f -size +20000 -print
 # find every file not accessed for the last week or more
 find / -type f -atime +7 -print
 ```
+## XARGS
+``xargs`` Takes standard output from a command like find and pipes it into standard input
 
+```bash
+echo 'one two three' | xargs mkdir          # Creates 3 dirs "one", "two", "three"
+echo 'one two three' | xargs -t rm          # Prints each command that will be executed (-t)
+find /tmp -mtime +14 | xargs rm             # Find files older than 2 weeks and then remove them
+```
+
+```bash
+find . -name '*.py' | xargs wc -l           # Find .py files in current dir and output to word count
+find ./foo -type f -name "*.txt" | xargs rm
+```
+```bash
+find ./foo -type f -name "*.txt" | xargs rm       # Remove all found files
+echo 'one two three' | xargs mkdir
+one two three                                     # Create dir for each argument
+```
 ## DD
 **Syntax**
 ```bash

@@ -4,7 +4,7 @@ sidebarDepth: 2
 ---
 
 ## Shortcuts
-```bash
+```sh
 ctrl-a  # Move to the start of line
 ctrl-e  # Move to end of a line
 
@@ -17,7 +17,7 @@ ctrl-r  # Search previous command from history
 ## Shell Basics
 
 * Export variable to the environment. All child processes will get this variable: ``export varname=value``
-* Display current Shell Variables ``set``
+* Display current Shell Variables ``set | sort``
 * Set and Unset Shell Options:
     ```bash
     shopt -s <option> # Set shell option
@@ -29,6 +29,21 @@ ctrl-r  # Search previous command from history
     * Access - the last time the file was read
     * Modify - the last time the file was modified (content has been modified). Virtually, every modify is create.
     * Change - the last time meta data of the file was changed (e.g. permissions) To display this information, you can use stat which is part of the coreutils.
+* Command Substitution $(command)
+
+## Built-In VS External
+```sh
+$ echo 'Echoed with a built-in!'
+Echoed with a built-in!
+$ /bin/echo 'Echoed with external program!'
+Echoed with external program!
+
+# type command will return what type of command it is (built-in vs external)
+$ type echo
+echo is a shell builtin
+$ type ls
+ls is hashed (/bin/ls)
+```
 
 ## Links
 Use `-f` to force overwrite
@@ -37,6 +52,15 @@ Use `-f` to force overwrite
 ## Brace Expansion
 
 ```bash
+$ echo {one,two,red,blue}fish
+onefish twofish redfish bluefish
+
+$ echo fish{one,two,red,blue}
+fishone fishtwo fishred fishblue
+
+$ echo fi{one,two,red,blue}sh
+fionesh fitwosh firedsh fibluesh
+
 echo foo{1,2,3}.txt # Output: foo1.txt foo2.txt foo3.txt
 cp -v file1.txt{,.bak} # Output: file1.txt -> file1.txt.bak
 
@@ -64,48 +88,20 @@ chmod 700 file – owner can read, write and execute
 chmod 666 file – all can read and write
 chmod 777 file – all can read, write and execute
 ```
-# GNU Tools
 
-## AWK
-```bash
-grep file | awk '{ print $2 }'              # Print second position
-grep file | awk '{ print $5 ": " $9 }'      # Print column 5 then : and then column 9
-grep file | awk -F ":" '{ print $2 }'       # Use : as a delimiter
-```
+## Command Substitution
+```sh
+$ date +%d-%b-%Y
+12-Mar-2004
 
-## SED
-```bash
-sed -i -e 's|foo|bar|g' filename
-s   # is used to replace (substitute) the found expression “foo” with “bar”
-g   # stands for “global”, meaning to do this for the whole line. If you leave off the g and “foo” appears twice on the same line, only the first “foo” is changed to “bar”.
+$ today=$(date +%d-%b-%Y)
 
--i  # option is used to edit in place on filename.
--e  # option indicates a command to run.
-```
+$ echo $today
+12-Mar-2004
 
-## FIND & XARGS
+# listing of all the files from all the RPM packages that have httpd in the name
+$ rpm -ql $(rpm -qa | grep httpd)
 
-``xargs`` Takes standard output from a command like find and pipes it into standard input
-```bash
-echo 'one two three' | xargs mkdir          # Creates 3 dirs "one", "two", "three"
-echo 'one two three' | xargs -t rm          # Prints each command that will be executed (-t)
-find /tmp -mtime +14 | xargs rm             # Find files older than 2 weeks and then remove them
-```
-
-```bash
-find . -name '*.py' | xargs wc -l           # Find .py files in current dir and output to word count
-find ./foo -type f -name "*.txt" | xargs rm
-```
-
-**TAR**
-Tool to create archives (Tape Archive)
-```bash
-# CREATE
-tar -czvf archive.tar.gz <dir>    # Create Gzipped archive.tar from a directory
-# TEST
-tar -tvf archive.tar              # List all files in archive.tar verbosely
-# EXTRACT
-tar -xf archive.tar               # Extract all files from archive.tar
-# CREATE TOP LEVEL
-tar -czvf site1.tar.gz -C /var/www/ site1   # Create archive from site1 directory (site1 is top level dir)
+# Star will substitue for all files
+$ for file in * ; do cp $file $file.bak; done
 ```
