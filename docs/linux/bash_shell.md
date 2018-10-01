@@ -30,11 +30,11 @@ ctrl-r  # Search previous command from history
     * Modify - the last time the file was modified (content has been modified). Virtually, every modify is create.
     * Change - the last time meta data of the file was changed (e.g. permissions) To display this information, you can use stat which is part of the coreutils.
 
-### Symbolic Links
-Use `-f` to force overwrite  
-`ln -s source_file target_file`
+## Links
+Use `-f` to force overwrite
+`ln -s source_file target_file # -s is for symbolic`
 
-### Brace Expansion
+## Brace Expansion
 
 ```bash
 echo foo{1,2,3}.txt # Output: foo1.txt foo2.txt foo3.txt
@@ -45,7 +45,14 @@ mkdir -p /apache-jail/{usr,bin,lib64,dev} # Make multiple dirs
 mv file.{txt,doc}      # Rename file.txt to file.doc
 ```
 
-### Permissions
+## Permissions
+::: tip
+```bash
+find /home/user -type d -print0 | xargs -0 chmod 0775
+find /home/user -type f -print0 | xargs -0 chmod 0664
+```
+:::
+
 ```bash
 # Permissions:
 1 – "can execute"
@@ -57,16 +64,16 @@ chmod 700 file – owner can read, write and execute
 chmod 666 file – all can read and write
 chmod 777 file – all can read, write and execute
 ```
-## GNU Tools
+# GNU Tools
 
-**AWK**
+## AWK
 ```bash
 grep file | awk '{ print $2 }'              # Print second position
 grep file | awk '{ print $5 ": " $9 }'      # Print column 5 then : and then column 9
 grep file | awk -F ":" '{ print $2 }'       # Use : as a delimiter
 ```
 
-**SED**
+## SED
 ```bash
 sed -i -e 's|foo|bar|g' filename
 s   # is used to replace (substitute) the found expression “foo” with “bar”
@@ -76,15 +83,15 @@ g   # stands for “global”, meaning to do this for the whole line. If you lea
 -e  # option indicates a command to run.
 ```
 
-**FIND and XARGS**
+## FIND & XARGS
 
 ``xargs`` Takes standard output from a command like find and pipes it into standard input
 ```bash
 echo 'one two three' | xargs mkdir          # Creates 3 dirs "one", "two", "three"
 echo 'one two three' | xargs -t rm          # Prints each command that will be executed (-t)
 find /tmp -mtime +14 | xargs rm             # Find files older than 2 weeks and then remove them
-
 ```
+
 ```bash
 find . -name '*.py' | xargs wc -l           # Find .py files in current dir and output to word count
 find ./foo -type f -name "*.txt" | xargs rm
