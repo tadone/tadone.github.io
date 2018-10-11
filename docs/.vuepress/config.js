@@ -44,9 +44,22 @@ module.exports = {
             children: [
               '/devops/cicd',
               '/devops/docker',
-              '/devops/kubernetes',
-              '/devops/kubectl',
-              '/devops/databases'
+              '/devops/databases',
+              '/devops/sql'
+            ]
+          },
+          {
+            title: 'Kubernetes',
+            collapsable: false,
+            children: [
+              '/kubernetes/overview',
+              '/kubernetes/kubectl',
+              '/kubernetes/objects',
+              '/kubernetes/ingress',
+              '/kubernetes/minikube',
+              '/kubernetes/own_cluster',
+              '/kubernetes/extras',
+              '/kubernetes/yaml'
             ]
           },
           {

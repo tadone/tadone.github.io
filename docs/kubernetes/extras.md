@@ -1,5 +1,5 @@
 ---
-title: "K8s Features"
+title: "Pod Options"
 ---
 
 ## ENV Variables
@@ -14,12 +14,13 @@ args: ["$(MESSAGE)"]
 
 ## Commands
 Run a command in a shell
-```bash
+```sh
 command: ["/bin/sh"]
-args: ["-c", "while true; do echo hello; sleep 10;done"]
+args: ["-c", "while true; do echo hello; sleep 10; done"]
 ```
+
 Example that will printenv HOSTNAME and KUBERNETES_PORT
-```yml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
