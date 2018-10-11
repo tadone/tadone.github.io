@@ -1,11 +1,11 @@
 version: 2
 jobs:
   deploy:
-    docker:
-    - image: circleci/node:latest
     filters:
       branches:
         only: develop
+    docker:
+    - image: circleci/node:latest
     environment:
     - SOURCE_BRANCH: develop
     - TARGET_BRANCH: master
