@@ -1,6 +1,5 @@
 ---
 title: "Objects"
-sidebarDepth: 2
 ---
 
 # Kubernetes Objects
@@ -18,9 +17,10 @@ Kubernetes supports several types of Volumes (most common):
 - hostPath
 
 ### configMap
-::: warn
+::: warning
 You must create a ConfigMap before you can use it.
 :::
+
 The ``log-config`` ConfigMap is mounted as a volume, and all contents stored in its ``log_level`` entry are mounted into the Pod at path ``/etc/config/log_level``. Note that this path is derived from the volume’s ``mountPath`` and the ``path`` keyed with ``log_level``.
 ```yaml{14}
 apiVersion: v1
@@ -141,24 +141,33 @@ There are two ways PVs may be provisioned: statically or dynamically.
 ### Reclaiming
 When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a PersistentVolume tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled (Deprecated) or Deleted.
 
+### PV
+```yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql-volumeclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Gi
+```
+
 ### PVC
 Each PVC contains a spec and status, which is the specification and status of the claim.
 ```yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: myclaim
+  name: wordpress-volumeclaim
 spec:
   accessModes:
     - ReadWriteOnce
-  volumeMode: Filesystem
   resources:
     requests:
-      storage: 8Gi
-  storageClassName: slow
-  selector:
-    matchLabels:
-      release: "stable"
+      storage: 200Gi
 ```
 
 ### Claims As Volumes
@@ -236,7 +245,7 @@ $ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-### Mount as a Volume
+### As Volume
 Each key in the secret ``data`` map becomes the filename under ``mountPath``
 ```yaml
 apiVersion: v1
@@ -296,7 +305,7 @@ admin
 $ cat /etc/foo/password
 1f2d1e2e67df
 ```
-### Secrets as Environment Variables
+### As Env Variables
 ```yaml
 apiVersion: v1
 kind: Pod
