@@ -60,8 +60,8 @@ kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
 kubectl get services my-service
 kubectl describe services my-service
 ```
-Make a note of the external IP address (`LoadBalancer Ingress`) exposed by your service. Also note the value of `Port` and `NodePort`.  
-  - `Port` - internal to kubernetes  
+Make a note of the external IP address (`LoadBalancer Ingress`) exposed by your service. Also note the value of `Port` and `NodePort`.
+  - `Port` - internal to kubernetes
   - `NodePoert` - external to the world
 
 
@@ -82,4 +82,21 @@ Where `<external-ip>` is the external IP address (`LoadBalancer Ingress`) of you
 ```bash
 kubectl delete services my-service
 kubectl delete deployment hello-world
+```
+
+# HostPath
+HostPath (single node testing only – local storage is not supported in any way and **WILL NOT WORK** in a multi-node cluster)
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: gitlab-data
+  namespace: gitlab
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/tmp/gitlab-data"
 ```

@@ -65,11 +65,11 @@ git rebase -i <some-branch>       # Interactive rebase in current branch
 git commit -am "Big Commit"       # Commit changes after squashing smaller commits
 git push origin <some-branch>     # Push changes upstream
 ```
-## git push
+## Push
 Pushing is how you transfer commits from your local repository to a remote repo.
 
 _Usage:_
-`git push <remote> <branch>`
+`git push <to remote, upstream branch, usually origin> <from local branch>`
 
 _Example:_
 ```bash
@@ -78,7 +78,7 @@ git checkout <branch-name>
 git push origin <branch-name>     # Push changes upstream
 ```
 
-## git merge
+## Merge
 **git merge** will combine multiple sequences of commits into one unified history. In the most frequent use cases, git merge is used to combine two branches.
 
 _Example:_
@@ -90,7 +90,7 @@ git merge <branch-name>           # Merge <branch-name> into current branch whic
 git branch -d <branch-name>       # Delete the branch after merging
 ```
 
-## git log & diff
+## Log & Diff
 ```bash
 git shortlog                                # Quick summary of commits sorted by author
 git log --graph --oneline --decorate        # Nice graph showing commits
@@ -104,8 +104,8 @@ git diff <branch-name> origin/<branch-name> # Difference between local and remot
 git diff --summary <branch-name>            # Summary of changes since last commit against some branch
 ```
 
-## git stash
-```bash
+## Stash
+```sh
 git stash                         # Takes modified tracked files and staged changes and saves it...
                                   # ... on a stack of unfinished changes that you can reapply at any time
 git stash list                    # To see stored stashes

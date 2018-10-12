@@ -5,11 +5,28 @@ sidebarDepth: 2
 
 # Bash Scripting
 
-## Tips n Tricks
-```bash
-# Edit file with sed only if 'option' is there
+## Helpful Tips
+Edit with SED if the string exist:
+```sh
 grep -q '^option' file && \                              # returns true/false if the string 'option' is there
 sed -i "s/option = .*/option = my-setting/g" file        # replaces lines that start with 'option' string
+```
+Append multiple lines to a file:
+```sh
+# possibility 1:
+echo "line 1" >> greetings.txt
+echo "line 2" >> greetings.txt
+# possibility 2:
+echo -e "line 1\nline 2" >> greetings.txt
+# possibility 3:
+cat <<EOT >> greetings.txt
+line 1
+line 2
+EOT
+```
+Install package if not installed already
+```sh
+if ! dpkg -s <apt_package> > /dev/null; then apt-get install -y <apt_package>; fi
 ```
 #### ANSI Colors
 ::: tip

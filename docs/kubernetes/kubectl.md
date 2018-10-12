@@ -70,3 +70,9 @@ kubectl get events          # Get all events in cluster
 kube-system is the namespace for objects created by the Kubernetes system.
 
 Typically, this would contain pods like kube-dns, kube-proxy, kubernetes-dashboard and stuff like fluentd, heapster, ingresses and so on.
+
+## Scale
+
+```sh
+kubectl scale deployment/update-demo --replicas=0; kubectl scale deployment/update-demo --replicas=4;
+```
