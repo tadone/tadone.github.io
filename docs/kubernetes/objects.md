@@ -3,7 +3,9 @@ title: "Objects"
 sidebarDepth: 2
 ---
 
-# Volume
+# Kubernetes Objects
+
+## Volume
 At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
 Kubernetes supports several types of Volumes (most common):
 - configMap
@@ -15,7 +17,7 @@ Kubernetes supports several types of Volumes (most common):
 - downwardAPI
 - hostPath
 
-## configMap
+### configMap
 ::: warn
 You must create a ConfigMap before you can use it.
 :::
@@ -41,7 +43,7 @@ spec:
             path: log_level
 ```
 
-## emptyDir
+### emptyDir
 By default, ``emptyDir`` volumes are stored on whatever medium is backing the node - that might be disk or SSD or network storage, depending on your environment. However, you can set the ``emptyDir.medium`` field to ``Memory`` to tell Kubernetes to mount a tmpfs (RAM-backed filesystem) for you instead. While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on node reboot and any files you write will count against your Container’s memory limit.
 ```yaml
 apiVersion: v1
@@ -60,7 +62,7 @@ spec:
     emptyDir: {}
 ```
 
-## hostPath
+### hostPath
 A ``hostPath`` volume mounts a file or directory from the host node’s filesystem into your Pod. This is not something that most Pods will need, but it offers a powerful escape hatch for some applications.
 For example, some uses for a ``hostPath`` are:
 - running a Container that needs access to Docker internals; use a ``hostPath`` of ``/var/lib/docker``
@@ -100,7 +102,7 @@ spec:
       type: Directory
 ```
 
-## persistentVolumeClaim
+### persistentVolumeClaim
 A persistentVolumeClaim volume is used to mount a ``PersistentVolume`` into a Pod. ``PersistentVolumes`` are a way for users to “claim” durable storage (such as a GCE PersistentDisk or an iSCSI volume) without knowing the details of the particular cloud environment.
 See the **PersistentVolumes** example for more details.
 ```yaml
@@ -119,14 +121,14 @@ spec:
       storage: 20Gi
 ```
 
-# PersistentVolume
+## PersistentVolume
 Managing storage is a distinct problem from managing compute. The ``PersistentVolume`` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources: ``PersistentVolume`` and ``PersistentVolumeClaim``.
 - ``PersistentVolume`` (**PV**) is a piece of storage in the cluster that has been provisioned by an administrator.
 - ``PersistentVolumeClaim`` (**PVC**) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
 PVs are resources in the cluster. PVCs are requests for those resources and also act as claim checks to the resource.
 
-## Provisioning
+### Provisioning
 There are two ways PVs may be provisioned: statically or dynamically.
 - Static: A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.
 - Dynamic: When none of the static PVs the administrator created matches a user’s PersistentVolumeClaim, the cluster may try to dynamically provision a volume specially for the PVC. **This provisioning is based on StorageClasses**
@@ -136,10 +138,10 @@ There are two ways PVs may be provisioned: statically or dynamically.
 - Cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi. The PVC can be bound when a 100Gi PV is added to the cluster.
 :::
 
-## Reclaiming
+### Reclaiming
 When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a PersistentVolume tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled (Deprecated) or Deleted.
 
-## PVC
+### PVC
 Each PVC contains a spec and status, which is the specification and status of the claim.
 ```yaml
 kind: PersistentVolumeClaim
@@ -159,7 +161,7 @@ spec:
       release: "stable"
 ```
 
-## Claims As Volumes
+### Claims As Volumes
 Pods access storage by using the claim as a volume. Claims must exist in the same namespace as the pod using the claim. The cluster finds the claim in the pod’s namespace and uses it to get the PersistentVolume backing the claim. The volume is then mounted to the host and into the pod.
 ```yaml
 kind: Pod
@@ -179,11 +181,11 @@ spec:
         claimName: myclaim
 ```
 
-# Secret
+## Secret
 - A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key.
 - Secrets can be mounted as data volumes or be exposed as environment variables to be used by a container in a pod.
 
-## Create Manually
+### Create Manually
 ```sh
 # Create files needed for rest of example.
 $ echo -n 'admin' > ./username.txt
@@ -194,7 +196,7 @@ The ``kubectl create secret`` command packages these files into a Secret
 $ kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
 secret "db-user-pass" created
 ```
-## Describe
+### Describe
 Describe the secret. Items in Data are actual values of the secret
 ```sh
 $ kubectl describe secrets/db-user-pass
@@ -227,14 +229,14 @@ metadata:
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 ```
-## Decode
+### Decode
 Finally, decode the secret using base64
 ```sh
 $ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-## Mount as a Volume
+### Mount as a Volume
 Each key in the secret ``data`` map becomes the filename under ``mountPath``
 ```yaml
 apiVersion: v1
@@ -294,7 +296,7 @@ admin
 $ cat /etc/foo/password
 1f2d1e2e67df
 ```
-## Secrets as Environment Variables
+### Secrets as Environment Variables
 ```yaml
 apiVersion: v1
 kind: Pod
