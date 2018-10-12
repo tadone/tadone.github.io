@@ -7,14 +7,20 @@ title: "Objects"
 ## Volume
 At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
 Kubernetes supports several types of Volumes (most common):
-- configMap
-- azureDisk
-- gcePersistentDisk
-- emptyDir
-- persistentVolumeClaim
-- secret
-- downwardAPI
-- hostPath
+* node-local types:
+  - emptyDir
+  - hostPath
+* cloud provider-specific
+  - azureDisk
+  - gcePersistentDisk
+* distributed file system
+  - glusterfs
+  - cephfs
+* special purpose
+  - configMap
+  - secret
+  - downwardAPI
+* persistentVolumeClaim
 
 ### configMap
 ::: warning
