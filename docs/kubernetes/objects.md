@@ -1,5 +1,6 @@
 ---
 title: "Objects"
+sidebarDepth: 2
 ---
 
 # Volume
@@ -19,7 +20,7 @@ Kubernetes supports several types of Volumes (most common):
 You must create a ConfigMap before you can use it.
 :::
 The ``log-config`` ConfigMap is mounted as a volume, and all contents stored in its ``log_level`` entry are mounted into the Pod at path ``/etc/config/log_level``. Note that this path is derived from the volume’s ``mountPath`` and the ``path`` keyed with ``log_level``.
-```yaml
+```yaml{14}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -130,13 +131,53 @@ There are two ways PVs may be provisioned: statically or dynamically.
 - Static: A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.
 - Dynamic: When none of the static PVs the administrator created matches a user’s PersistentVolumeClaim, the cluster may try to dynamically provision a volume specially for the PVC. **This provisioning is based on StorageClasses**
 
-::: warn
+::: warning
 - PersistentVolumeClaim binds are exclusive, regardless of how they were bound. A PVC to PV binding is a one-to-one mapping.
 - Cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi. The PVC can be bound when a 100Gi PV is added to the cluster.
 :::
 
 ## Reclaiming
 When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a PersistentVolume tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled (Deprecated) or Deleted.
+
+## PVC
+Each PVC contains a spec and status, which is the specification and status of the claim.
+```yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: slow
+  selector:
+    matchLabels:
+      release: "stable"
+```
+
+## Claims As Volumes
+Pods access storage by using the claim as a volume. Claims must exist in the same namespace as the pod using the claim. The cluster finds the claim in the pod’s namespace and uses it to get the PersistentVolume backing the claim. The volume is then mounted to the host and into the pod.
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: myfrontend
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: mypd
+  volumes:
+    - name: mypd
+      persistentVolumeClaim:
+        claimName: myclaim
+```
 
 # Secret
 - A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key.
