@@ -1,5 +1,6 @@
 ---
 title: "Objects"
+sidebarDepth: 2
 ---
 
 # Kubernetes Objects
@@ -201,19 +202,22 @@ spec:
 - Secrets can be mounted as data volumes or be exposed as environment variables to be used by a container in a pod.
 
 ### Create Manually
-```sh
+
+```bash
 # Create files needed for rest of example.
 $ echo -n 'admin' > ./username.txt
 $ echo -n '1f2d1e2e67df' > ./password.txt
 ```
+
 The ``kubectl create secret`` command packages these files into a Secret
-```sh
+
+```bash
 $ kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
 secret "db-user-pass" created
 ```
 ### Describe
 Describe the secret. Items in Data are actual values of the secret
-```sh
+```bash
 $ kubectl describe secrets/db-user-pass
 Name:            db-user-pass
 Namespace:       default
@@ -227,7 +231,9 @@ Data
 password.txt:    12 bytes
 username.txt:    5 bytes
 ```
+
 Secrets can be retrieved via the ``kubectl get secret`` command
+
 ```sh
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
@@ -244,6 +250,7 @@ metadata:
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 ```
+
 ### Decode
 Finally, decode the secret using base64
 ```sh
