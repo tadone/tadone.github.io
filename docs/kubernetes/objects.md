@@ -1,6 +1,5 @@
 ---
 title: "Objects"
-sidebarDepth: 2
 ---
 
 # Kubernetes Objects
@@ -18,7 +17,7 @@ Kubernetes supports several types of Volumes (most common):
   - glusterfs
   - cephfs
 * special purpose
-  - configMap
+  - [configMap](#configMap)
   - secret
   - downwardAPI
 * persistentVolumeClaim
