@@ -160,7 +160,10 @@ gpg -–yes -–passphrase <passphrase> <filename>
 ```
 ## Rsync
 Simple copy
-``rsync -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude``
+```bash
+rsync -av --progress sourcefolder/ /destinationfolder --exclude thefoldertoexclude
+rsync -avzh infrastructure/splunk/ splunk/
+```
 
 ## Find
 

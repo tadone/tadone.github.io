@@ -108,3 +108,16 @@ az keyvault secret set --vault-name 'virtualpartnerdev720f1' --name 'SQLPassword
 # List secrets
 az keyvault secret list --vault-name 'virtualpartnerdev720f1'
 ```
+
+## Virtual Machines (VM)
+```bash
+# Add SSH user/key to existing VM
+az vm user update -u splunk --ssh-key-value "$(/bin/cat /Users/tadswider/.ssh/id_rsa.pub)" -n "vm_name" -g "resource_group"
+```
+
+# Azure DevOps
+```bash
+# Set env variable in the pipeline (using Linux Agent)
+MASTER_IP="$(az vm list-ip-addresses -g $RG_NAME -n cie-splunk-master-dev --query "[].virtualMachine.network.privateIpAddresses[0]" -o tsv)"
+echo "##vso[task.setvariable variable=IPADDRESS;]$MASTER_IP"
+```

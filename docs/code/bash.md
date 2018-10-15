@@ -41,7 +41,7 @@ echo -e "\nTest" | printf '\n%s' "Test"   | Print Test on a new line  |
 echo -e "$VAR"  | printf '\n%s' "$VAR" | Print $VAR as string  |
 echo -e "\n$VAR"  | printf '\n%s\n' "$VAR" | Print $VAR as string followed by new line |
 |echo -e "\"Test\""   | printf '%s\n' "\"Test\""  | Print "Test" as string followed by new line |
-|echo -e "${cyan}$*${clear}" | printf "$cyan%s$clear\n" "$*"  | Print any argument in color then reset it |
+|echo -e "${cyan}$*${clear}" | printf "$cyan%s$clear\n" "$*"  | Print any argument in color then resets it back |
 
 **ANSI Color Codes**
 ```bash
