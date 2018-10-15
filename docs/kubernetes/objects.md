@@ -8,19 +8,19 @@ title: "Objects"
 At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
 Kubernetes supports several types of Volumes (most common):
 * node-local types:
-  - emptyDir
-  - hostPath
+  - [emptyDir](#emptyDir)
+  - [hostPath](#hostPath)
 * cloud provider-specific
   - azureDisk
-  - gcePersistentDisk
+  - [gcePersistentDisk](#gcePersistentDisk)
 * distributed file system
   - glusterfs
   - cephfs
 * special purpose
   - [configMap](#configMap)
-  - secret
+  - [secret](#secret)
   - downwardAPI
-* persistentVolumeClaim
+* [persistentVolumeClaim](#persistentVolumeClaim)
 
 ### configMap
 ::: warning
@@ -233,7 +233,7 @@ username.txt:    5 bytes
 
 Secrets can be retrieved via the ``kubectl get secret`` command
 
-```sh
+```bash
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
 data:
@@ -252,7 +252,7 @@ type: Opaque
 
 ### Decode
 Finally, decode the secret using base64
-```sh
+```bash
 $ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
@@ -308,7 +308,7 @@ To consume all keys from the secret, all of them must be listed in the items fie
 **Consuming Secret Values from Volumes**
 _Mounted Secrets are updated automatically_
 Inside the container that mounts a secret volume, the secret keys appear as files and the secret values are base-64 decoded and stored inside these files.
-```sh
+```bash
 $ ls /etc/foo/
 username
 password
@@ -339,7 +339,7 @@ spec:
             name: mysecret
             key: password
 ```
-```sh
+```bash
 $ echo $SECRET_USERNAME
 admin
 $ echo $SECRET_PASSWORD

@@ -7,12 +7,12 @@ sidebarDepth: 2
 
 ## Helpful Tips
 Edit with SED if the string exist:
-```sh
+```bash
 grep -q '^option' file && \                              # returns true/false if the string 'option' is there
 sed -i "s/option = .*/option = my-setting/g" file        # replaces lines that start with 'option' string
 ```
 Append multiple lines to a file:
-```sh
+```bash
 # possibility 1:
 echo "line 1" >> greetings.txt
 echo "line 2" >> greetings.txt
@@ -25,15 +25,25 @@ line 2
 EOT
 ```
 Install package if not installed already
-```sh
+```bash
 if ! dpkg -s <apt_package> > /dev/null; then apt-get install -y <apt_package>; fi
 ```
-#### ANSI Colors
-::: tip
-This is a tip
-:::
+## Print Output
+
 The shell output can be colorized via ANSI escape codes
 Requires Bash v4 and use of `printf` or `echo -e`
+
+echo  | printf  | Explained  |
+--|---|---|--
+echo  | printf '\n'   | Prints empty new line  |
+echo -n "Test" | printf "Test"  | Print Test without a new line  |
+echo -e "\nTest" | printf '\n%s' "Test"   | Print Test on a new line  |
+echo -e "$VAR"  | printf '\n%s' "$VAR" | Print $VAR as string  |
+echo -e "\n$VAR"  | printf '\n%s\n' "$VAR" | Print $VAR as string followed by new line |
+|echo -e "\"Test\""   | printf '%s\n' "\"Test\""  | Print "Test" as string followed by new line |
+|echo -e "${cyan}$*${clear}" | printf "$cyan%s$clear\n" "$*"  | Print any argument in color then reset it |
+
+**ANSI Color Codes**
 ```bash
 # COLORS
 BLACK="\u001b[30m"
@@ -46,6 +56,8 @@ CYAN="\u001b[36m"
 WHITE="\u001b[37m"
 # RESET
 RESET = "\u001b[0m"                 # Reset the colors
+# FOR printf
+clear="\e[0m"
 # DECORATORS
 BOLD="\u001b[1m"
 UNDERLINE="\u001b[4m"

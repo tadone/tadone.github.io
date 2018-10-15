@@ -12,17 +12,21 @@ export KUBECONFIG=$(echo ${HOME}/.kube/cie-*.config | sed 's/ /:/g') && echo "KU
 kubectl config view --flatten --merge > ${HOME}/.kube/config && echo "Combined ~/.kube/config created..."
 chmod 600 ${HOME}/.kube/config && echo "Finished"
 ```
-## Get
+## Namespaces
 ```bash
 kubectl get namespaces
 kubectl --namespace=hello-worlds-dev get pods
 
 # List all pods in ps output format with more information (such as node name).
 kubectl --namespace=default get pods -o wide
+```
 
-
+## Pods
+```bash
 kubectl get pods --field-selector=status.phase=Running  # Get all running pods in the namespace
 
+# Delete a pod that's hanging in terminating step
+kubectl delete pod test-admin-adapter-dev-6575477fb9-vsm9h --grace-period=0 --force
 kubectl get services                          # List all services in the namespace
 
 kubectl --namespace=saas-aware-dev get pods --show-labels  # Show pod labels
