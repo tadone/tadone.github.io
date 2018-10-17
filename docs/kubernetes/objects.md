@@ -87,6 +87,7 @@ FileOrCreate      | If nothing exists at the given path, an empty file will be c
 Socket            | A UNIX socket must exist at the given path
 CharDevice        | A character device must exist at the given path
 BlockDevice       | A block device must exist at the given path
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -344,4 +345,64 @@ $ echo $SECRET_USERNAME
 admin
 $ echo $SECRET_PASSWORD
 1f2d1e2e67df
+```
+
+## Service
+A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. The set of Pods targeted by a Service is (usually) determined by a ``Label Selector``
+
+This specification will create a new Service object named “``my-service``” which targets TCP port 9376 on any ``Pod`` with the "``app=MyApp``" label. This Service will also be assigned an IP address (``Cluster IP``).
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp        # Service targets pods with "app: MyApp"
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
+```
+
+Note that a ``Service`` can map an incoming port to any ``targetPort``. By default the ``targetPort`` will be set to the same value as the ``port`` field. Perhaps more interesting is that ``targetPort`` can be a string, referring to the name of a port in the backend ``Pods``. The actual port number assigned to that name can be different in each backend ``Pod``. This offers a lot of flexibility for deploying and evolving your Services. For example, you can change the port number that pods expose in the next version of your backend software, without breaking clients.
+
+# Metadata
+
+## Namespace
+``Namespaces`` provide a scope of Kubernetes objects. You can think of it as a workspace you’re sharing with other users. Many objects such as pods and services are namespaced, while some (like nodes) are not. Can have access control or resource quotas.
+```yaml{4}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test    # Create namespace called "test"
+```
+
+Later K8s resources can be deployed to that namespace using ``metadata``. It will be hard coded so this pod will always deploy to that namespace.
+```yaml(5)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podintest
+  namespace: test # This pod will be deployed in "test" namespace
+```
+
+## Labels
+``Labels`` are the mechanism you use to organize Kubernetes objects. A label is a key-value pair with certain restrictions concerning length and allowed values but without any pre-defined meaning. So you’re free to choose labels as you see fit, for example, to express environments such as ‘this pod is running in production’ or ownership, like ‘department X owns that pod’.
+
+```yaml{5}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: labelexother
+  labels:
+    env: production
+    owner: michael
+    app: MyApp
+spec:
+  containers:
+  - name: sise
+    image: mhausenblas/simpleservice:0.5.0
+    ports:
+- containerPort: 9876
 ```
