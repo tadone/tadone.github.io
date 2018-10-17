@@ -14,13 +14,13 @@ args: ["$(MESSAGE)"]
 
 ## Commands
 Run a command in a shell
-```sh
+```bash
 command: ["/bin/sh"]
 args: ["-c", "while true; do echo hello; sleep 10; done"]
 ```
 
 Example that will printenv HOSTNAME and KUBERNETES_PORT
-```yaml
+```yaml{10}
 apiVersion: v1
 kind: Pod
 metadata:
