@@ -1,14 +1,13 @@
 ---
-title: "Ingress"
+title: "Services & Ingress"
 ---
 
-_Getting traffic into the cluster._
-
+# Services
 To make a pod accessible you can create a **Service** which is an abstraction that creates a logical group of **Pods** together and provides a way to access them. A **Service** uses the metadata labels assigned to **Pods** to determine its constituents.
 
 Each **Service** has a setting called **ServiceType** that defines how that service is exposed. You can set this to **ClusterIP**, **NodePort**, **LoadBalancer**, or **ExternalName** depending on your particular deployment scenario.
 
-# ClusterIP
+## Service Type: ClusterIP
 
 **ClusterIP** is the default **ServiceType** and it creates a single IP address that can be used to access its **Pods** which can only be accessed from inside the cluster.
 
@@ -30,7 +29,7 @@ spec:
     protocol: TCP
 ```
 
-# NodePort
+## Service Type: NodePort
 
 A **NodePort** service is the most primitive way to get external traffic directly to your service. **NodePort**, as the name implies, opens a specific port (typically 30000–32767) on all the Nodes (the VMs), and any traffic that is sent to this port is forwarded to the service.
 
@@ -57,7 +56,7 @@ spec:
 
 The **nodePort** that specifies which port to open on the nodes. If you don’t specify this port, it will pick a random port. Most of the time you should let Kubernetes choose the port. This should be used as a temprorary solution.
 
-# LoadBalancer
+## Service Type: LoadBalancer
 **LoadBalancer** service type automatically deploys an external load balancer. This external load balancer is associated with a specific IP address and routes external traffic to a Kubernetes service in your cluster.
 
 **LoadBalancer** is used to automatically configure a supported ``external Load Balancer`` (for instance an ELB in Amazon) to route traffic through to the **NodePort** of the Service. This is the most versatile of the **ServiceTypes** but requires that you have a supported Load Balancer in your infrastructure of which most major cloud providers have (GCE, AWS, Azure).
@@ -85,10 +84,10 @@ spec:
 ```
 
 
-# ExternalName
+## Service Type: ExternalName
 ExternalName creates DNS records in KubeDNS to direct the Service’s DNS to an external service specified in the field ExternalName. It provides no other routing or load balancing services.
 
-# External IP
+## Service Type: External IP
 ```sh
 $ kubectl run ghost --image=ghost:2.1.4 --port=2368
 deployment "ghost" created
@@ -97,7 +96,7 @@ service "ghost" exposed
 $ curl 192.168.10.10:2368
 ```
 
-# Ingress
+## Ingress
 ::: warn
 Before using ingress resource, an ingress controller has to be installed!
 :::
@@ -173,7 +172,7 @@ spec:
         - --configmap=$(POD_NAMESPACE)/nginx-ingress-controller
 ```
 
-## Default Backend
+### Default Backend (Optional for NGINX)
 This pod will route all request that are not associated with any service to default backend, which will respond with 404.
 ```yaml
 apiVersion: extensions/v1beta1

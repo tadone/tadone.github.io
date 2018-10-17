@@ -346,7 +346,112 @@ admin
 $ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
+# Running Containers
 
+## Pod
+A pod is a collection of containers (usually just single container) sharing a network and mount namespace and is the basic unit of deployment in Kubernetes. All containers in a pod are scheduled on the same node. Most of the time ``deployment`` should be used instead. Often, ``init-containers`` are part of the ``pod``.
+
+Here is an example pod with 2 containers.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: twocontainers
+spec:
+  containers:
+  - name: sise
+    image: mhausenblas/simpleservice:0.5.0
+    ports:
+    - containerPort: 9876
+  - name: shell
+    image: centos:7
+    command:
+      - "bin/bash"
+      - "-c"
+- "sleep 10000"
+```
+
+## Replication Controller
+A ``replication controller`` (RC) is a supervisor for long-running pods. An RC will launch a specified number of ``pods`` called ``replicas`` and makes sure that they keep running, for example when a node fails or something inside of a pod, that is, in one of its containers goes wrong.
+
+**Note that, going forward, the RCs are called ``replica sets`` (RS), supporting set-based selectors. The RS are already in use in the context of ``deployments``.**
+
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: some-namespace
+spec:
+  replicas: 1
+  selector:
+    app: sise
+  template:
+    metadata:
+      name: somename
+      labels:
+        app: sise
+    spec:
+      containers:
+      - name: sise
+        image: mhausenblas/simpleservice:0.5.0
+        ports:
+- containerPort: 9876
+```
+
+## Deployment
+A deployment is a supervisor for pods and replica sets, giving you fine-grained control over how and when a new pod version is rolled out as well as rolled back to a previous state.
+```yaml
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: myapp-deploy        # Name of the deployment
+spec:
+  replicas: 2               # Number of replicas (pods)
+  template:
+    metadata:
+      labels:
+        app: MyApp          # Label all pods with "app: MyApp"
+    spec:
+      containers:
+      - name: myapp
+        image: mhausenblas/simpleservice:0.5.0
+        ports:
+        - containerPort: 9876
+        env:
+        - name: SIMPLE_SERVICE_VERSION
+value: "0.9"
+```
+
+## DaemonSet
+A ``DaemonSet`` ensures that all (or some) ``Nodes`` run a copy of a ``Pod``. As nodes are added to the cluster, ``Pods`` are added to them. As nodes are removed from the cluster, those ``Pods`` are garbage collected. Deleting a ``DaemonSet`` will clean up the ``Pods`` it created.
+
+Some typical uses of a DaemonSet are:
+- running a cluster storage daemon, such as ``glusterd``, ``ceph``, on each node.
+- running a logs collection daemon on every node, such as ``fluentd`` or ``logstash``.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: frontend
+spec:
+  updateStrategy: RollingUpdate     # Update strategy
+    maxUnavailable: 1               # Max unavailable pods when updating
+    minReadySeconds: 0
+  template:
+    metadata:
+      labels:
+        app: frontend-webserver     # All pods in DS will have label: "app: frontend-webserver"
+    spec:
+      nodeSelector:
+        app: frontend-node          # Selects which nodes will run this DS
+      containers:
+        - name: webserver
+          image: nginx
+          ports:
+          - containerPort: 80
+```
+Starting in Kubernetes 1.6, you will be able to do rolling updates with Kubernetes DaemonSets. You’ll have to set the ``updateStrategy``.
 ## Service
 A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. The set of Pods targeted by a Service is (usually) determined by a ``Label Selector``
 
@@ -355,7 +460,7 @@ This specification will create a new Service object named “``my-service``” w
 kind: Service
 apiVersion: v1
 metadata:
-  name: my-service
+  name: my-service    # Name of the service
 spec:
   selector:
     app: MyApp        # Service targets pods with "app: MyApp"
@@ -366,6 +471,13 @@ spec:
 ```
 
 Note that a ``Service`` can map an incoming port to any ``targetPort``. By default the ``targetPort`` will be set to the same value as the ``port`` field. Perhaps more interesting is that ``targetPort`` can be a string, referring to the name of a port in the backend ``Pods``. The actual port number assigned to that name can be different in each backend ``Pod``. This offers a lot of flexibility for deploying and evolving your Services. For example, you can change the port number that pods expose in the next version of your backend software, without breaking clients.
+
+#### Service types
+At the moment, Kubernetes supports three service types:
+-  ClusterIP
+-  NodePort
+-  LoadBalancer
+
 
 # Metadata
 
@@ -405,4 +517,26 @@ spec:
     image: mhausenblas/simpleservice:0.5.0
     ports:
 - containerPort: 9876
+```
+
+## Annotations
+
+Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not "queryable" and should be preserved when modifying objects.
+
+```yaml{5}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ghost-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik  # Use annotation to define, which ingress controller to use (Traefik)
+spec:
+  rules:
+  - host: "ghost.tadone.pw"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ghost-svc
+          servicePort: 80
 ```
