@@ -7,13 +7,13 @@ To make a pod accessible you can create a **Service** which is an abstraction th
 
 Each **Service** has a setting called **ServiceType** that defines how that service is exposed. You can set this to **ClusterIP**, **NodePort**, **LoadBalancer**, or **ExternalName** depending on your particular deployment scenario.
 
-## Service Type: ClusterIP
+## Type: ClusterIP
 
 **ClusterIP** is the default **ServiceType** and it creates a single IP address that can be used to access its **Pods** which can only be accessed from inside the cluster.
 
 The YAML for a ClusterIP service looks like this:
 
-```yaml
+```yaml{8}
 apiVersion: v1
 kind: Service
 metadata:  
@@ -29,7 +29,7 @@ spec:
     protocol: TCP
 ```
 
-## Service Type: NodePort
+## Type: NodePort
 
 A **NodePort** service is the most primitive way to get external traffic directly to your service. **NodePort**, as the name implies, opens a specific port (typically 30000–32767) on all the Nodes (the VMs), and any traffic that is sent to this port is forwarded to the service.
 
@@ -37,7 +37,7 @@ A Service exposed as a NodePort can be accessed via ``<node-ip-address>:<node-po
 
 The YAML for a NodePort service looks like this:
 
-```yaml
+```yaml{8}
 apiVersion: v1
 kind: Service
 metadata:  
@@ -56,12 +56,11 @@ spec:
 
 The **nodePort** that specifies which port to open on the nodes. If you don’t specify this port, it will pick a random port. Most of the time you should let Kubernetes choose the port. This should be used as a temprorary solution.
 
-## Service Type: LoadBalancer
+## Type: LoadBalancer
 **LoadBalancer** service type automatically deploys an external load balancer. This external load balancer is associated with a specific IP address and routes external traffic to a Kubernetes service in your cluster.
 
 **LoadBalancer** is used to automatically configure a supported ``external Load Balancer`` (for instance an ELB in Amazon) to route traffic through to the **NodePort** of the Service. This is the most versatile of the **ServiceTypes** but requires that you have a supported Load Balancer in your infrastructure of which most major cloud providers have (GCE, AWS, Azure).
-```yaml
-
+```yaml{8}
 apiVersion: v1
 kind: Service
 metadata:
@@ -84,10 +83,10 @@ spec:
 ```
 
 
-## Service Type: ExternalName
+## Type: ExternalName
 ExternalName creates DNS records in KubeDNS to direct the Service’s DNS to an external service specified in the field ExternalName. It provides no other routing or load balancing services.
 
-## Service Type: External IP
+## Type: External IP
 ```sh
 $ kubectl run ghost --image=ghost:2.1.4 --port=2368
 deployment "ghost" created
@@ -97,7 +96,7 @@ $ curl 192.168.10.10:2368
 ```
 
 ## Ingress
-::: warn
+::: warning
 Before using ingress resource, an ingress controller has to be installed!
 :::
 
@@ -105,8 +104,7 @@ There are many types of **Ingress controllers**, from the Google Cloud Load Bala
 
 Unlike all the above examples, Ingress is actually NOT a type of service. Instead, it sits in front of multiple services and act as a “smart router” or entrypoint into your cluster. For example, you can send everything on foo.yourdomain.com to the **foo** service, and everything under the yourdomain.com/bar/ path to the **bar** service.
 
-
-```yaml
+```yaml{2}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

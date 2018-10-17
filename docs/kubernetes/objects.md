@@ -4,6 +4,122 @@ title: "Objects"
 
 # Kubernetes Objects
 
+## ConfigMap
+The ConfigMap object provides mechanisms to inject containers with configuration data. A ``ConfigMap`` can be used to store fine-grained information like individual properties or coarse-grained information like entire configuration files or JSON blobs.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-staging-sidekiq
+  labels:
+    name: test-staging-sidekiq
+  namespace: test
+data:
+  config: |-
+    ---
+    :verbose: true
+    :environment: staging
+    :pidfile: tmp/pids/sidekiq.pid
+    :logfile: log/sidekiq.log
+    :concurrency: 20
+    :queues:
+      - [default, 1]
+    :dynamic: true
+    :timeout: 300
+```
+The above template creates ``ConfigMap`` in the test namespace and is only accessible in that namespace. After that let’s use this ``configmap`` as a ``volume`` to create our ``sidekiq.yml`` configuration file in deployment template named ``test-deployment.yml``.
+### ConfigMap as Volume:
+```yaml{26}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test-staging
+  labels:
+    app: test-staging
+  namespace: test
+spec:
+  template:
+    metadata:
+      labels:
+        app: test-staging
+    spec:
+      containers:
+      - image: <your-repo>/<your-image-name>:latest
+        name: test-staging
+        imagePullPolicy: Always
+        volumeMounts:
+            - mountPath: /etc/sidekiq/config
+              name: test-staging-sidekiq
+        ports:
+        - containerPort: 80
+      volumes:
+        - name: test-staging-sidekiq
+          configMap:
+             name: test-staging-sidekiq             # Name of ConfigMap to use
+             items:                                 
+              - key: config
+                path:  sidekiq.yml                  # File created in VolumeMount
+```
+Further if we want to make changes, we can simply modify the ``configmap`` template and restart the pod or scale down/up.
+
+### Configure all key-value pairs in a ConfigMap as container ENV variables
+ConfigMap with one environment variable
+```yaml
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: special-config
+     namespace: default
+   data:
+     SPECIAL_LEVEL: very
+     SPECIAL_TYPE: charm
+```
+You can consume the keys of this ConfigMap in a pod using configMapKeyRef sections. Use ``envFrom`` to define all of the ConfigMap’s data as container environment variables. The key from the ``ConfigMap`` becomes the environment variable name in the Pod. 
+```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: dapi-test-pod
+   spec:
+     containers:
+       - name: test-container
+         image: k8s.gcr.io/busybox
+         command: [ "/bin/sh", "-c", "env" ]
+         envFrom:
+         - configMapRef:
+             name: special-config             # Name of the config map
+     restartPolicy: Never
+```
+The pod will have ENV variables ``SPECIAL_LEVEL=very`` and ``SPECIAL_TYPE=charm``.
+
+### Use ConfigMap-defined environment variables in Pod commands
+You can use ConfigMap-defined environment variables in the command section of the Pod specification using the $(VAR_NAME) Kubernetes substitution syntax.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "echo $(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: special-config
+              key: SPECIAL_LEVEL
+        - name: SPECIAL_TYPE_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: special-config
+              key: SPECIAL_TYPE
+  restartPolicy: Never
+```
+Produces the following output in the test-container container: ``very charm``
+
 ## Volume
 At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
 Kubernetes supports several types of Volumes (most common):
@@ -472,7 +588,7 @@ spec:
 
 Note that a ``Service`` can map an incoming port to any ``targetPort``. By default the ``targetPort`` will be set to the same value as the ``port`` field. Perhaps more interesting is that ``targetPort`` can be a string, referring to the name of a port in the backend ``Pods``. The actual port number assigned to that name can be different in each backend ``Pod``. This offers a lot of flexibility for deploying and evolving your Services. For example, you can change the port number that pods expose in the next version of your backend software, without breaking clients.
 
-#### Service types
+#### Service types:
 At the moment, Kubernetes supports three service types:
 -  ClusterIP
 -  NodePort
