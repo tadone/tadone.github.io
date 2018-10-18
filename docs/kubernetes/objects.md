@@ -6,6 +6,8 @@ title: "Objects"
 
 ## Volume
 At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
+
+### Volume Types:
 Kubernetes supports several types of Volumes (most common):
 * node-local types:
   - [emptyDir](#emptyDir)
@@ -22,7 +24,7 @@ Kubernetes supports several types of Volumes (most common):
   - downwardAPI
 * [persistentVolumeClaim](#persistentVolumeClaim)
 
-### configMap
+#### Type: configMap
 ::: warning
 You must create a ConfigMap before you can use it.
 :::
@@ -49,9 +51,9 @@ spec:
             path: log_level
 ```
 
-### emptyDir
+#### Type: emptyDir
 By default, ``emptyDir`` volumes are stored on whatever medium is backing the node - that might be disk or SSD or network storage, depending on your environment. However, you can set the ``emptyDir.medium`` field to ``Memory`` to tell Kubernetes to mount a tmpfs (RAM-backed filesystem) for you instead. While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on node reboot and any files you write will count against your Container’s memory limit.
-```yaml
+```yaml{14}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -68,15 +70,13 @@ spec:
     emptyDir: {}
 ```
 
-### hostPath
-A ``hostPath`` volume mounts a file or directory from the host node’s filesystem into your Pod. This is not something that most Pods will need, but it offers a powerful escape hatch for some applications.
+#### Type: hostPath
+A ``hostPath`` volume mounts a file or directory from the host node’s filesystem into your Pod.   
 For example, some uses for a ``hostPath`` are:
 - running a Container that needs access to Docker internals; use a ``hostPath`` of ``/var/lib/docker``
 - running cAdvisor in a Container; use a ``hostPath`` of ``/sys``
 
-In addition to the required path property, user can optionally specify a type for a hostPath volume.
-The supported values for field type are:
-_Empty string (default) is for backward compatibility, which means that no checks will be performed before mounting the hostPath volume._
+The supported values for field type are (if empty, no checks will be performed):
 
 Value             | Behavior
 ------------------|-------------
@@ -85,9 +85,8 @@ DirectoryOrCreate | If nothing exists at the given path, an empty directory will
 FileOrCreate      | If nothing exists at the given path, an empty file will be created there as needed with permission set to 0644, having the same group and ownership with Kubelet.
 **File**              | A file must exist at the given path
 Socket            | A UNIX socket must exist at the given path
-CharDevice        | A character device must exist at the given path
-BlockDevice       | A block device must exist at the given path
-```yaml
+
+```yaml{14}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -108,26 +107,29 @@ spec:
       type: Directory
 ```
 
-### persistentVolumeClaim
+#### Type: persistentVolumeClaim
 A persistentVolumeClaim volume is used to mount a ``PersistentVolume`` into a Pod. ``PersistentVolumes`` are a way for users to “claim” durable storage (such as a GCE PersistentDisk or an iSCSI volume) without knowing the details of the particular cloud environment.
 See the **PersistentVolumes** example for more details.
-```yaml
----
+```yaml{14}
+kind: Pod
 apiVersion: v1
-kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
-  labels:
-    app: wordpress
+  name: mypod
 spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
+  containers:
+    - name: myfrontend
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: mypd
+  volumes:
+    - name: mypd
+      persistentVolumeClaim:
+        claimName: myclaim
 ```
 
 ## PersistentVolume
+
 Managing storage is a distinct problem from managing compute. The ``PersistentVolume`` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources: ``PersistentVolume`` and ``PersistentVolumeClaim``.
 - ``PersistentVolume`` (**PV**) is a piece of storage in the cluster that has been provisioned by an administrator.
 - ``PersistentVolumeClaim`` (**PVC**) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
