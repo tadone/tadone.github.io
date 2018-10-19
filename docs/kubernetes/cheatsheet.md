@@ -164,7 +164,7 @@ title: "Cheatsheet"
 | [kubectl](https://github.com/kubernetes/kubernetes/tree/master/cmd/kubectl)| the command line util to talk to k8s cluster                |
 | [kubeadm](https://github.com/kubernetes/kubernetes/tree/master/cmd/kubeadm)| the command to bootstrap the cluster                        |
 | [kubefed](https://kubernetes.io/docs/reference/setup-tools/kubefed/kubefed/)| the command line to control a Kubernetes Cluster Federation |
-| [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)|
+| [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)|Kubernetes Components|
 
 ## Other Components
 
