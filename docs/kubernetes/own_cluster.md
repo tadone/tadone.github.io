@@ -16,7 +16,24 @@ Cluster options:
 Below the node pool there are some additional options.
 - Disable HTTP load balancing (load balancing is expensive in GCP) and also
 - Disable all the StackDriver stuff (also can be expensive and has flaky reliability in my experience) as well as - Disable the kubernetes dashboard
+## GCloud CLI
+```bash
+brew cask install google-cloud-sdk
 
+# GCloud
+gcloud auth login
+gcloud config set project kubernetes-tad1
+gcloud container clusters get-credentials tad1-cluster --zone=us-west1-a
+gcloud info | grep Account
+
+# KubeCTL
+kubectl create clusterrolebinding myname-cluster-admin-binding \
+  --clusterrole=cluster-admin \
+  --user=tadone@gmail.com
+
+# OR
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
+```
 # Traefik Load Balancer
 To test out traefik.toml without valid certificate:
 ```sh

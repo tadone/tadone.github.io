@@ -1,5 +1,5 @@
 ---
-title: "Pod Options"
+title: "Extras"
 ---
 
 ## ENV Variables
@@ -63,4 +63,55 @@ If you want to specify time, as well, this is what needs to be added:
       timeoutSeconds: 10
   ```
 
-Note that the example above would work hitting ClusterIP type service directly (which is quite uncommon) or with Loadbalancer type service, but won't with an Ingress behind NodePort type service. This is because with an Ingress, the requests come from many, randomly chosen source IP addresses.
+## Liveness & Readiness Probe
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+http://kubernetesbyexample.com/healthz/
+https://kubernetes-v1-4.github.io/docs/user-guide/liveness/
+https://github.com/arun-gupta/kubernetes-java-sample/blob/master/wildfly-pod-hc-http.yaml
+http://kubernetesbyexample.com/healthz/
+
+Probes have a number of fields that you can use to more precisely control the behavior of liveness and readiness checks:
+
+- initialDelaySeconds: Number of seconds after the container has started before liveness or readiness probes are initiated.
+- periodSeconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+- timeoutSeconds: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1.
+- successThreshold: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness. Minimum value is 1.
+- failureThreshold: When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready. Defaults to 3. Minimum value is 1.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - args:
+    - /bin/sh
+    - -c
+    - echo ok > /tmp/health; sleep 10; rm -rf /tmp/health; sleep 600
+    image: gcr.io/google_containers/busybox
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/health
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+    name: liveness
+```
+
+## Debugging
+
+### Pod CrashLoopBackOff: starting, then crashing, then starting again and crashing again
+https://kubernetes.io/docs/tasks/debug-application-cluster/debug-init-containers/
+
+| Status                     | Meaning       |
+|----------------------------|--------------|
+| Init:N/M                   | The Pod has M Init Containers, and N have completed so far. |
+| Init:Error                 | An Init Container has failed to execute.                    |
+| Init:CrashLoopBackOff      | An Init Container has failed repeatedly.                    |
+| Pending                    | The Pod has not yet begun executing Init Containers.        |
+| PodInitializing or Running | The Pod has already finished executing Init Containers.     |

@@ -4,6 +4,7 @@ title: "Overview"
 
 # Kubernetes (k8s)
 ---
+
 ## Overview
 **Kubernetes** is a production-grade, open-source platform that orchestrates the placement (scheduling) and execution of application containers within and across computer clusters.
 
@@ -59,3 +60,6 @@ The basic Kubernetes objects include:
   An ingress is just another Kubernetes resource, however, in most cases, it is required to have an **Ingress Controller** Such as Nginx or Træfik.
 - **Job**
   A job creates one or more pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the job tracks the successful completions. When a specified number of successful completions is reached, the job itself is complete. Deleting a Job will cleanup the pods it created.
+
+## Networking
+Each ``Pod`` is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers inside a Pod can communicate with one another using ``localhost``. When containers in a Pod communicate with entities outside the Pod, they must coordinate how they use the shared network resources (such as ports). 

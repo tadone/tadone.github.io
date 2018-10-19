@@ -246,13 +246,6 @@ spec:
 
 ## PersistentVolume
 
-Managing storage is a distinct problem from managing compute. The ``PersistentVolume`` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources: ``PersistentVolume`` and ``PersistentVolumeClaim``.
-- ``PersistentVolume`` (**PV**) is a piece of storage in the cluster that has been provisioned by an administrator.
-- ``PersistentVolumeClaim`` (**PVC**) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
-
-PVs are resources in the cluster. PVCs are requests for those resources and also act as claim checks to the resource.
-
-### Provisioning
 There are two ways PVs may be provisioned: statically or dynamically.
 - Static: A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.
 - Dynamic: When none of the static PVs the administrator created matches a user’s PersistentVolumeClaim, the cluster may try to dynamically provision a volume specially for the PVC. **This provisioning is based on StorageClasses**
@@ -262,30 +255,23 @@ There are two ways PVs may be provisioned: statically or dynamically.
 - Cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi. The PVC can be bound when a 100Gi PV is added to the cluster.
 :::
 
-### Reclaiming
-When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource. The reclaim policy for a PersistentVolume tells the cluster what to do with the volume after it has been released of its claim. Currently, volumes can either be Retained, Recycled (Deprecated) or Deleted.
+## PersistentVolumeClaim
 
-### PV
+Creating and using a persistent volume is a three step process:
+1. (OPTIONAL) Provision: Administrator provision a networked storage in the cluster, such as AWS ElasticBlockStore volumes. This is called as PersistentVolume.
+2. Request storage: User requests storage for pods by using claims. Claims can specify levels of resources (CPU and memory), specific sizes and access modes (e.g. can be mounted once read/write or many times write only). This is called as ``PersistentVolumeClaim``.
+3. Use claim: Claims are mounted as volumes and used in pods for storage.
+
+The **access mode**s are:
+- ``ReadWriteOnce`` - the volume can be mounted as read-write by a single node
+- ``ReadOnlyMany`` - the volume can be mounted read-only by many nodes
+- ``ReadWriteMany`` - the volume can be mounted as read-write by many nodes
+
 ```yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: mysql-volumeclaim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 200Gi
-```
-
-### PVC
-Each PVC contains a spec and status, which is the specification and status of the claim.
-```yaml
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: wordpress-volumeclaim
 spec:
   accessModes:
     - ReadWriteOnce
@@ -315,8 +301,13 @@ spec:
 ```
 
 ## Secret
-- A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key.
-- Secrets can be mounted as data volumes or be exposed as environment variables to be used by a container in a pod.
+``Secrets`` are intended to hold sensitive information, such as passwords, OAuth tokens, and ssh keys.
+https://github.com/arun-gupta/vault-kubernetes/blob/master/secrets.yaml
+http://kubernetesbyexample.com/secrets/
+
+- Secrets are namespaced objects, that is, exist in the context of a namespace
+- You can access them via a volume or an environment variable from a container running in a pod
+- The secret data on nodes is stored in tmpfs volumes
 
 ### Create Manually
 
@@ -656,4 +647,37 @@ spec:
         backend:
           serviceName: ghost-svc
           servicePort: 80
+```
+
+# Other
+
+## CronJob
+https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+
+```bash
+kubectl create -f ./cronjob.yaml
+kubectl get cronjob hello
+kubectl get jobs --watch
+kubectl delete cronjob hello
+```
+
+```yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure
 ```
