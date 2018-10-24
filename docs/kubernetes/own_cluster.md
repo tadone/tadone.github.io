@@ -35,6 +35,7 @@ kubectl create clusterrolebinding myname-cluster-admin-binding \
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
 ```
 # Traefik Load Balancer
+
 To test out traefik.toml without valid certificate:
 ```sh
 defaultEntryPoints = ["http", "https"]

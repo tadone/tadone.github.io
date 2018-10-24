@@ -476,7 +476,7 @@ spec:
     command:
       - "bin/bash"
       - "-c"
-- "sleep 10000"
+      - "sleep 10000"
 ```
 
 ## Replication Controller
@@ -503,7 +503,7 @@ spec:
       - name: sise
         image: mhausenblas/simpleservice:0.5.0
         ports:
-- containerPort: 9876
+        - containerPort: 9876
 ```
 
 ## Deployment
@@ -527,7 +527,7 @@ spec:
         - containerPort: 9876
         env:
         - name: SIMPLE_SERVICE_VERSION
-value: "0.9"
+          value: "0.9"
 ```
 
 ## DaemonSet
@@ -580,12 +580,7 @@ spec:
 
 Note that a ``Service`` can map an incoming port to any ``targetPort``. By default the ``targetPort`` will be set to the same value as the ``port`` field. Perhaps more interesting is that ``targetPort`` can be a string, referring to the name of a port in the backend ``Pods``. The actual port number assigned to that name can be different in each backend ``Pod``. This offers a lot of flexibility for deploying and evolving your Services. For example, you can change the port number that pods expose in the next version of your backend software, without breaking clients.
 
-#### Service types:
-At the moment, Kubernetes supports three service types:
--  ClusterIP
--  NodePort
--  LoadBalancer
-
+**More about services in "Services & Ingress" section.**
 
 # Metadata
 
@@ -599,7 +594,7 @@ metadata:
 ```
 
 Later K8s resources can be deployed to that namespace using ``metadata``. It will be hard coded so this pod will always deploy to that namespace.
-```yaml(5)
+```yaml{5}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -624,7 +619,7 @@ spec:
   - name: sise
     image: mhausenblas/simpleservice:0.5.0
     ports:
-- containerPort: 9876
+    - containerPort: 9876
 ```
 
 ## Annotations

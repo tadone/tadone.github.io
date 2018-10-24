@@ -115,3 +115,35 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-init-containers
 | Init:CrashLoopBackOff      | An Init Container has failed repeatedly.                    |
 | Pending                    | The Pod has not yet begun executing Init Containers.        |
 | PodInitializing or Running | The Pod has already finished executing Init Containers.     |
+Note that the example above would work hitting ClusterIP type service directly (which is quite uncommon) or with Loadbalancer type service, but won't with an Ingress behind NodePort type service. This is because with an Ingress, the requests come from many, randomly chosen source IP addresses.
+
+## Resource Limits
+
+Specify Limit Range for a namespace: ``kubectl create -f memory-defaults.yaml --namespace=default-mem-example``
+**memory-defaults.yaml**
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+    defaultRequest:
+      memory: 256Mi
+    type: Container
+```
+
+Resource Limits for a container
+```yaml{5}
+containers:
+- image: nginx
+  imagePullPolicy: Always
+  name: default-mem-demo-ctr
+  resources:                      # Specify resources limits/requests
+    limits:
+      memory: 512Mi               # 512 Mibibytes memory limit
+    requests:
+      memory: 256Mi               # Application requests 256Mi from the cluster
+```
