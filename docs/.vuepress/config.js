@@ -57,6 +57,7 @@ module.exports = {
               '/kubernetes/objects',
               '/kubernetes/ingress',
               '/kubernetes/extras',
+              '/kubernetes/cluster',
               '/kubernetes/troubleshooting'
             ]
           },
