@@ -63,3 +63,72 @@ The basic Kubernetes objects include:
 
 ## Networking
 Each ``Pod`` is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers inside a Pod can communicate with one another using ``localhost``. When containers in a Pod communicate with entities outside the Pod, they must coordinate how they use the shared network resources (such as ports). 
+
+## Best Practices
+
+### Namespaces, Namespaces, Namespaces
+- Namespaces let you run multiple identical stacks side by side
+- Two namespaces (e.g. blue and green) can each have their own redis service
+- Each of the two redis services has its own ClusterIP
+- kube-dns creates two entries, mapping to these two ClusterIP addresses:
+- redis.blue.svc.cluster.local and redis.green.svc.cluster.local
+- Pods in the blue namespace get a search suffix of blue.svc.cluster.local
+- As a result, resolving redis from a pod in the blue namespace yields  the “local” redis  
+*This does not provide isolation! That would be the job of network     policies.*
+
+As containers are to processes, Namespaces are to Kubernetes projects. Quite apart from the security boundary that Namespaces convey, they’re an excellent way to partition your work and they yield an excellent way to reset or delete it:  
+``kubectl delete namespace/$WORKING_PROJECT``  
+The only downside is that, when using the non-default namespace, you will need to specify your working namespace ``--namespace=$WORKING_PROJECT`` on kubectl commands.  
+*Best practice is to "not" reference namespace in Kubernetes YAML file so they can be reused for other*
+
+### Stateful services (databases etc.)
+- As a first step, it is wiser to keep stateful services outside of the cluster
+- Exposing them to pods can be done with multiple solutions:
+- ExternalName services (redis.blue.svc.cluster.local will be a CNAME record)
+- ClusterIP services with explicit Endpoints (instead of letting Kubernetes generate the endpoints from a selector)
+- Ambassador services (application-level proxies that can provide credentials injection and more)
+
+### Stateful services (second take)
+- If you really want to host stateful services on Kubernetes, you can look into:
+    - volumes (to carry persistent data)
+    - storage plugins
+    - persistent volume claims (to ask for specific volume characteristics)
+    stateful sets (pods that are not ephemeral)
+
+### HTTP traffic handling
+- Services are layer 4 constructs
+- HTTP is a layer 7 protocol
+- It is handled by ingresses (a different resource kind)
+- Ingresses allow:
+    - virtual host routing
+    - session stickiness
+    - URI mapping
+    - and much more!
+
+### Use JSON and JSONPATH
+```bash
+kubectl get nodes --output=json | jq '.items[].metadata.name'
+# JSON PATH
+kubectl get nodes --output=jsonpath="{.items[*]}"
+kubectl get nodes --output=jsonpath="{.items[0]}"
+kubectl get nodes --output=jsonpath="{.items[0].metadata.name}"
+```
+### Logging and metrics
+- Logging is delegated to the container engine
+- Metrics are typically handled with Prometheus
+
+### Managing the configuration of our applications
+- Two constructs are particularly useful: secrets and config maps
+- They allow to expose arbitrary information to our containers
+- Avoid storing configuration in container images (There are some exceptions to that rule, but it’s generally a Bad Idea)
+- Never store sensitive information in container images (It’s the container equivalent of the password on a post-it note on your screen)
+
+### Cluster federation
+- Kubernetes master operation relies on etcd
+- etcd uses the Raft protocol
+- Raft recommends low latency between nodes
+- What if our cluster spreads to multiple regions?
+- Break it down in local clusters
+- Regroup them in a cluster federation
+- Synchronize resources across clusters
+- Discover resources across clusters

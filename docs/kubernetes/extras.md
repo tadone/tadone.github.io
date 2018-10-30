@@ -115,6 +115,7 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-init-containers
 | Init:CrashLoopBackOff      | An Init Container has failed repeatedly.                    |
 | Pending                    | The Pod has not yet begun executing Init Containers.        |
 | PodInitializing or Running | The Pod has already finished executing Init Containers.     |
+
 Note that the example above would work hitting ClusterIP type service directly (which is quite uncommon) or with Loadbalancer type service, but won't with an Ingress behind NodePort type service. This is because with an Ingress, the requests come from many, randomly chosen source IP addresses.
 
 ## Resource Limits

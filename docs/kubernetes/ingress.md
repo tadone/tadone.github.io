@@ -94,15 +94,15 @@ $ kubectl expose deployment ghost --external-ip=192.168.10.10 --port=2368 --targ
 service "ghost" exposed
 $ curl 192.168.10.10:2368
 ```
+# Ingress
 
 ## Ingress
+
+Unlike all the above examples, ``Ingress`` is actually NOT a type of service. Instead, it sits in front of multiple services and act as a “smart router” or entrypoint into your cluster. For example, you can send everything on foo.yourdomain.com to the **foo** service, and everything under the yourdomain.com/bar/ path to the **bar** service.
+
 ::: warning
 Before using ingress resource, an ingress controller has to be installed!
 :::
-
-There are many types of **Ingress controllers**, from the Google Cloud Load Balancer, Nginx, Traefik, Ambassador, and more.
-
-Unlike all the above examples, Ingress is actually NOT a type of service. Instead, it sits in front of multiple services and act as a “smart router” or entrypoint into your cluster. For example, you can send everything on foo.yourdomain.com to the **foo** service, and everything under the yourdomain.com/bar/ path to the **bar** service.
 
 ```yaml{2}
 apiVersion: extensions/v1beta1
@@ -126,8 +126,9 @@ spec:
 ```
 
 ## Ingress Controller
-Example of NGINX ingress controller
+There are many types of ``Ingress controllers``, from the Google Cloud Load Balancer, Nginx, Traefik, Ambassador, and more.
 
+Example of NGINX ingress controller:
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
