@@ -87,7 +87,7 @@ spec:
 ExternalName creates DNS records in KubeDNS to direct the Service’s DNS to an external service specified in the field ExternalName. It provides no other routing or load balancing services.
 
 ## Type: External IP
-```sh
+```bash
 $ kubectl run ghost --image=ghost:2.1.4 --port=2368
 deployment "ghost" created
 $ kubectl expose deployment ghost --external-ip=192.168.10.10 --port=2368 --target-port=2368

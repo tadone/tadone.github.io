@@ -77,6 +77,6 @@ Typically, this would contain pods like kube-dns, kube-proxy, kubernetes-dashboa
 
 ## Scale
 
-```sh
+```bash
 kubectl scale deployment/update-demo --replicas=0; kubectl scale deployment/update-demo --replicas=4;
 ```

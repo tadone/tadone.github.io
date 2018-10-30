@@ -105,7 +105,7 @@ git diff --summary <branch-name>            # Summary of changes since last comm
 ```
 
 ## Stash
-```sh
+```bash
 git stash                         # Takes modified tracked files and staged changes and saves it...
                                   # ... on a stack of unfinished changes that you can reapply at any time
 git stash list                    # To see stored stashes

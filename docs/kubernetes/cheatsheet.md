@@ -239,8 +239,8 @@ title: "Cheatsheet"
 
 ### Check status
 
-| Name                               | Summary  |
-|------------------------------------|--------------------------------------------|
+| Name                               | Summary                                      |
+|------------------------------------|----------------------------------------------|
 | List everything                    | ``kubectl get all --all-namespaces ``        |
 | Get cluster info                   | ``kubectl cluster-info ``                    |
 | Get configuration                  | ``kubectl config view ``                     |
@@ -337,16 +337,16 @@ Release, list, inspect, delete, rollback, purge
 Metrics Server is a cluster-wide aggregator of resource usage data.
 Metrics Server registered in the main API server through Kubernetes aggregator.
 
-| Name           | Summary             |
-|----------------|--------------------|
+| Name           | Summary                                                           |
+|----------------|-------------------------------------------------------------------|
 | Core metrics   | node/container level metrics; CPU, memory, disk and network, etc. |
 | Custom metrics | refers to application metrics, e.g. HTTP request rate.            |
 
 Today (Kubernetes 1.7), there are several sources of metrics within a Kubernetes cluster
 
-| Name           | Summary               |
-|----------------|----------------------|
-| Heapster       | k8s add-on            |
+| Name           | Summary                                                             |
+|----------------|---------------------------------------------------------------------|
+| Heapster       | k8s add-on                                                          |
 | Cadvisor       | a standalone container/node metrics collection and monitoring tool. |
 | Kubernetes API | does not track metrics. But can get real time metrics               |
 

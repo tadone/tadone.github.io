@@ -4,7 +4,7 @@ sidebarDepth: 2
 ---
 
 ## Shortcuts
-```sh
+```bash
 ctrl-a  # Move to the start of line
 ctrl-e  # Move to end of a line
 
@@ -32,7 +32,7 @@ ctrl-r  # Search previous command from history
 * Command Substitution $(command)
 
 ## Built-In VS External
-```sh
+```bash
 $ echo 'Echoed with a built-in!'
 Echoed with a built-in!
 $ /bin/echo 'Echoed with external program!'
@@ -90,7 +90,7 @@ chmod 777 file – all can read, write and execute
 ```
 
 ## Command Substitution
-```sh
+```bash
 $ date +%d-%b-%Y
 12-Mar-2004
 

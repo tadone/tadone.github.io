@@ -4,7 +4,7 @@ title: SQL Basics
 
 # MySQL (MariaDB)
 **Backup & Restore MySQL Database**
-```sh
+```bash
 # Export:
 mysqldump -u username –-password=your_password database_name > file.sql
 # Import:
