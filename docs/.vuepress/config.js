@@ -54,7 +54,7 @@ module.exports = {
             children: [
               '/kubernetes/overview',
               '/kubernetes/kubectl',
-              '/kubernetes/cheatsheet',              
+              '/kubernetes/cheatsheet',
               '/kubernetes/objects',
               '/kubernetes/ingress',
               '/kubernetes/extras',
