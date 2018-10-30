@@ -85,11 +85,11 @@ title: "Cheatsheet"
 | Check update status          | ``kubectl rollout status deployment/nginx-app ``                           |
 | Check update history         | ``kubectl rollout history deployment/nginx-app ``                          |
 | Pause/Resume                 | ``kubectl rollout pause deployment/nginx-deployment=, ``resume ``           |
-| Rollback to previous version | ``kubectl rollout undo deployment/nginx-deployment ``                      |
-| Kubernetes Yaml Examples     | [kubernetes yaml templates](https://cheatsheet.dennyzhang.com/cheatsheet-kubernetes-yaml) [Pausing and Resuming a Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#pausing-and-resuming-a-deployment) |
+| Rollback to previous version | ``kubectl rollout undo deployment/nginx-deployment``                      |
+
 
 ## Quota & Limits & Resource
-| Name                          | Command 
+| Name                          | Command
 |-------------------------------|-----------------------------------|
 | List Resource Quota           | ``kubectl get resourcequota ``       |
 | List Limit Range              | ``kubectl get limitrange ``          |
@@ -133,49 +133,42 @@ title: "Cheatsheet"
 | List all CRD   | ``kubectl get crd ``     |
 
 ## Components & Services
-- Services on Master Nodes
+### Services on Master Nodes
 
 | Name                    | Summary                       
 |-------------------------|----------|
-| (https://github.com/kubernetes/kubernetes/tree/master/cmd/kube-apiserver)[kube-apiserver]          | exposes the Kubernetes API from master nodes             |
-| (https://coreos.com/etcd/)[etcd]                    | reliable data store for all k8s cluster data             |
-| (https://github.com/kubernetes/kubernetes/tree/master/cmd/kube-scheduler)[kube-scheduler]          | schedule pods to run on selected nodes                   |
-| (https://github.com/kubernetes/kubernetes/tree/master/cmd/kube-controller-manager)[kube-controller-manager] | node controller, replication controller, endpoints controller, and service account & token controllers |
+| kube-apiserver          | exposes the Kubernetes API from master nodes             |
+| etcd                    | reliable data store for all k8s cluster data             |
+| kube-scheduler          | schedule pods to run on selected nodes                   |
+| kube-controller-manager | node controller, replication controller, endpoints controller, and service account & token controllers |
 
-- Services on Worker Nodes
+### Services on Worker Nodes
+
 | Name              | Summary          
 |-------------------|--------------------------------------------|
-| (https://github.com/kubernetes/kubernetes/tree/master/cmd/kubelet)[kubelet]           | makes sure that containers are running in a pod         |
-| (https://github.com/kubernetes/kubernetes/tree/master/cmd/kube-proxy)[kube-proxy]        | perform connection forwarding               |
-| (https://github.com/docker/engine)[Container Runtime] | Kubernetes supported runtimes: Docker, rkt, runc and any (https://github.com/opencontainers/runtime-spec)[OCI runtime-spec] implementation. |
+| kubelet           | makes sure that containers are running in a pod         |
+| kube-proxy        | perform connection forwarding               |
+| Container Runtime | Kubernetes supported runtimes: Docker, rkt, runc and any OCI runtime-spec implementation. |
 
-- Addons: pods and services that implement cluster features
-| Name                          | Summary                     |
-|-------------------------------|----------------------------|
-| DNS                           | serves DNS records for Kubernetes services                                |
-| Web UI                        | a general purpose, web-based UI for Kubernetes clusters                   |
-| Container Resource Monitoring | collect, store and serve container metrics                                |
-| Cluster-level Logging         | save container logs to a central log store with search/browsing interface |
-
-- Tools
+### Tools
 
 | Name                  | Summary       |
 |-----------------------|--------------|
-| [kubectl](https://github.com/kubernetes/kubernetes/tree/master/cmd/kubectl)| the command line util to talk to k8s cluster                |
-| [kubeadm](https://github.com/kubernetes/kubernetes/tree/master/cmd/kubeadm)| the command to bootstrap the cluster                        |
-| [kubefed](https://kubernetes.io/docs/reference/setup-tools/kubefed/kubefed/)| the command line to control a Kubernetes Cluster Federation |
-| [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)|Kubernetes Components|
+| kubectl | the command line util to talk to k8s cluster                |
+| kubeadm | the command to bootstrap the cluster                        |
+| kubefed | the command line to control a Kubernetes Cluster Federation |
+| Kubernetes Components |Kubernetes Components|
 
 ## Other Components
 
 ### Log files
 | Name                           | Command                                 |
 |--------------------------------|-----------------------------------------|
-| API Server.log in master node | ``/var.log=/kube-apiserver.log ``         |
-| Scheduler.log in master node  | ``/var.log=/kube-scheduler.log ``         |
-| Controller.log in master node | ``/var.log=/kube-controller-manager.log ``|
-| Kubelet.log in worker node    | ``/var.log=/kubelet.log ``                |
-| Kube Proxy.log in worker node | ``/var.log=/kubelet-proxy.log ``          |
+| API Server.log in master node | ``/var/log/kube-apiserver.log ``         |
+| Scheduler.log in master node  | ``/var/log/kube-scheduler.log ``         |
+| Controller.log in master node | ``/var/log/kube-controller-manager.log ``|
+| Kubelet.log in worker node    | ``/var/log/kubelet.log ``                |
+| Kube Proxy.log in worker node | ``/var/log/kubelet-proxy.log ``          |
 
 ### Events & Metrics
 | Name            | Command                               |
@@ -204,7 +197,7 @@ title: "Cheatsheet"
 ### Key Concepts
 | Name | Summary                           |
 |------|-----------------------------------|
-| (https://www.cncf.io/)[CNCF] | Cloud Native Computing Foundation |
+| CNCF | Cloud Native Computing Foundation |
 | CRI  | Container Runtime Interface       |
 | CNI  | Container Network Interface       |
 | CSI  | Container Storage Interface       |
@@ -234,7 +227,7 @@ title: "Cheatsheet"
 | Get configuration                  | ``kubectl config view ``                     |
 | Get kubectl version                | ``kubectl version ``                         |
 | Get component status               | ``kubectl get componentstatus ``             |
-| Similar to ``docker ps ``          | ``kubectl get nodes ``                       |
+| Similar to ``docker ps ``          | ``kubectl get nodes``                        |
 | Similar to ``docker inspect ``     | ``kubectl describe pod/nginx-app-413181-cn ``|
 | Similar to ``docker logs ``        | ``kubectl logs ``                            |
 | Similar to ``docker exec ``        | ``kubectl exec ``                            |
@@ -242,7 +235,6 @@ title: "Cheatsheet"
 | Get node status                    | ``kubectl describe node/<node_name> ``       |
 
 ## Names of certificates files
-https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md
 Names of certificates files:
 - ``ca.crt, ca.key`` (CA certificate)
 - ``apiserver.crt, apiserver.key`` (API server certificate)
@@ -261,7 +253,7 @@ kubectl get pod -l "$mylabel" -n "$namespace" | tail -n1 \
       kubectl logs -n "$namespace" -f {}
 ```
 
-- Get node hardware resource utilization
+### Get node hardware resource utilization
 ```bash
 kubectl get nodes --no-headers \
      | awk '{print $1}' | xargs -I {} \
@@ -272,7 +264,7 @@ kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} \
      | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
 ```
 
-- Apply yaml files recursively   
+### Apply yaml files recursively   
 ```bash
 # create
 time ls -1 */*.yml | grep -v namespace | xargs -I{} kubectl apply -f {}
@@ -280,12 +272,13 @@ time ls -1 */*.yml | grep -v namespace | xargs -I{} kubectl apply -f {}
 # delete
 time ls -1r */*.yml | grep -v namespace | xargs -I{} kubectl delete -f {}
 ```
-- Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.
+### Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.
 ```bash
 kaubectl apply --prune -f manifest.yaml --all --prune-whitelist=core/v1/ConfigMap
 ```
 
-- List all critical pods
+### List all critical pods
+
 ```bash
 kubectl --namespace kube-system get pods
 
@@ -294,7 +287,9 @@ for pod in $(kubectl --namespace kube-system get pods -o jsonpath="{.items[*].me
     echo "Pod: $pod, $node_info"
 done
 ```
-## Helm: The Kubernetes Package Manager             
+
+## Helm: The Kubernetes Package Manager
+
 | Name    | Summary                    |
 |---------|---------------------------|
 | Helm    | a chart manager.           |
@@ -314,68 +309,30 @@ done
 | helm status $helm_name                         |         |
 | helm delete $helm_name                         |         |
 | helm delete --purge $helm_name                 |         |
-|-|---------|
 | ~/.helm/cache/archive                          |         |
 
 Release, list, inspect, delete, rollback, purge
 
-## metric server                                 
+## Metric Server                                 
 Metrics Server is a cluster-wide aggregator of resource usage data.
 
 Metrics Server registered in the main API server through Kubernetes aggregator.
 
-https://github.com/kubernetes-incubator/metrics-server
-https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy/1.8%2B
-
-https://kubernetes.io/docs/tasks/debug-application-cluster/core-metrics-pipeline/
 | Name           | Summary             |
 |----------------|--------------------|
 | Core metrics   | node/container level metrics; CPU, memory, disk and network, etc. |
 | Custom metrics | refers to application metrics, e.g. HTTP request rate.            |
 
 Today (Kubernetes 1.7), there are several sources of metrics within a Kubernetes cluster
+
 | Name           | Summary               |
 |----------------|----------------------|
 | Heapster       | k8s add-on            |
 | Cadvisor       | a standalone container/node metrics collection and monitoring tool. |
 | Kubernetes API | does not track metrics. But can get real time metrics               |
 
-## metric server
-Resource Metrics API is an effort to provide a first-class Kubernetes API (stable, versioned, discoverable, available through apiserver and with client support) that serves resource usage metrics for pods and nodes.
-
-- metric server is sort of a stripped-down version of Heapster
-- The metrics-server will collect "Core" metrics from cAdvisor APIs (currently embedded in the kubelet) and store them in memory as opposed to in etcd.
-- The metrics-server will provide a supported API for feeding schedulers and horizontal pod auto-scalers
-- All other Kubernetes components will supply their own metrics in a Prometheus format
-## Cadvisor
-Cadvisor monitors node and container core metrics in addition to container events.
-It natively provides a Prometheus metrics endpoint
-The Kubernetes kublet has an embedded Cadvisor that only exposes the metrics, not the events.
-## heapster
-Heapster is an add on to Kubernetes that collects and forwards both node, namespace, pod and container level metrics to one or more "sinks" (e.g. InfluxDB).
-
-It also provides REST endpoints to gather those metrics. The metrics are constrained to CPU, filesystem, memory, network and uptime.
-
-Heapster queries the kubelet for its data.
-
 Today, heapster is the source of the time-series data for the Kubernetes Dashboard.
 All other Kubernetes components will supply their own metrics in a Prometheus format
 
 In logging domain, we can say `syslog` is the standard format
 In metric domain, maybe we can choose `prometheus` as the standard format.
-
-
-## How to restart a container inside a Pod?
-https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/
-
-Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
-## explain k8s components: apiserver, scheduler, controller-manager, kube-proxy
-## get logs of failed container
-https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/#my-pod-is-crashing-or-otherwise-unhealthy
-```bash
-# If your container has previously crashed, you can access the previous container's crash log with:
-
-$ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
-```
-
-
