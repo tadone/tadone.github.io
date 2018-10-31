@@ -79,7 +79,10 @@ find /home -type f -size +10000k -exec ls -lh {} \; | awk '{ print $5 ": " $9 }'
 ## Memory
 
 **free**
-Show available memory. Modern Linux use cache and buffering to improve performance. Linux counts cached RAM, Buffered RAM to used RAM.
+Show available memory. Modern Linux use ``cache`` and buffering to improve performance. Linux counts ``cached`` RAM, Buffered RAM to used RAM. ``Buffers`` represent how much portion of RAM is dedicated to cache disk blocks. ``Cached`` is similar like ``Buffers``, only this time it caches pages from file reading.
+
+``Buffers`` are associated with a specific block device, and cover caching of filesystem metadata as well as tracking in-flight pages. The ``cache`` only contains parked file data. That is, the ``buffers`` remember what's in directories, what file permissions are, and keep track of what memory is being written from or read to for a particular block device. The ``cache`` only contains the contents of the files themselves.
+
 ```bash
 free -wh
               total        used        free      shared     buffers       cache   available
@@ -95,3 +98,15 @@ netstat -tulpn                      # Find services listening
 netstat -tulpn | grep :80           # Find services listening on a port 80
 fuser 7000/tcp                      # Find out the processes PID that opened tcp port 7000
 ```
+
+## Stress Testing
+
+### CPU
+Fork ``md5sum`` 4 times (to use up 4 cores) for 5 seconds
+```bash
+# Mostly userland cpu load
+seq 4 | xargs -P0 -n1 timeout 5 md5sum /dev/zero
+# High kernel (sys) load from the many write() system calls
+seq 4 | xargs -P0 -n1 timeout 5 yes > /dev/null
+```
+

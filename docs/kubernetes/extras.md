@@ -103,24 +103,16 @@ spec:
     name: liveness
 ```
 
-## Debugging
-
-### Pod CrashLoopBackOff: starting, then crashing, then starting again and crashing again
-https://kubernetes.io/docs/tasks/debug-application-cluster/debug-init-containers/
-
-| Status                     | Meaning       |
-|----------------------------|--------------|
-| Init:N/M                   | The Pod has M Init Containers, and N have completed so far. |
-| Init:Error                 | An Init Container has failed to execute.                    |
-| Init:CrashLoopBackOff      | An Init Container has failed repeatedly.                    |
-| Pending                    | The Pod has not yet begun executing Init Containers.        |
-| PodInitializing or Running | The Pod has already finished executing Init Containers.     |
-
-Note that the example above would work hitting ClusterIP type service directly (which is quite uncommon) or with Loadbalancer type service, but won't with an Ingress behind NodePort type service. This is because with an Ingress, the requests come from many, randomly chosen source IP addresses.
+## Image Pull Policy
+The default pull policy is ``IfNotPresent`` which causes the Kubelet to skip pulling an image if it already exists. If you would like to always force a pull, you can do one of the following:
+- set the ``imagePullPolicy`` of the container to ``Always``
+- omit the ``imagePullPolicy`` and use ``:latest`` as the tag for the image to use
+- omit the ``imagePullPolicy`` and the tag for the image to use
 
 ## Resource Limits
 
-Specify Limit Range for a namespace: ``kubectl create -f memory-defaults.yaml --namespace=default-mem-example``
+Specify Limit Range for a namespace:  
+``kubectl create -f memory-defaults.yaml --namespace=default-mem-example``
 **memory-defaults.yaml**
 ```yaml
 apiVersion: v1
