@@ -2,10 +2,8 @@
 title: "Overview"
 ---
 
-# Kubernetes (k8s)
+# Overview
 ---
-
-## Overview
 **Kubernetes** is a production-grade, open-source platform that orchestrates the placement (scheduling) and execution of application containers within and across computer clusters.
 
 A Kubernetes cluster consists of two types of resources:
@@ -62,7 +60,7 @@ The basic Kubernetes objects include:
   A job creates one or more pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the job tracks the successful completions. When a specified number of successful completions is reached, the job itself is complete. Deleting a Job will cleanup the pods it created.
 
 ## Networking
-Each ``Pod`` is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers inside a Pod can communicate with one another using ``localhost``. When containers in a Pod communicate with entities outside the Pod, they must coordinate how they use the shared network resources (such as ports). 
+Each ``Pod`` is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers inside a Pod can communicate with one another using ``localhost``. When containers in a Pod communicate with entities outside the Pod, they must coordinate how they use the shared network resources (such as ports).
 
 ## Best Practices
 
@@ -73,12 +71,12 @@ Each ``Pod`` is assigned a unique IP address. Every container in a Pod shares th
 - kube-dns creates two entries, mapping to these two ClusterIP addresses:
 - redis.blue.svc.cluster.local and redis.green.svc.cluster.local
 - Pods in the blue namespace get a search suffix of blue.svc.cluster.local
-- As a result, resolving redis from a pod in the blue namespace yields  the “local” redis  
+- As a result, resolving redis from a pod in the blue namespace yields  the “local” redis
 *This does not provide isolation! That would be the job of network     policies.*
 
-As containers are to processes, Namespaces are to Kubernetes projects. Quite apart from the security boundary that Namespaces convey, they’re an excellent way to partition your work and they yield an excellent way to reset or delete it:  
-``kubectl delete namespace/$WORKING_PROJECT``  
-The only downside is that, when using the non-default namespace, you will need to specify your working namespace ``--namespace=$WORKING_PROJECT`` on kubectl commands.  
+As containers are to processes, Namespaces are to Kubernetes projects. Quite apart from the security boundary that Namespaces convey, they’re an excellent way to partition your work and they yield an excellent way to reset or delete it:
+``kubectl delete namespace/$WORKING_PROJECT``
+The only downside is that, when using the non-default namespace, you will need to specify your working namespace ``--namespace=$WORKING_PROJECT`` on kubectl commands.
 *Best practice is to "not" reference namespace in Kubernetes YAML file so they can be reused for other*
 
 ### Stateful services (databases etc.)

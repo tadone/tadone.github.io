@@ -1,5 +1,5 @@
 ---
-title: "Services & Ingress"
+title: "Objects: Services & Ingress"
 ---
 
 # Services
@@ -16,13 +16,13 @@ The YAML for a ClusterIP service looks like this:
 ```yaml{8}
 apiVersion: v1
 kind: Service
-metadata:  
+metadata:
   name: my-internal-service
 spec:
   selector:
     app: my-app
   type: ClusterIP
-  ports:  
+  ports:
   - name: http
     port: 80
     targetPort: 80
@@ -40,13 +40,13 @@ The YAML for a NodePort service looks like this:
 ```yaml{8}
 apiVersion: v1
 kind: Service
-metadata:  
+metadata:
   name: my-nodeport-service
 spec:
-  selector:    
+  selector:
     app: my-app
   type: NodePort
-  ports:  
+  ports:
   - name: http
     port: 80
     targetPort: 80

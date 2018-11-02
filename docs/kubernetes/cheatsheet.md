@@ -6,28 +6,29 @@ title: "Cheatsheet"
 
 ## Common Commands
 
-| Name                                | Command                                                                    |
-| ----------------------------------- | -------------------------------------------------------------------------- |
-| List everything                     | ``kubectl get all --all-namespaces``                                       |
-| List pods with nodes info           | ``kubectl get pod -o wide``                                                |
-| Validate yaml file with dry run     | ``kubectl apply --dry-run --validate -f pod-dummy.yaml``                  |
-| Start a temporary pod for testing   | ``kubectl run --rm -i -t --image=alpine test-$RANDOM -- sh``               |
-| Run wget test temporarily           | ``kubectl run --rm mytest --image=busybox -it``                            |
-| Run curl test temporarily           | ``kubectl run --rm mytest --image=yauritux/busybox-curl -it``              |
-| kubectl run shell command           | ``kubectl exec -it mytest -- ls -l /etc/hosts``                            |
-| Get system conf via configmap       | ``kubectl -n kube-system get cm kubeadm-config -o yaml``                   |
-| kubectl run instance with replicas  | ``kubectl run my-nginx --image=nginx --replicas=2 --port=80``              |
-| Explain resource                    | ``kubectl explain pods=``, ``kubectl explain svc``                         |
-| Get all services                    | ``kubectl get service --all-namespaces``                                   |
-| Query healthcheck endpoint          | ``curl -L http://127.0.0.1:10250/healthz``                                 |
-| Open a bash terminal in a pod       | ``kubectl exec -it storage sh``                                            |
-| Check pod environment variables     | ``kubectl exec redis-master-ft9ex env ``                                   |
-| Enable kubectl shell autocompletion | ``echo "source <(kubectl completion bash)" >>~/.bashrc``, and reload       |
-| Use minikube dockerd in your laptop | ``eval $(minikube docker-env)``, No need to push docker hub any more       |
-| Get services sorted by name         | ``kubectl get services --sort-by=.metadata.name``                          |
-| Get pods sorted by restart count    | ``kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'`` |
-| Get logs from init container        | ``kubectl logs <pod-name> -c <init-container-2``                           |
-| Drain a nodes                       | ``kubectl drain <node_name> --delete-local-data --ignore-daemonsets``      |
+| Name                                        | Command                                                                    |
+| ------------------------------------------- | -------------------------------------------------------------------------- |
+| List everything                             | ``kubectl get all --all-namespaces``                                       |
+| List pods with nodes info                   | ``kubectl get pod -o wide``                                                |
+| Validate yaml file with dry run             | ``kubectl apply --dry-run --validate -f pod-dummy.yaml``                   |
+| Diff deployed resource with local yaml file | ``kubectl alpha diff -f <yaml file/dir>``                                  | 
+| Start a temporary pod for testing           | ``kubectl run --rm -i -t --image=alpine test-$RANDOM -- sh``               |
+| Run wget test temporarily                   | ``kubectl run --rm mytest --image=busybox -it``                            |
+| Run curl test temporarily                   | ``kubectl run --rm mytest --image=yauritux/busybox-curl -it``              |
+| kubectl run shell command                   | ``kubectl exec -it mytest -- ls -l /etc/hosts``                            |
+| Get system conf via configmap               | ``kubectl -n kube-system get cm kubeadm-config -o yaml``                   |
+| kubectl run instance with replicas          | ``kubectl run my-nginx --image=nginx --replicas=2 --port=80``              |
+| Explain resource                            | ``kubectl explain pods=``, ``kubectl explain svc``                         |
+| Get all services                            | ``kubectl get service --all-namespaces``                                   |
+| Query healthcheck endpoint                  | ``curl -L http://127.0.0.1:10250/healthz``                                 |
+| Open a bash terminal in a pod               | ``kubectl exec -it storage sh``                                            |
+| Check pod environment variables             | ``kubectl exec redis-master-ft9ex env ``                                   |
+| Enable kubectl shell autocompletion         | ``echo "source <(kubectl completion bash)" >>~/.bashrc``, and reload       |
+| Use minikube dockerd in your laptop         | ``eval $(minikube docker-env)``, No need to push docker hub any more       |
+| Get services sorted by name                 | ``kubectl get services --sort-by=.metadata.name``                          |
+| Get pods sorted by restart count            | ``kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'`` |
+| Get logs from init container                | ``kubectl logs <pod-name> -c <init-container-2``                           |
+| Drain a nodes                               | ``kubectl drain <node_name> --delete-local-data --ignore-daemonsets``      |
 
 ## Check Performance
 
@@ -84,7 +85,7 @@ title: "Cheatsheet"
 | Name                         | Command                                                           |
 |------------------------------|-------------------------------------------------------------------|
 | Scale out                    | ``kubectl scale --replicas=3 deployment/nginx-app ``              |
-| online rolling upgrade       | ``kubectl rollout app-v1 app-v2 --image=img:v2 ``                 |
+| Online rolling upgrade       | ``kubectl rollout app-v1 app-v2 --image=img:v2 ``                 |
 | Roll backup                  | ``kubectl rollout app-v1 app-v2 --rollback ``                     |
 | List rollout                 | ``kubectl get rs ``                                               |
 | Check update status          | ``kubectl rollout status deployment/nginx-app ``                  |

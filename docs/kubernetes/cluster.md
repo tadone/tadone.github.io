@@ -26,17 +26,19 @@ brew cask install google-cloud-sdk
 # GCloud
 gcloud auth login
 gcloud config set project kubernetes-tad1
-gcloud container clusters get-credentials tad1-cluster --zone=us-west1-a
-gcloud info | grep Account
 
-# KubeCTL
+# Obtain Kubernetes config file
+gcloud container clusters get-credentials tad1-cluster --zone=us-west1-a
+
+# Create cluster role-binding
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
+
+# Same as above but with speciic user
 kubectl create clusterrolebinding myname-cluster-admin-binding \
   --clusterrole=cluster-admin \
   --user=tadone@gmail.com
-
-# OR
-kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
 ```
+
 ### Traefik Load Balancer
 
 To test out traefik.toml without valid certificate:

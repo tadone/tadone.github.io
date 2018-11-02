@@ -55,9 +55,11 @@ module.exports = {
               '/kubernetes/overview',
               '/kubernetes/kubectl',
               '/kubernetes/cheatsheet',
-              '/kubernetes/objects',
-              '/kubernetes/ingress',
-              '/kubernetes/extras',
+              '/kubernetes/configuration',
+              '/kubernetes/objects_configs',
+              '/kubernetes/objects_volumes',
+              '/kubernetes/objects_deployments',
+              '/kubernetes/objects_services_ingress',
               '/kubernetes/cluster',
               '/kubernetes/troubleshooting'
             ]
