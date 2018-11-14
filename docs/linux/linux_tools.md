@@ -216,3 +216,31 @@ dd if =/dev/sda2 of=~/hdadisk.img
 # Restoring this image file in to other machine
 dd if=hdadisk.img of=/dev/sdb3
 ```
+
+## nslookup
+Lookup DNS server for a domain:
+```
+nslookup google.com
+Server:		192.168.1.10
+Address:	192.168.1.10#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 216.58.217.206
+```
+Query specific DNS server:
+```bash
+nslookup somewhere.com some.dns.server
+```
+Example:
+```
+nslookup nba.com 192.168.1.10
+Server:		192.168.1.10
+Address:	192.168.1.10#53
+
+Non-authoritative answer:
+Name:	nba.com
+Address: 18.211.55.24
+Name:	nba.com
+Address: 18.210.212.54
+```

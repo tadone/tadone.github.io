@@ -6,6 +6,29 @@ sidebarDepth: 2
 ## RaspberryPi
 
 ### Hypriot Docker
+Flash SD card using [flash](https://github.com/hypriot/flash) tool.
+```bash
+# Install prerequisites
+brew install pv
+brew install awscli
+
+# Download binary
+curl -LO https://github.com/hypriot/flash/releases/download/latest/flash
+chmod +x flash
+sudo mv flash /usr/local/bin/flash
+
+# Flash the sd card passing the static.yml cloud-init 
+flash -u static.yml ~/Downloads/hypriotos-rpi-v1.9.0.img.zip
+
+# Alternatively download & flash
+flash https://github.com/hypriot/image-builder-rpi/releases/download/v1.9.0/hypriotos-rpi-v1.9.0.img.zip
+```
+### Pi-hole
+Disable ``resolved`` before running pi-hole
+```bash
+sudo systemctl disable systemd-resolved.service
+sudo service systemd-resolved stop
+```
 ### Cups Server
 Based on: [Docker-Cups-Server](http://www.theghostbit.com/2016/10/setting-up-cups-server-with-docker-on.html)
 rpi3 = Raspberry Pi3. Running docker image of cups server
@@ -72,7 +95,8 @@ On MacOS:
 - Click on the plus sign to add a printer.
 - Choose IP (as opposed to Default, Fax or Windows)
 - Put an address of 192.168.1.10:631
+- Use IPP protocol
 - Put a queue of /printers/<CUPS-Queue-Name>
 - OPTIONALY, change name and location
-- Select Brother 2300D driver from the driver dropdwon (not default)
+- Use Brother 2300D driver from the driver dropdwon (not Generic PostScript)
 - Click on Add
