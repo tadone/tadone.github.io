@@ -4,7 +4,10 @@ title: "Objects: Volumes"
 
 ## Volume
 At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
-
+::: warning
+You cannot bind two pvc to the same pv, but you can use the same pvc in two different pods.
+The relationship PVC <--> PV is one-on-one.
+:::
 ### Volume Types:
 Kubernetes supports several types of Volumes (most common):
 * node-local types:

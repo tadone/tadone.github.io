@@ -44,6 +44,7 @@ title: "Cheatsheet"
 | Name                                    | Command                                                     |
 |-----------------------------------------|-------------------------------------------------------------|
 | Delete pod                              | ``kubectl delete pod/<pod-name> -n <my-namespace> ``        |
+| Force delete                            | ``kubectl delete pod NAME --grace-period=0 --force``        |  
 | Delete pods by labels                   | ``kubectl delete pod -l env=test ``                         |
 | Delete deployments by labels            | ``kubectl delete deployment -l app=wordpress ``             |
 | Delete all resources filtered by labels | ``kubectl delete pods,services -l name=myLabel ``           |
