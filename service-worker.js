@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "1dbb9ae6206050c8733bad6ca61e3366"
+    "revision": "851c10cc9f10c241a0f429fe431f88b9"
   },
   {
     "url": "assets/css/0.styles.2dc0102a.css",
@@ -88,8 +88,8 @@ self.__precacheManifest = [
     "revision": "71f3620eb26c39aa3f0840f71557b252"
   },
   {
-    "url": "assets/js/23.7c3301fb.js",
-    "revision": "5def89b8f1a3a7ed87022a7cb20c3cff"
+    "url": "assets/js/23.331d5dd3.js",
+    "revision": "e36965c66638d58a67f414d96f3c1fc5"
   },
   {
     "url": "assets/js/24.f4c0351f.js",
@@ -148,8 +148,8 @@ self.__precacheManifest = [
     "revision": "b56ae9299d368637a13d611f0025633d"
   },
   {
-    "url": "assets/js/37.a2133e62.js",
-    "revision": "a2954806d0088fc9dd742c583370ee49"
+    "url": "assets/js/37.e95ecc13.js",
+    "revision": "eb6793970f0b8e8643540c65948452cf"
   },
   {
     "url": "assets/js/38.c763d42e.js",
@@ -188,64 +188,64 @@ self.__precacheManifest = [
     "revision": "262f599259800126cde238ff6f5f7394"
   },
   {
-    "url": "assets/js/app.ae939ea8.js",
-    "revision": "0dda1cbcab5335557f433d200e1c3aeb"
+    "url": "assets/js/app.77ac08de.js",
+    "revision": "6383d5a67c4ae37e205d5824bc174d93"
   },
   {
     "url": "cloud/aws.html",
-    "revision": "dd6550137dd8dd2840e7d7df2ddd9641"
+    "revision": "628c768a3e3bca878eef86a531d2950a"
   },
   {
     "url": "cloud/azure.html",
-    "revision": "b1de595223c56ffd93b5a4be9933b89b"
+    "revision": "c7577786aa31eb421f84c1235bac5eae"
   },
   {
     "url": "code/bash.html",
-    "revision": "502bdf570bf8b0e0ec3ffadabdc3b143"
+    "revision": "b106aae2d3b634cc1b3bf8822b858aa0"
   },
   {
     "url": "code/git.html",
-    "revision": "c5cbc4ca5c5c2a16a2b46c8317939b93"
+    "revision": "7757f558a1955ab262821d9c251afb79"
   },
   {
     "url": "code/python.html",
-    "revision": "4a30e5fd14a5dcf87f7a63eaf18a0e14"
+    "revision": "afad9b8caad14c171d15d0083e10c255"
   },
   {
     "url": "code/python/class.html",
-    "revision": "2f122d51ef2803df6e3586860216a863"
+    "revision": "ede86fa272133a2370343ea04afc54c4"
   },
   {
     "url": "code/python/list.html",
-    "revision": "54d623e9298be58d8f8dd40642433a6b"
+    "revision": "32d4fc5072d60ea45dbea22c7ab71a57"
   },
   {
     "url": "code/webdev.html",
-    "revision": "e6f05361cb6862fc870972ff728c98ac"
+    "revision": "8815874084066b3d21409af8772ae572"
   },
   {
     "url": "devops/cicd.html",
-    "revision": "91d8233323012eec7fc5065d20f1f62e"
+    "revision": "f2d12687bff85863d02ea8d837b5d481"
   },
   {
     "url": "devops/databases.html",
-    "revision": "c18b4e77098e1fd662af314f452315ca"
+    "revision": "bb2864aba1f9caf12457bb2cd34e95a6"
   },
   {
     "url": "devops/docker.html",
-    "revision": "d60347232f258c6b3c28c569ba86d56f"
+    "revision": "9b5b896650e3fc4bea1dd5231728d678"
   },
   {
     "url": "devops/index.html",
-    "revision": "8a28b03d16ef55761a484b948c9ae3f7"
+    "revision": "37d3923141558620c10122db3185208c"
   },
   {
     "url": "devops/sql.html",
-    "revision": "5b8da251f1630b160d06e8064870e788"
+    "revision": "5229ad3070f22b0208eb2fe7cf291fa0"
   },
   {
     "url": "devops/terminology.html",
-    "revision": "5dd76e9a150af11a6bfb975ff2094f0b"
+    "revision": "18ae8f4b3a3eaeeae2b3f1d21cf806bd"
   },
   {
     "url": "hero.png",
@@ -253,51 +253,51 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "d3dff482b9a8f8ce0805f781ff41c926"
+    "revision": "de74ec5b551b259f18a622b0bd09aa78"
   },
   {
     "url": "kubernetes/cheatsheet.html",
-    "revision": "3a98281b89c9b330616fa784d31261c0"
+    "revision": "caed4e343a36ffb51b1cc897684df49d"
   },
   {
     "url": "kubernetes/cluster.html",
-    "revision": "3973c3051a4ebc59b3a331303ff20467"
+    "revision": "fe6f31597d259a4cee8816e0e5648d93"
   },
   {
     "url": "kubernetes/configuration.html",
-    "revision": "f24cae154386a123189aa2d7072a7a6d"
+    "revision": "ca1a9f291cb52f312560d5da6bcb9732"
   },
   {
     "url": "kubernetes/kubectl.html",
-    "revision": "c1a3ea6c438ce59780fe1d523618d9af"
+    "revision": "789bbc5b0ad358dbdb983e2f94b481b9"
   },
   {
     "url": "kubernetes/objects_configs.html",
-    "revision": "f26ed657353c5e1746af30e27a74bbee"
+    "revision": "88466d4ccfbf0e9afdf851ab21b3f252"
   },
   {
     "url": "kubernetes/objects_deployments.html",
-    "revision": "9d04bc1eb0415dc5287722a2b9c9d857"
+    "revision": "2395407c3c92a4c3186e6292c1fa24e7"
   },
   {
     "url": "kubernetes/objects_services_ingress.html",
-    "revision": "5ee8dd55438f4a4aa0bfeaddee8ea7b0"
+    "revision": "628466f875b49f0169418579849f8978"
   },
   {
     "url": "kubernetes/objects_volumes.html",
-    "revision": "37a05c43aada6d4c398eafd6897d4e5d"
+    "revision": "3193baaae3c87846f086fcc9e5f92405"
   },
   {
     "url": "kubernetes/overview.html",
-    "revision": "852e5caf99f00af1c7848c19f4f2d041"
+    "revision": "d37aa998d3e3eade107f307855a79c76"
   },
   {
     "url": "kubernetes/security.html",
-    "revision": "67f700f5c027620047f991b320abba08"
+    "revision": "9006c68335e865595ba4188a7be1dac2"
   },
   {
     "url": "kubernetes/troubleshooting.html",
-    "revision": "48f34c87db6ae09e60d2a53fc280d485"
+    "revision": "5d3935ccf21dc805ff891cf365689fd5"
   },
   {
     "url": "line-numbers-desktop.png",
@@ -309,19 +309,19 @@ self.__precacheManifest = [
   },
   {
     "url": "linux/bash_shell.html",
-    "revision": "3dfd2d02cf4169370329f82aeaf32a63"
+    "revision": "a1412fa0e2ebf1d120258457531b1a7d"
   },
   {
     "url": "linux/linux_basics.html",
-    "revision": "af211cf937838d95970717910c983efd"
+    "revision": "ec650099d302dfdbcc51bb59d0f1ba8a"
   },
   {
     "url": "linux/linux_metrics.html",
-    "revision": "6e15c8279f5799dc6ff92fba4e892d11"
+    "revision": "ec026cfb542b032c8d6d719fa409f64c"
   },
   {
     "url": "linux/linux_tools.html",
-    "revision": "93385472592672f6790241daa07d3a7c"
+    "revision": "e662bc63d85febf6ebe6dcea0a815f66"
   },
   {
     "url": "logo.png",
@@ -329,31 +329,31 @@ self.__precacheManifest = [
   },
   {
     "url": "other/hexo_doc.html",
-    "revision": "e73ff10aee7f092c6938f7a0f749a05b"
+    "revision": "952b08fb6b037f10f8a1a379dda7a703"
   },
   {
     "url": "other/http.html",
-    "revision": "46b84f84fd92fe53547572e7d6202aaa"
+    "revision": "4dfc38ea54bbedbd1f82b64de1af48a0"
   },
   {
     "url": "other/jq.html",
-    "revision": "a42476d2b58628274ce67f54febcacb1"
+    "revision": "9291087e364adc7c5e3e93614ab62b12"
   },
   {
     "url": "other/markdown.html",
-    "revision": "d7c8a40fa33806183be7304aa49e4d01"
+    "revision": "4d8251fcd4f7eb114cdc358464497577"
   },
   {
     "url": "other/personal.html",
-    "revision": "7f12c20983cc323365e2ec13f361deae"
+    "revision": "051c0ba6ee488a298f70459d58a0a2de"
   },
   {
     "url": "other/setup.html",
-    "revision": "7489b7334c2adbf671a6874d7552a7a0"
+    "revision": "5e897729ff07ba2dcd3e7c7f8815c4ee"
   },
   {
     "url": "other/yaml_json.html",
-    "revision": "518385ff4825f68e6661f38956383df0"
+    "revision": "d184d8e93978574d5cb41f7e15df025a"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
