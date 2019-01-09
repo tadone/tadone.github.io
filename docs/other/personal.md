@@ -41,6 +41,8 @@ docker build -t cupsd .
 BUS=$(lsusb | grep Brother | awk '{print $2}')
 DEV=$(lsusb | grep Brother | awk '{print $4}')
 PRINTER="/dev/bus/usb/$BUS/$DEV"
+# OR
+``/dev/bus/usb/001/004``
 
 # Run cupsd docker image passing $PRINTER device
 docker run -d -p 631:631 --name cups-server --net=host --device=$PRINTER cupsd

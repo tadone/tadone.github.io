@@ -199,6 +199,17 @@ Note that a ``Service`` can map an incoming port to any ``targetPort``. By defau
 
 **More about services in "Services & Ingress" section.**
 
+## StatefulSet
+Deployment - You specify a **PersistentVolumeClaim** that is shared by all pod replicas. In other words, shared volume.
+
+The backing storage obviously must have **ReadWriteMany** or **ReadOnlyMany** accessMode if you have more than one replica pod.
+
+StatefulSet - You specify a **volumeClaimTemplates** so that each replica pod gets a unique **PersistentVolumeClaim** associated with it. In other words, no shared volume.
+
+Here, the backing storage can have **ReadWriteOnce** accessMode.
+
+StatefulSet is useful for running things in cluster e.g Hadoop cluster, MySQL cluster, where each node has its own storage.
+
 # Metadata
 
 ## Namespace
