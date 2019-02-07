@@ -15,7 +15,7 @@ docker info
 * Create network that other container will attach to and will be visible via name: ``docker network create -d bridge my-net`` (``-d`` Network Driver: bridge)
 * Attach container to custom network: ``docker run --network my-net ...``
 
-**Socket**  
+**Socket**
 Docker socket from within a container: ``-v /run/docker.sock:/run/docker.sock``
 
 
@@ -45,7 +45,11 @@ RUN set -ex; \ # Fail when exit status not 0, print each command (debug)
 	apt-get install -y --no-install-recommends \
 ```
 
-## Build & Push
+## Tag, Build & Push
+::: warning
+The tag: ``latest`` can be missleading. ``Latest`` simply means "the last build/tag that ran without a specific tag/version specified".
+:::
+
 Run docker build inside a directory containing single file called **Dockerfile**
 
 | Command                                                                                | What it does                              |
