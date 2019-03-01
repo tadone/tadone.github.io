@@ -83,6 +83,11 @@ Variable  | What it means
 ``$RANDOM``  |  Returns a different random number each time is it referred to
 ``$LINENO``  |  Returns the current line number in the Bash script
 
+## Variable Expansion
+```bash
+${myvar:-some_other} # if myvar is set use it, otherwise set it to some_other
+${myvar:?my_custom_error} # if myvar is set use it, otherwise throw error: my_custom_error
+```
 ## Redirect Output
 Redirect STDOUT(1) and/or STDERR(2)
 
