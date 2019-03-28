@@ -227,12 +227,27 @@ while true; do date; sleep 1; done
 ```
 ### Until Loop
 ```bash
-# Basic until loop
+# Very basic example
+until COMMAND; do
+    sleep TIMEOUT_IN_SECONDS
+done
+```
+
+```bash
+# Basic until loop with counter
 counter=1
 until [ $counter -gt 10 ]
 do
     echo $counter
     ((counter++))
+done
+```
+
+```bash
+until nc -z 127.0.0.1 25565;
+do
+    echo ...
+    sleep 5
 done
 ```
 
