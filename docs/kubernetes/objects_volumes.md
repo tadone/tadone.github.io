@@ -184,3 +184,40 @@ spec:
       persistentVolumeClaim:
         claimName: myclaim
 ```
+
+## SubPath
+#### Injecting multiple Kubernetes volumes to the same directory
+Kubernetes config maps and secrets allow use to inject configuration files into containers. If we want multiple config entries that originate from different config maps or secrets to be injected into the same location, we are required to specify a sub path:
+```yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hello-world
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-world
+        image: docker.example.com/app:1
+        volumeMounts:
+        - name: hello-world-config-volume
+          mountPath: /config/application.properties
+          subPath: application.properties
+          readOnly: true
+        - name: hello-world-credentials-volume
+          mountPath: /config/credentials.properties
+          subPath: credentials.properties
+          readOnly: true
+      volumes:
+      - name: hello-world-config-volume
+        configMap:
+          name: hello-world-config
+      - name: hello-world-credentials-volume
+        secret:
+          secretName: hello-world-credentials
+```
+The `subPath` declaration also allows to mount a single volume into the pod multiple times with different sub paths.
