@@ -2,18 +2,18 @@
 title: SQL Basics
 ---
 
-# MySQL (MariaDB)
-## Access
+## MySQL (MariaDB)
+### Access
 - `mysql -u root -p"some-password-here"` to enter mysql prompt
 - `mysql -u root -p"some-password-here" -e "SHOW DATABASES;"` to list databases
 - mysql: `SHOW DATABASES;` from the mysql prompt
 
-## Backup & Restore
+### Backup & Restore
 - `mysqldump -u username –-password=your_password database_name > file.sql` to backup database
 - `mysql -u username –-password=your_password database_name < file.sql` to restore database
 
-# Postgres
-## Access
+## Postgres
+### Access
 - `su - postgres` or `psql --username=postgres`: login as postgres
 - `\list` or `\l`: list all databases
 - `\dt`: list all tables in the current database
@@ -25,7 +25,7 @@ title: SQL Basics
     - *.sql: plaintext dump
     - *.tar: tarball
 
-## Restore
+### Restore
 - `dropdb dbname` to delete a database
 - `createdb dbname` to create a database
 - `psql dbname < dbname.bak` to restore from backup
