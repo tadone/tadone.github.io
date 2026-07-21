@@ -3,6 +3,8 @@ title: "Python Classes"
 sidebarDepth: 2
 ---
 
+# Python Classes
+
 Define a class:
 ```python
 class Animal(object):

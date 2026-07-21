@@ -98,7 +98,7 @@ On MacOS:
 - Choose IP (as opposed to Default, Fax or Windows)
 - Put an address of 192.168.1.10:631
 - Use IPP protocol
-- Put a queue of /printers/<CUPS-Queue-Name>
+- Put a queue of `/printers/<CUPS-Queue-Name>`
 - OPTIONALY, change name and location
 - Use Brother 2300D driver from the driver dropdwon (not Generic PostScript)
 - Click on Add

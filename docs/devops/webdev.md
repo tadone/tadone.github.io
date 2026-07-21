@@ -1,9 +1,9 @@
 ---
-title: "Web Dev"
+title: "WebDev"
 sidebarDepth: 2
 ---
 
-# Web Development Knowledge
+# WebDev
 ## JWT Tokens
 JSON Web Token (JWT) allows for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. 
 

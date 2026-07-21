@@ -3,6 +3,8 @@ title: "Python Lists"
 sidebarDepth: 2
 ---
 
+# Python Lists
+
 ## List Comprehension
 List comprehensions provide a concise way to create lists. It consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. The expressions can be anything, meaning you can
 put in all kinds of objects in lists.

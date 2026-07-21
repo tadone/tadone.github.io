@@ -1,7 +1,9 @@
 ---
-title: "Bash Shell"
+title: "Interactive Shell"
 sidebarDepth: 2
 ---
+
+# Interactive Shell
 
 ## Shortcuts
 ```bash

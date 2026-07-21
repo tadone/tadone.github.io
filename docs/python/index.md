@@ -16,13 +16,38 @@ deactivate
 pip install Cython==0.27.3
 pip install kivy
 ```
+### uv
+[uv](https://docs.astral.sh/uv/) is a fast Python package and project manager (a drop-in replacement for pip/venv).
+```bash
+# Install uv (macOS/Linux)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# or with Homebrew
+brew install uv
+
+# Create and activate a virtualenv
+uv venv <desired-path>
+source <desired-path>/bin/activate
+
+# Add / remove project dependencies (manages pyproject.toml + uv.lock)
+uv add kivy
+uv remove kivy
+
+# Install packages into the environment
+uv pip install Cython==0.27.3
+
+# Run a command inside the project environment (no manual activation needed)
+uv run python script.py
+
+# Install and pin a Python version
+uv python install 3.12
+```
 ### Install pip package for user only
 This will install pip package to ``$HOME/.local/bin/<pip_package>``
 ```Bash
 pip install --user <pip_package>
 ```
 ## Lists
-[Advanced Lists](python/list.html)
+[Advanced Lists](./list)
 Contains list of values (integers, strings, variables, other lists, dictionaries). Each item in the list has an index number assigned to it, **starting at 0**
 ```python
 my_list = ["string1", 2, var, "string2"]
@@ -143,11 +168,4 @@ print filter(lambda x: x == "Python", languages)
 squares = [i ** 2 for i in range(1,11)]               # Squares of numbers 1 to 10
 print(filter(lambda x: x > 30 and x <= 70, squares))  # print out only the squares that are between 30 and 70 (inclusive)
 # => [36, 49, 64]
-```
-
-# File I/O
-Automatically close file after reading/writing
-```python
-with open("file", "mode") as variable:
-  # Read or write to the file
 ```
